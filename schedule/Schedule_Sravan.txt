@@ -1,0 +1,1 @@
+﻿Preprocess and structure the data in JavaScript for each data attribute, ex. Terminals, Non-terminals, each of the states
