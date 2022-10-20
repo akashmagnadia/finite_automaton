@@ -1,1 +1,9 @@
-No bugs at the moment
+Bug ticket assigned to:
+Akash Magnadia
+
+Description Below:
+Create UI for uploading the file
+dropdown on left bottom and right bottom corner to filter each of the states
+creating split view of left, split and right for visualization on the left, split and input file on the right
+
+_____________________________________________________________________________________________________________________
