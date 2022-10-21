@@ -1,0 +1,2 @@
+Deliverables:
+1. Create a sample dynamic finite automaton with at least 5 states, at least one state will have two states coming from that state
