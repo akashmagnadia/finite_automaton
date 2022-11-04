@@ -1,4 +1,4 @@
-function handleFileSelect(evt) {
+function uploadFile(evt) {
     let files = evt.target.files; // FileList object
 
     // use the 1st file from the list
@@ -17,8 +17,14 @@ function handleFileSelect(evt) {
     reader.readAsText(f);
 }
 
-document.getElementById('upload-btn').addEventListener('change', handleFileSelect, false);
+function downloadSampleFile() {
+    const link = document.createElement("a");
+    link.download = 'y.output';
+    link.href = "sample_data_file/y.output";
+    link.setAttribute("target", "_blank");
+    link.click();
+    link.remove();
+}
 
-// let reader = new FileReader();
-// reader.readAsText()
-// document.querySelector('#y_output').textContent = reader.readAsText("sample_data_file/y.output");
+document.getElementById('upload-btn').addEventListener('change', uploadFile, false);
+document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
