@@ -4,19 +4,33 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
 <div class="flex-container">
-    <div id="div1"
-         style="width:100%; border:1px; background-color: #b1ff8d;" >
-        Upload document
+    <div id="div1">
+        <!--default html file upload button-->
+        <input type="file" id="upload-btn" hidden/>
+
+        <!--our custom file upload button-->
+        <label class="btn" for="upload-btn"><i class="fa fa-upload"></i> Upload y.output</label>
+
+
+        <!--default html file upload button-->
+        <input type="file" id="sample_download-btn" hidden/>
+
+        <!--our custom file upload button-->
+        <label class="btn" for="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
     </div>
 
-    <div id="div2"
-         style="width:100%; border:1px; background-color: #8dffc2;">
-        Show finite automaton
+    <div id="div2" style="width:100%; border:1px; background-color: #8dffc2;">
+        <pre> <code id="y_output"></code> </pre>
     </div>
 
     <div id="div3"
@@ -24,6 +38,8 @@
         Two buttons floating across the display to manipulate the states
     </div>
 </div>
+
+<script src="js/index.js" type="text/javascript"></script>
 
 </body>
 </html>

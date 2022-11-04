@@ -1,5 +1,13 @@
+body {
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 #div1 {
-    height:20vh;
+    margin: 30px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 #div2 {
@@ -8,4 +16,26 @@
 
 #div3 {
     height:20vh;
+}
+
+/* Style buttons */
+.btn {
+    background-color: DodgerBlue; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    border-radius: 15px;
+    box-shadow: 3px 3px 12px 2px #83adc9;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: RoyalBlue;
+}
+
+#div1 label {
+    margin-left: 10px;
+    margin-right: 10px;
 }
