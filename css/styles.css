@@ -4,22 +4,9 @@ body {
     font-weight: 500;
 }
 
-#file_buttons {
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    vertical-align: middle;
+#buttons {
+    margin-top: 20px;
 }
-
-#file_buttons label {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-/*pre {*/
-/*    overflow: scroll;*/
-/*    height: 70vh;*/
-/*}*/
 
 #graphAndCode {
     height:70vh;
@@ -27,22 +14,23 @@ body {
     border-radius: 5px;
     margin-left: 16px;
     margin-right: 16px;
+    transition: width .5s ease-in-out;
 }
 
-.graph.screen {
+#graph_screen {
     overflow: scroll;
     height:70vh;
     float: left;
+    width: 50%;
+    transition: width .5s ease-in-out;
 }
 
-.code.screen {
+#code_screen {
     overflow: scroll;
     height:70vh;
     float: right;
-}
-
-.screen {
     width: 50%;
+    transition: width .5s ease-in-out;
 }
 
 #div3 {
@@ -51,18 +39,17 @@ body {
 
 /* Style buttons */
 .file_btn {
-    background-color: #727272; /* Blue background */
+    background-color: #eee; /* Blue background */
     border: none; /* Remove borders */
-    color: white; /* White text */
+    color: black; /* White text */
     padding: 12px 16px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
-    border-radius: 15px;
-    box-shadow: 3px 3px 12px 2px #c7c7c7;
 }
 
 /* Darker background on mouse-over */
 .file_btn:hover {
+    color: white;
     background-color: RoyalBlue;
 }
 
@@ -76,6 +63,12 @@ body {
     cursor: pointer; /* Mouse pointer on hover */
 }
 
+/* Darker background on mouse-over */
+.view_btn:hover {
+    color: white;
+    background-color: RoyalBlue;
+}
+
 #graph-btn {
     border-top-left-radius: 15px;
 }
@@ -84,10 +77,11 @@ body {
     border-top-right-radius: 15px;
 }
 
-/* Darker background on mouse-over */
-.view_btn:hover {
-    color: white;
-    background-color: RoyalBlue;
+#upload-btn, #sample_download-btn {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .container {
@@ -106,9 +100,4 @@ body {
 
 .d-center {
     justify-content: center;
-}
-
-
-.graph, .code, .code:before, .graph:before {
-    transition: 1000ms all ease-in-out;
 }

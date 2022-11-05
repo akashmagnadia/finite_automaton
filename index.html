@@ -6,42 +6,38 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 
 <div class="container d-col">
-    <div id="file_buttons" class="container d-row d-center">
+
+    <div id="buttons" class="container d-row d-center">
 
         <input type="file" accept=".output" hidden/>
         <label class="btn file_btn" id="upload-btn" for="upload-btn"><i class="fa fa-upload"></i> Upload y.output</label>
 
+        <input type="button" hidden/>
+        <label onclick="graphOnlyView()" class="btn view_btn" id="graph-btn" for="graph-btn"><i class="fa fa-pagelines"></i> Graph</label>
+
+        <input type="button" hidden/>
+        <label onclick="graphAndCodeView()" class="btn view_btn" id="split-btn" for="split-btn"><i class="fa fa-columns"></i> Split</label>
+
+        <input type="button" hidden/>
+        <label onclick="codeOnlyView()" class="btn view_btn" id="code-btn" for="code-btn"><i class="fa fa-code"></i> Code</label>
 
         <input type="button" hidden/>
         <label class="btn file_btn" id="sample_download-btn" for="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
-    </div>
-
-    <div id="view_buttons" class="container d-row d-center">
-
-        <input type="button" hidden/>
-        <label class="btn view_btn" id="graph-btn" for="graph-btn"><i class="fa fa-pagelines"></i> Graph</label>
-
-        <input type="button" hidden/>
-        <label class="btn view_btn" id="split-btn" for="split-btn"><i class="fa fa-columns"></i> Split</label>
-
-        <input type="button" hidden/>
-        <label class="btn view_btn" id="code-btn" for="code-btn"><i class="fa fa-code"></i> Code</label>
 
     </div>
 
     <div id="graphAndCode" class="d-col">
-        <div class="graph screen">
+        <div id="graph_screen">
             <pre> <code id="temp_y_output" contenteditable="false"> </code> </pre>
         </div>
 
-        <div class="code screen">
+        <div id="code_screen">
             <pre> <code id="y_output" contenteditable="false"> </code> </pre>
         </div>
     </div>

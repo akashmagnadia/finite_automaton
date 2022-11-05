@@ -29,6 +29,30 @@ function downloadSampleFile() {
     link.remove();
 }
 
+function graphOnlyView() {
+    const graphView = document.getElementById("graph_screen");
+    const codeView = document.getElementById("code_screen");
+
+    graphView.style.width = "100%";
+    codeView.style.width = "0%";
+}
+
+function codeOnlyView() {
+    const graphView = document.getElementById("graph_screen");
+    const codeView = document.getElementById("code_screen");
+
+    graphView.style.width = "0%";
+    codeView.style.width = "100%";
+}
+
+function graphAndCodeView() {
+    const graphView = document.getElementById("graph_screen");
+    const codeView = document.getElementById("code_screen");
+
+    graphView.style.width = "50%";
+    codeView.style.width = "50%";
+}
+
 document.getElementById('upload-btn').addEventListener('change', uploadFile, false);
 document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
 
