@@ -5,9 +5,15 @@ body {
 }
 
 #file_buttons {
-    margin: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     text-align: center;
     vertical-align: middle;
+}
+
+#file_buttons label {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /*pre {*/
@@ -23,18 +29,20 @@ body {
     margin-right: 16px;
 }
 
-#graph {
+.graph.screen {
     overflow: scroll;
-    width: 50vw;
     height:70vh;
     float: left;
 }
 
-#code {
+.code.screen {
     overflow: scroll;
-    width: 45vw;
     height:70vh;
     float: right;
+}
+
+.screen {
+    width: 50%;
 }
 
 #div3 {
@@ -42,25 +50,44 @@ body {
 }
 
 /* Style buttons */
-.btn {
-    background-color: DodgerBlue; /* Blue background */
+.file_btn {
+    background-color: #727272; /* Blue background */
     border: none; /* Remove borders */
     color: white; /* White text */
     padding: 12px 16px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
     border-radius: 15px;
-    box-shadow: 3px 3px 12px 2px #83adc9;
+    box-shadow: 3px 3px 12px 2px #c7c7c7;
 }
 
 /* Darker background on mouse-over */
-.btn:hover {
+.file_btn:hover {
     background-color: RoyalBlue;
 }
 
-#file_buttons label {
-    margin-left: 10px;
-    margin-right: 10px;
+/* Style buttons */
+.view_btn {
+    background-color: #eee; /* Blue background */
+    border: none; /* Remove borders */
+    color: black; /* Black text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+}
+
+#graph-btn {
+    border-top-left-radius: 15px;
+}
+
+#code-btn {
+    border-top-right-radius: 15px;
+}
+
+/* Darker background on mouse-over */
+.view_btn:hover {
+    color: white;
+    background-color: RoyalBlue;
 }
 
 .container {
@@ -79,4 +106,9 @@ body {
 
 .d-center {
     justify-content: center;
+}
+
+
+.graph, .code, .code:before, .graph:before {
+    transition: 1000ms all ease-in-out;
 }
