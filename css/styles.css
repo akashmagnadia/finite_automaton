@@ -4,14 +4,37 @@ body {
     font-weight: 500;
 }
 
-#div1 {
+#file_buttons {
     margin: 30px;
     text-align: center;
     vertical-align: middle;
 }
 
-#div2 {
-    height:50vh;
+/*pre {*/
+/*    overflow: scroll;*/
+/*    height: 70vh;*/
+/*}*/
+
+#graphAndCode {
+    height:70vh;
+    background: #eee;
+    border-radius: 5px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+#graph {
+    overflow: scroll;
+    width: 50vw;
+    height:70vh;
+    float: left;
+}
+
+#code {
+    overflow: scroll;
+    width: 45vw;
+    height:70vh;
+    float: right;
 }
 
 #div3 {
@@ -35,7 +58,25 @@ body {
     background-color: RoyalBlue;
 }
 
-#div1 label {
+#file_buttons label {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.container {
+    display: flex;
+}
+
+.d-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.d-col {
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.d-center {
+    justify-content: center;
 }

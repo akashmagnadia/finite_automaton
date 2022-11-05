@@ -1,3 +1,6 @@
+const sampleFileURI = "sample_data_file/y.output";
+const sampleFileURIName = 'y.output';
+
 function uploadFile(evt) {
     let files = evt.target.files; // FileList object
 
@@ -19,8 +22,8 @@ function uploadFile(evt) {
 
 function downloadSampleFile() {
     const link = document.createElement("a");
-    link.download = 'y.output';
-    link.href = "sample_data_file/y.output";
+    link.download = sampleFileURIName;
+    link.href = sampleFileURI;
     link.setAttribute("target", "_blank");
     link.click();
     link.remove();
@@ -28,3 +31,13 @@ function downloadSampleFile() {
 
 document.getElementById('upload-btn').addEventListener('change', uploadFile, false);
 document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
+
+// initialize with existing file
+fetch(sampleFileURI)
+    .then(response => response.text())
+    .then(text => document.querySelector('#y_output').textContent = text)
+
+// initialize with existing file
+fetch(sampleFileURI)
+    .then(response => response.text())
+    .then(text => document.querySelector('#temp_y_output').textContent = text)

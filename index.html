@@ -13,24 +13,25 @@
 
 <body>
 
-<div class="flex-container">
-    <div id="div1">
-        <!--default html file upload button-->
-        <input type="file" id="upload-btn" accept=".output" hidden/>
+<div class="container d-col">
+    <div id="file_buttons" class="container d-row d-center">
 
-        <!--our custom file upload button-->
+        <input type="file" id="upload-btn" accept=".output" hidden/>
         <label class="btn" for="upload-btn"><i class="fa fa-upload"></i> Upload y.output</label>
 
 
-        <!--default html file upload button-->
         <input type="button" id="sample_download-btn" hidden/>
-
-        <!--our custom file upload button-->
         <label class="btn" for="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
     </div>
 
-    <div id="div2" style="width:100%; border:1px; background-color: #8dffc2;">
-        <pre> <code id="y_output"></code> </pre>
+    <div id="graphAndCode" class="d-col">
+        <div id="graph">
+            <pre> <code id="temp_y_output" contenteditable="false"> </code> </pre>
+        </div>
+
+        <div id="code">
+            <pre> <code id="y_output" contenteditable="false"> </code> </pre>
+        </div>
     </div>
 
     <div id="div3"
