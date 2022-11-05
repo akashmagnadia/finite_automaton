@@ -20,6 +20,18 @@ function uploadFile(evt) {
     reader.readAsText(f);
 }
 
+function displayCode(fileURI) {
+    // initialize with existing file
+    fetch(fileURI)
+        .then(response => response.text())
+        .then(text => document.querySelector('#y_output').textContent = text)
+
+    // initialize with existing file
+    fetch(fileURI)
+        .then(response => response.text())
+        .then(text => document.querySelector('#temp_y_output').textContent = text)
+}
+
 function downloadSampleFile() {
     const link = document.createElement("a");
     link.download = sampleFileURIName;
@@ -53,15 +65,7 @@ function graphAndCodeView() {
     codeView.style.width = "50%";
 }
 
-document.getElementById('upload-btn').addEventListener('change', uploadFile, false);
+document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
 document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
 
-// initialize with existing file
-fetch(sampleFileURI)
-    .then(response => response.text())
-    .then(text => document.querySelector('#y_output').textContent = text)
-
-// initialize with existing file
-fetch(sampleFileURI)
-    .then(response => response.text())
-    .then(text => document.querySelector('#temp_y_output').textContent = text)
+displayCode(sampleFileURI);
