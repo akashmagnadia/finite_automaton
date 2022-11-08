@@ -13,6 +13,7 @@ function uploadFile(evt) {
     reader.onload = (function() {
         return function(e) {
             document.querySelector('#y_output').textContent = e.target.result;
+            parsed_y_output = parse_y_output(e.target.result);
         };
     })(f);
 
