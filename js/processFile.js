@@ -2,7 +2,47 @@ const {readFileSync} = require('fs');
 let parsed_y_output = null;
 
 class state {
+    state_num = -1;
+
+    start_state = false;
+    leaf_state = false;
+
     parsed_lines = [];
+    currentState = "";
+
+    // first block
+    parsing_l0 = false;
+
+    // second block
+    parsing_shift = false;
+
+    // third block
+    parsing_reduce = false;
+
+    // forth block
+    parsing_transition = false;
+
+    constructor(parsed_lines, state_num) {
+        this.parsed_lines = parsed_lines;
+        this.state_num = state_num;
+
+        this.parsing_l0 = true; // first block always exists
+        this.parse_blocks();
+    }
+
+    parse_blocks() {
+        for (let i = 0; i < this.parsed_lines.length; i++) {
+            if (this.parsing_l0 === true) {
+                const line = this.parsed_lines[i].split("�"); // bullet point is read as question mark
+                const arr = line[0].split(" ");
+
+                if (arr.length > 2 && this.currentState === "") {
+                    this.currentState = arr[arr.length - 2];
+                    this.currentState = this.currentState.replace(":", "");
+                }
+            }
+        }
+    }
 }
 
 class grammar {
@@ -19,12 +59,9 @@ class grammar {
     used_nonTerminals = [];
 
     parsing_states = false
-    parsing_next_state = false;
     parsed_state_lines = [];
 
-    constructor() {
-        this.states = new state();
-    }
+    states = []
 
     not_parsing_anything() {
         this.parsing_unused_terminals = false;
@@ -50,7 +87,7 @@ class grammar {
             return true;
         } else if (line.includes("State ")) {
             if (myGrammar.parsed_state_lines.length > 0) {
-                this.states.parsed_lines.push(myGrammar.parsed_state_lines);
+                myGrammar.states.push(new state(myGrammar.parsed_state_lines, myGrammar.get_state_num(line)));
             }
 
             myGrammar.parsing_states = true;
@@ -75,6 +112,11 @@ class grammar {
             myGrammar.parsed_state_lines.push(line.replace("    ", ""));
         }
     }
+
+    get_state_num(line) {
+        const arr = line.split(" ");
+        return parseInt(arr[1]); // int number of state
+    }
 }
 
 let myGrammar = new grammar();
@@ -88,7 +130,7 @@ function parse_y_output(parsed_text) {
             myGrammar.not_parsing_anything();
             i++;
             continue; // we are done with one block if we see two empty spaces
-        } else if (arr[i] === "") {
+        } else if (arr[i] === "" && myGrammar.parsing_states === false) {
             continue; // skip over empty spaces
         }
 
@@ -100,12 +142,13 @@ function parse_y_output(parsed_text) {
         myGrammar.add_line_to_respective_list(arr[i]);
     }
 
+    // last parsed state
+    if (myGrammar.parsed_state_lines.length > 0) {
+        myGrammar.states.push(new state(myGrammar.parsed_state_lines));
+    }
+
     return parsed_text;
 }
 
-function syncReadFile(filename) {
-    const contents = readFileSync(filename, 'utf-8');
-    parse_y_output(contents);
-}
-
-syncReadFile("../sample_data_file/y.output");
+const contents = readFileSync("../sample_data_file/y.output", 'utf-8');
+parse_y_output(contents);
