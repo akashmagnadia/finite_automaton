@@ -66,11 +66,6 @@ function graphAndCodeView() {
     codeView.style.width = "50%";
 }
 
-document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
-document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
-
-displayCode(sampleFileURI);
-
 function highlightButtonListener(button_group, button_class) {
     // Add active class to the current button (highlight it)
     const group = document.getElementById(button_group);
@@ -94,5 +89,11 @@ function highlightButtonListener(button_group, button_class) {
     }
 }
 
+document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
+document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
+
+displayCode(sampleFileURI);
+
 highlightButtonListener("stateButtonsGroup", "stateButton");
 highlightButtonListener("transitionButtonsGroup", "transitionButton");
+
