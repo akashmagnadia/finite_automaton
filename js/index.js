@@ -70,3 +70,29 @@ document.getElementById('upload-btn_input').addEventListener('change', uploadFil
 document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
 
 displayCode(sampleFileURI);
+
+function highlightButtonListener(button_group, button_class) {
+    // Add active class to the current button (highlight it)
+    const group = document.getElementById(button_group);
+    const stateButtons = group.getElementsByClassName(button_class);
+    for (let i = 0; i < stateButtons.length; i++) {
+        stateButtons[i].addEventListener("click", function () {
+            const current = group.getElementsByClassName("active");
+
+            if (current.length > 0 && this === current[0]) {
+                // if selecting an already selected button
+                current[0].className = current[0].className.replace(" active", "");
+            } else if (current.length > 0) {
+                // if selecting a button different from an already selected button
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            } else {
+                // if selecting a button when nothing else is selected
+                this.className += " active";
+            }
+        });
+    }
+}
+
+highlightButtonListener("stateButtonsGroup", "stateButton");
+highlightButtonListener("transitionButtonsGroup", "transitionButton");
