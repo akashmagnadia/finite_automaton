@@ -2,14 +2,16 @@ let dotIndex = 0;
 const graphviz = d3
     .select("#graph")
     .graphviz()
-    .logEvents(true)
+    .logEvents(false)
     .on("initEnd", render);
 
+let dotToGraph = null;
+
 function render() {
-    const dotLines = dots[dotIndex];
+    const dotLines = dotToGraph[dotIndex];
     const dot = dotLines.join("");
     graphviz.renderDot(dot).on("end", function () {
-        dotIndex = (dotIndex + 1) % dots.length;
+        dotIndex = (dotIndex + 1) % dotToGraph.length;
         render();
     });
 }
@@ -171,3 +173,5 @@ const dots1 = [
         "}",
     ],
 ];
+
+dotToGraph = dots;

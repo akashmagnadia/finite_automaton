@@ -1,5 +1,5 @@
-const sampleFileURI = "sample_data_file/y.output";
-const sampleFileURIName = 'y.output';
+const sampleFileURI = "sample_data_file/y1.output";
+const sampleFileURIName = 'y1.output';
 
 function uploadFile(evt) {
     let files = evt.target.files; // FileList object
@@ -13,7 +13,15 @@ function uploadFile(evt) {
     reader.onload = (function() {
         return function(e) {
             document.querySelector('#y_output').textContent = e.target.result;
-            parsed_y_output = parse_y_output(e.target.result);
+            // parsed_y_output = parse_y_output(e.target.result);
+
+            // TODO: modify it
+            // temporary here for alpha testing
+            if (f.name === "y1.output") {
+                dotToGraph = dots;
+            } else {
+                dotToGraph = dots1;
+            }
         };
     })(f);
 
