@@ -6,7 +6,7 @@ const graphviz = d3
     .on("initEnd", render);
 
 function render() {
-    const dotLines = dots1[dotIndex];
+    const dotLines = dots[dotIndex];
     const dot = dotLines.join("");
     graphviz.renderDot(dot).on("end", function () {
         dotIndex = (dotIndex + 1) % dots.length;
@@ -18,21 +18,30 @@ const dots = [
     [
         "digraph  {",
         '    label = "y1.output viz"',
-        '    concentrate=true',
-        'rotate = 90',
-        // '    layout="neato"',
+        // '    concentrate=true',
+        // 'rotate = 90',
+        '    layout="neato"',
         '    node [style="filled"]',
         // '    layout ="sfdp"',
         // '    beautify = true',
-        '    0 [xlabel="$accept" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    0 [xlabel="$accept"]',
         '    1 [xlabel ="RETURN"]',
         '    2 [xlabel="$accept"]',
-        '    3 [xlabel="stmts" fillcolor="#EE4B2B"]',
-        '    4 [xlabel="stmt" fillcolor="#EE4B2B"]',
-        '    5 [xlabel="INT_CONSTANT" fillcolor="#EE4B2B"]',
+        '    3 [xlabel="stmts" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    4 [xlabel="stmt" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    5 [xlabel="INT_CONSTANT"]',
         '    6 [xlabel="exp"]',
         '    7 [xlabel="$end"]',
-        '    8 [xlabel="SEMICOLON" fillcolor="#EE4B2B"]',
+        '    8 [xlabel="SEMICOLON"]',
+        '    9 [xlabel="XOR"]',
+        '    10 [xlabel="LT"]',
+        '    11 [xlabel="LE" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    12 [xlabel="GT" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    13 [xlabel="GE" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    14 [xlabel="NE" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    15 [xlabel="EQ" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+        '    16 [xlabel="exp" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+
         '    0 -> 1 [label="RETURN" len=1.5]',
         '    0 -> 2 [label="program" len=1.5]',
         '    0 -> 3 [label="stmts" len=1.5]',
@@ -40,7 +49,18 @@ const dots = [
         '    1 -> 5 [label="INT_CONSTANT" len=1.5]',
         '    1 -> 6 [label="exp" len=1.5]',
         '    2 -> 7 [label="$end" len=1.5]',
+        '    2 -> 9 [label="exp" len=1.5]',
         '    6 -> 8 [label="SEMICOLON" len=1.5]',
+        '    2 -> 10 [label="$end" len=1.5]',
+        '    9 -> 11 [label="$end" len=1.5]',
+        '    8 -> 15 [label="exp EQ" len=1.5]',
+        '    6 -> 10 [label="exp LT" len=1.5]',
+        '    10 -> 16 [label="exp" len=1.5]',
+        '    8 -> 12 [label="GT" len=1.5]',
+        '    6 -> 13 [label="GE" len=1.5]',
+        '    1 -> 14 [label="NE" len=1.5]',
+        '    7 -> 11 [label="NE" len=1.5]',
+        '    5 -> 14 [label="NE" len=1.5]',
 
         "}",
     ],
