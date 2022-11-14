@@ -1,38 +1,66 @@
-const {readFileSync} = require('fs');
-let parsed_y_output = null;
+let myGrammar;
 
 class state {
-    state_num = -1;
+    state_num = -1; // state number
+    currentState = ""; // first block
+    shift_mapping = []; // second block
+    reduce_mapping = []; // third block
+    transition_mapping = []; // forth block
 
     start_state = false;
     leaf_state = false;
 
     parsed_lines = [];
-    currentState = "";
-
-    // first block
     parsing_l0 = false;
-
-    // second block
     parsing_shift = false;
-
-    // third block
     parsing_reduce = false;
-
-    // forth block
     parsing_transition = false;
 
     constructor(parsed_lines, state_num) {
         this.parsed_lines = parsed_lines;
         this.state_num = state_num;
 
-        this.parsing_l0 = true; // first block always exists
         this.parse_blocks();
+
+        if (this.shift_mapping.length === 0 && this.transition_mapping.length === 0) {
+            this.leaf_state = true;
+        }
+    }
+
+    determineParsingStatus(i) {
+        if (this.parsed_lines[i] === "") {
+            this.parsing_l0 = false;
+            this.parsing_shift = false;
+            this.parsing_reduce = false;
+            this.parsing_transition = false;
+            return true;
+        }
+
+        // if parsing flag is set to false for all blocks
+        if (!((this.parsing_l0 === true || this.parsing_shift === true || this.parsing_reduce === true || this.parsing_transition))) {
+            if (this.parsed_lines[i].includes("�")) {
+                this.parsing_l0 = true;
+            } else if (this.parsed_lines[i].includes("shift")) {
+                this.parsing_shift = true;
+            } else if (this.parsed_lines[i].includes("reduce")) {
+                this.parsing_reduce = true;
+            } else {
+                this.parsing_transition = true;
+            }
+        }
+
+        return false;
     }
 
     parse_blocks() {
         for (let i = 0; i < this.parsed_lines.length; i++) {
+
+            if (this.determineParsingStatus(i) === true) {
+                continue;
+            }
+
             if (this.parsing_l0 === true) {
+
                 const line = this.parsed_lines[i].split("�"); // bullet point is read as question mark
                 const arr = line[0].split(" ");
 
@@ -41,11 +69,39 @@ class state {
                     this.currentState = this.currentState.replace(":", "");
                 }
             }
+
+            if (this.parsing_shift === true) {
+                const line = this.parsed_lines[i].split("shift, and go to state"); // bullet point is read as question mark
+                this.shift_mapping.push({
+                        token: line[0].trimEnd(),
+                        state: parseInt(line[1])
+                    });
+            }
+
+            if (this.parsing_reduce === true) {
+                const line = this.parsed_lines[i].split("reduce using rule "); // bullet point is read as question mark
+                const line2 = line[1].split(" ");
+                this.reduce_mapping.push({
+                    token: line[0].trimEnd(),
+                    ruleNum: parseInt(line2[0]),
+                    ruleName: line2[1].replace("(", "").replace(")", "")
+                });
+            }
+
+            if (this.parsing_transition === true) {
+                const line = this.parsed_lines[i].split("go to state"); // bullet point is read as question mark
+                this.transition_mapping.push({
+                    token: line[0].trimEnd(),
+                    state: parseInt(line[1])
+                });
+            }
         }
     }
 }
 
 class grammar {
+    stateCounter = 0;
+
     parsing_unused_terminals = false;
     unused_terminals = [];
 
@@ -87,7 +143,8 @@ class grammar {
             return true;
         } else if (line.includes("State ")) {
             if (myGrammar.parsed_state_lines.length > 0) {
-                myGrammar.states.push(new state(myGrammar.parsed_state_lines, myGrammar.get_state_num(line)));
+                myGrammar.states.push(new state(myGrammar.parsed_state_lines, myGrammar.stateCounter));
+                myGrammar.stateCounter++; // increment state counter after each push
             }
 
             myGrammar.parsing_states = true;
@@ -112,16 +169,11 @@ class grammar {
             myGrammar.parsed_state_lines.push(line.replace("    ", ""));
         }
     }
-
-    get_state_num(line) {
-        const arr = line.split(" ");
-        return parseInt(arr[1]); // int number of state
-    }
 }
 
-let myGrammar = new grammar();
-
 function parse_y_output(parsed_text) {
+    myGrammar = new grammar();
+
     let arr = parsed_text.split(/\r?\n/);
 
     for (let i = 0; i < arr.length; i++) {
@@ -144,11 +196,9 @@ function parse_y_output(parsed_text) {
 
     // last parsed state
     if (myGrammar.parsed_state_lines.length > 0) {
-        myGrammar.states.push(new state(myGrammar.parsed_state_lines));
+        myGrammar.states.push(new state(myGrammar.parsed_state_lines, myGrammar.stateCounter));
     }
 
-    return parsed_text;
+    console.log(myGrammar);
+    return myGrammar;
 }
-
-const contents = readFileSync("../sample_data_file/y.output", 'utf-8');
-parse_y_output(contents);

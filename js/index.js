@@ -13,7 +13,7 @@ function uploadFile(evt) {
     reader.onload = (function() {
         return function(e) {
             document.querySelector('#y_output').textContent = e.target.result;
-            // parsed_y_output = parse_y_output(e.target.result);
+            myGrammar = parse_y_output(e.target.result);
 
             // TODO: modify it
             // temporary here for alpha testing
@@ -34,11 +34,7 @@ function displayCode(fileURI) {
     fetch(fileURI)
         .then(response => response.text())
         .then(text => document.querySelector('#y_output').textContent = text)
-
-    // initialize with existing file
-    fetch(fileURI)
-        .then(response => response.text())
-        .then(text => document.querySelector('#temp_y_output').textContent = text)
+        .then(text => myGrammar = parse_y_output(text))
 }
 
 function downloadSampleFile() {

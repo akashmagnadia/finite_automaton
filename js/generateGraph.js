@@ -12,7 +12,7 @@ function render() {
     const dot = dotLines.join("");
     graphviz.renderDot(dot).on("end", function () {
         dotIndex = (dotIndex + 1) % dotToGraph.length;
-        render();
+        // render();
     });
 }
 
