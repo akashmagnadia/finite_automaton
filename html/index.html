@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Syntax Analysis</title>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="//d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
     <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
 
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -40,9 +41,7 @@
             <div id="graph" style="text-align: center"></div>
         </div>
 
-        <div id="code_screen">
-            <pre> <code id="y_output" contenteditable="false"> </code> </pre>
-        </div>
+        <div id="code_screen"></div>
     </div>
 
     <div id="filterButtons" class="container d-row">
@@ -66,9 +65,10 @@
     </div>
 </div>
 
-<script src="js/processFile.js" type="text/javascript"></script>
-<script src="js/index.js" type="text/javascript"></script>
-<script src="js/generateGraph.js" type="text/javascript"></script>
+<script src="../js/processFile.js" type="text/javascript"></script>
+<script src="../js/index.js" type="text/javascript"></script>
+<script src="../js/generateGraph.js" type="text/javascript"></script>
+<script src="../js/generateHTML_Y_output.js" type="text/javascript"></script>
 
 </body>
 </html>

@@ -29,7 +29,7 @@ body {
     overflow: scroll;
     height:70vh;
     float: right;
-    width: 50%;
+    width: 49%; /* with 50% it goes to the next line */
     transition: width .5s ease-in-out;
 }
 
@@ -149,4 +149,15 @@ body {
 
 .d-center {
     justify-content: center;
+}
+
+/*Code screen related CSS*/
+#code_screen {
+    margin: 10px 5px;
+}
+
+#code_screen div {
+    font-family: JetBrains Mono, serif;
+    font-size: 14px;
+    font-weight: 500;
 }

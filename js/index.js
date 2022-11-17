@@ -1,5 +1,5 @@
-const sampleFileURI = "sample_data_file/y1.output";
-const sampleFileURIName = 'y1.output';
+const sampleFileURIName = 'y5.output'; // file to load by default
+const sampleFileURI = "../sample_data_file/" + sampleFileURIName;
 
 function uploadFile(evt) {
     let files = evt.target.files; // FileList object
@@ -12,7 +12,6 @@ function uploadFile(evt) {
     // Closure to capture the file information.
     reader.onload = (function() {
         return function(e) {
-            document.querySelector('#y_output').textContent = e.target.result;
             myGrammar = parse_y_output(e.target.result);
 
             // TODO: modify it
@@ -33,7 +32,6 @@ function displayCode(fileURI) {
     // initialize with existing file
     fetch(fileURI)
         .then(response => response.text())
-        .then(text => document.querySelector('#y_output').textContent = text)
         .then(text => myGrammar = parse_y_output(text))
 }
 
@@ -100,4 +98,3 @@ displayCode(sampleFileURI);
 
 highlightButtonListener("stateButtonsGroup", "stateButton");
 highlightButtonListener("transitionButtonsGroup", "transitionButton");
-

@@ -73,7 +73,7 @@ class state {
             if (this.parsing_shift === true) {
                 const line = this.parsed_lines[i].split("shift, and go to state"); // bullet point is read as question mark
                 this.shift_mapping.push({
-                        token: line[0].trimEnd(),
+                        token: line[0].trimStart().trimEnd(),
                         state: parseInt(line[1])
                     });
             }
@@ -82,7 +82,7 @@ class state {
                 const line = this.parsed_lines[i].split("reduce using rule "); // bullet point is read as question mark
                 const line2 = line[1].split(" ");
                 this.reduce_mapping.push({
-                    token: line[0].trimEnd(),
+                    token: line[0].trimStart().trimEnd(),
                     ruleNum: parseInt(line2[0]),
                     ruleName: line2[1].replace("(", "").replace(")", "")
                 });
@@ -91,7 +91,7 @@ class state {
             if (this.parsing_transition === true) {
                 const line = this.parsed_lines[i].split("go to state"); // bullet point is read as question mark
                 this.transition_mapping.push({
-                    token: line[0].trimEnd(),
+                    token: line[0].trimStart().trimEnd(),
                     state: parseInt(line[1])
                 });
             }
@@ -158,15 +158,15 @@ class grammar {
 
     add_line_to_respective_list(line) {
         if (myGrammar.parsing_unused_terminals === true) {
-            myGrammar.unused_terminals.push(line.replace("    ", ""));
+            myGrammar.unused_terminals.push(line);
         } else if (myGrammar.parsing_grammar === true) {
-            myGrammar._grammar.push(line.replace("    ", ""));
+            myGrammar._grammar.push(line);
         } else if (myGrammar.parsing_used_terminals === true) {
-            myGrammar.used_terminals.push(line.replace("    ", ""));
+            myGrammar.used_terminals.push(line);
         } else if (myGrammar.parsing_used_nonTerminals === true) {
-            myGrammar.used_nonTerminals.push(line.replace("    ", ""));
+            myGrammar.used_nonTerminals.push(line);
         } else if (myGrammar.parsing_states === true) {
-            myGrammar.parsed_state_lines.push(line.replace("    ", ""));
+            myGrammar.parsed_state_lines.push(line);
         }
     }
 }
@@ -200,5 +200,6 @@ function parse_y_output(parsed_text) {
     }
 
     console.log(myGrammar);
+    generateHTML_Y_output();
     return myGrammar;
 }
