@@ -1,5 +1,5 @@
 const sampleFileURIName = 'y5.output'; // file to load by default
-const sampleFileURI = "../sample_data_file/" + sampleFileURIName;
+const sampleFileURI = "../finite_automaton/sample_data_file/" + sampleFileURIName;
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
