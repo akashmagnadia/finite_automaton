@@ -1,6 +1,8 @@
 const sampleFileURIName = 'y5.output'; // file to load by default
 const sampleFileURI = "../sample_data_file/" + sampleFileURIName;
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 function uploadFile(evt) {
     let files = evt.target.files; // FileList object
 
@@ -44,28 +46,43 @@ function downloadSampleFile() {
     link.remove();
 }
 
-function graphOnlyView() {
+async function graphOnlyView() {
     const graphView = document.getElementById("graph_screen");
     const codeView = document.getElementById("code_screen");
+
+    graphView.style.width = "90%";
+    codeView.style.width = "0%";
+
+    await delay(300);
 
     graphView.style.width = "100%";
     codeView.style.width = "0%";
 }
 
-function codeOnlyView() {
+async function codeOnlyView() {
     const graphView = document.getElementById("graph_screen");
     const codeView = document.getElementById("code_screen");
+
+    graphView.style.width = "0%";
+    codeView.style.width = "90%";
+
+    await delay(300);
 
     graphView.style.width = "0%";
     codeView.style.width = "100%";
 }
 
-function graphAndCodeView() {
+async function graphAndCodeView() {
     const graphView = document.getElementById("graph_screen");
     const codeView = document.getElementById("code_screen");
 
+    graphView.style.width = "30%";
+    codeView.style.width = "60%";
+
+    await delay(300);
+
     graphView.style.width = "50%";
-    codeView.style.width = "50%";
+    codeView.style.width = "49%"; /* with 50% it goes to the next line */
 }
 
 function highlightButtonListener(button_group, button_class) {

@@ -14,23 +14,22 @@ body {
     border-radius: 5px;
     margin-left: 16px;
     margin-right: 16px;
-    transition: width .5s ease-in-out;
 }
 
 #graph_screen {
     overflow: scroll;
-    height:70vh;
+    height: 70vh;
     float: left;
     width: 50%;
-    transition: width .5s ease-in-out;
+    transition: width .3s ease-in;
 }
 
 #code_screen {
     overflow: scroll;
-    height:70vh;
+    height: 70vh;
     float: right;
     width: 49%; /* with 50% it goes to the next line */
-    transition: width .5s ease-in-out;
+    transition: width .3s ease-in;
 }
 
 #filterButtons {
