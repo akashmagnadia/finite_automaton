@@ -21,7 +21,7 @@ body {
     height: 70vh;
     float: left;
     width: 50%;
-    transition: width .3s ease-in;
+    transition: width .3s linear;
 }
 
 #code_screen {
@@ -29,7 +29,7 @@ body {
     height: 70vh;
     float: right;
     width: 49%; /* with 50% it goes to the next line */
-    transition: width .3s ease-in;
+    transition: width .3s linear;
 }
 
 #filterButtons {

@@ -49,6 +49,7 @@ function downloadSampleFile() {
 async function graphOnlyView() {
     const graphView = document.getElementById("graph_screen");
     const codeView = document.getElementById("code_screen");
+    const graphCodeView = document.getElementById("graphAndCode");
 
     graphView.style.width = "90%";
     codeView.style.width = "0%";
@@ -57,11 +58,15 @@ async function graphOnlyView() {
 
     graphView.style.width = "100%";
     codeView.style.width = "0%";
+
+    graphCodeView.style.marginLeft = "16px";
+    graphCodeView.style.paddingLeft = "0px";
 }
 
 async function codeOnlyView() {
     const graphView = document.getElementById("graph_screen");
     const codeView = document.getElementById("code_screen");
+    const graphCodeView = document.getElementById("graphAndCode");
 
     graphView.style.width = "0%";
     codeView.style.width = "90%";
@@ -70,19 +75,32 @@ async function codeOnlyView() {
 
     graphView.style.width = "0%";
     codeView.style.width = "100%";
+
+    graphCodeView.style.marginLeft = "0px";
+    graphCodeView.style.paddingLeft = "16px";
 }
 
 async function graphAndCodeView() {
     const graphView = document.getElementById("graph_screen");
     const codeView = document.getElementById("code_screen");
+    const graphCodeView = document.getElementById("graphAndCode");
 
-    graphView.style.width = "30%";
-    codeView.style.width = "60%";
+    if (graphView.style.width === "100%") {
+        graphView.style.width = "60%";
+        codeView.style.width = "30%";
+    } else {
+        graphView.style.width = "30%";
+        codeView.style.width = "60%";
+    }
+
 
     await delay(300);
 
     graphView.style.width = "50%";
     codeView.style.width = "49%"; /* with 50% it goes to the next line */
+
+    graphCodeView.style.marginLeft = "16px";
+    graphCodeView.style.paddingLeft = "0px";
 }
 
 function highlightButtonListener(button_group, button_class) {
