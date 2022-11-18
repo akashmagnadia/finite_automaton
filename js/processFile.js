@@ -40,11 +40,11 @@ class state {
         if (!((this.parsing_l0 === true || this.parsing_shift === true || this.parsing_reduce === true || this.parsing_transition))) {
             if (this.parsed_lines[i].includes("�")) {
                 this.parsing_l0 = true;
-            } else if (this.parsed_lines[i].includes("shift")) {
+            } else if (this.parsed_lines[i].includes("shift, and go to state")) {
                 this.parsing_shift = true;
-            } else if (this.parsed_lines[i].includes("reduce")) {
+            } else if (this.parsed_lines[i].includes("reduce using rule ")) {
                 this.parsing_reduce = true;
-            } else {
+            } else if (this.parsed_lines[i].includes("go to state")){
                 this.parsing_transition = true;
             }
         }
@@ -62,11 +62,35 @@ class state {
             if (this.parsing_l0 === true) {
 
                 const line = this.parsed_lines[i].split("�"); // bullet point is read as question mark
-                const arr = line[0].split(" ");
+                const arr = line[0].trimStart().trimEnd().split(" ");
 
-                if (arr.length > 2 && this.currentState === "") {
-                    this.currentState = arr[arr.length - 2];
-                    this.currentState = this.currentState.replace(":", "");
+                if (this.currentState === "") {
+
+                    let startAdding = 0;
+
+                    // add all tokens as current state left of the bullet point
+                    for (let j = 0; j < arr.length; j++) {
+                        if (startAdding === 0) {
+
+                            if (arr[j].includes(":")) {
+                                startAdding = 1;
+                            }
+
+                        } else if (startAdding === 1) {
+
+                            if (this.currentState !== "") {
+                                this.currentState += " " + arr[j];
+                            } else {
+                                this.currentState += arr[j];
+                            }
+                        }
+                    }
+
+                    // if still empty at the end then it's state 0
+                    if (this.currentState === "") {
+                        this.currentState = "Start State";
+                        this.start_state = true;
+                    }
                 }
             }
 
@@ -94,6 +118,10 @@ class state {
                     token: line[0].trimStart().trimEnd(),
                     state: parseInt(line[1])
                 });
+            }
+
+            if (this.shift_mapping.length === 0 && this.transition_mapping.length === 0) {
+                this.leaf_state = true;
             }
         }
     }
@@ -201,5 +229,6 @@ function parse_y_output(parsed_text) {
 
     console.log(myGrammar);
     generateHTML_Y_output();
+    generateStateAndTransitionBtn();
     return myGrammar;
 }

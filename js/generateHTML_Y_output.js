@@ -7,6 +7,9 @@ function generateHTML_Y_output() {
 
     document.getElementById('code_screen').innerText = "";
 
+    addHTMLLinesToCodeScreen(document.getElementById('code_screen'),
+        ['<div style="margin-top: 10px;">']);
+
     // print out Terminal Unused in Grammar
     let unused_terminals = myGrammar.unused_terminals;
 
@@ -113,15 +116,6 @@ function generateHTML_Y_output() {
                     toPush = toPush
                         .replaceAll(" ", "&nbsp;")
                         .replaceAll("�", "&#x2022;") + '<br>';
-
-                    // if (states[i].parsed_lines[j].includes(":") && states[i].parsed_lines[j].includes("�")) {
-                    //     toPush.replace("&nbsp;&nbsp;&nbsp;&nbsp;", "");
-                    // }
-                    //
-                    // if (states[i].parsed_lines[j].includes("|") && states[i].parsed_lines[j].includes("�")) {
-                    //     toPush.replace("|", "&nbsp;&nbsp;&nbsp;&nbsp;|");
-                    // }
-
 
                     linesToAdd.push(toPush);
                 }

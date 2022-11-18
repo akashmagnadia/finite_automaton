@@ -1,3 +1,8 @@
+:root {
+    --graphAndCodeHeight: 64vh;
+    --filterButtonHeight: 22vh;
+}
+
 body {
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 14px;
@@ -9,7 +14,7 @@ body {
 }
 
 #graphAndCode {
-    height:70vh;
+    height: var(--graphAndCodeHeight);
     background: #eee;
     border-radius: 5px;
     margin-left: 16px;
@@ -18,7 +23,7 @@ body {
 
 #graph_screen {
     overflow: scroll;
-    height: 70vh;
+    height: var(--graphAndCodeHeight);
     float: left;
     width: 50%;
     transition: width .3s linear;
@@ -26,7 +31,7 @@ body {
 
 #code_screen {
     overflow: scroll;
-    height: 70vh;
+    height: var(--graphAndCodeHeight);
     float: right;
     width: 49%; /* with 50% it goes to the next line */
     transition: width .3s linear;
@@ -34,7 +39,7 @@ body {
 
 #filterButtons {
     margin-top: 10px;
-    height:17vh;
+    height: var(--filterButtonHeight);
 }
 
 #stateButtonsGroup {
@@ -51,31 +56,19 @@ body {
     width: 50%;
 }
 
-.stateButton {
-    align-self: center;
-    width: fit-content;
-    margin-top: 5px;
+.filterButtonGroup {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 5px;
 
-    padding: 12px 16px; /* Some padding */
-    font-size: 16px; /* Set a font size */
+    padding: 8px 6px; /* Some padding */
+    font-size: 14px; /* Set a font size */
     border: none;
     background-color: #eee;
     cursor: pointer;
 }
 
-.transitionButton {
-    align-self: center;
-    width: fit-content;
-    margin-top: 5px;
-
-    padding: 12px 16px; /* Some padding */
-    font-size: 16px; /* Set a font size */
-    border: none;
-    background-color: #eee;
-    cursor: pointer;
-}
-
-.stateButton:hover, .transitionButton:hover {
+.filterButtonGroup:hover {
     color: white;
     background-color: RoyalBlue;
 }
@@ -150,10 +143,11 @@ body {
     justify-content: center;
 }
 
-/*Code screen related CSS*/
-#code_screen {
-    margin: 10px 5px;
+.d-wrap {
+    flex-wrap: wrap;
 }
+
+/*Code screen related CSS*/
 
 #code_screen div {
     font-family: JetBrains Mono, serif;
