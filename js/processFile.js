@@ -232,3 +232,29 @@ function parse_y_output(parsed_text) {
     generateStateAndTransitionBtn();
     return myGrammar;
 }
+
+function getStatesWithTransition(transitionName) {
+    let stateToReturn = [];
+
+    for (let i = 0; i < myGrammar.states.length; i++) {
+        let currState = myGrammar.states[i];
+
+        for (let j = 0; j < currState.shift_mapping.length; j++) {
+            if (currState.shift_mapping[j].token === transitionName) {
+                if (!stateToReturn.includes(currState.state_num)) {
+                    stateToReturn.push(currState.state_num);
+                }
+            }
+        }
+
+        for (let j = 0; j < currState.transition_mapping.length; j++) {
+            if (currState.transition_mapping[j].token === transitionName) {
+                if (!stateToReturn.includes(currState.state_num)) {
+                    stateToReturn.push(currState.state_num);
+                }
+            }
+        }
+    }
+
+    return stateToReturn;
+}

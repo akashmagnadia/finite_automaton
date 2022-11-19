@@ -102,7 +102,7 @@ function generateHTML_Y_output() {
         for (let i = 0; i < states.length; i++) {
             let id = "State " + states[i].state_num;
             addHTMLLinesToCodeScreen(document.getElementById('code_screen'),
-                ['<div id="' + id + '">']);
+                ['<div id="' + id + '" style="padding: 10px; margin: 10px">']);
 
             let linesToAdd = [];
             linesToAdd.push('State ' + states[i].state_num + '<br>');
@@ -121,7 +121,7 @@ function generateHTML_Y_output() {
                 }
             }
 
-            linesToAdd.push('<br> <br> </div>');
+            linesToAdd.push('<br> </div>');
             addHTMLLinesToCodeScreen(document.getElementById(id), linesToAdd);
         }
     }
