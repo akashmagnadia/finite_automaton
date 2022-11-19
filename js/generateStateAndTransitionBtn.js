@@ -79,8 +79,8 @@ function generateStateAndTransitionBtn() {
         const group = document.getElementById(idToLookInside);
         const activeButtons = group.getElementsByClassName(classToRemove);
 
-        for (let i = 0; i < activeButtons.length; i++) {
-            activeButtons[i].className = activeButtons[i].className.replace(" " + classToRemove, "");
+        while (activeButtons.length > 0) {
+            activeButtons[0].className = activeButtons[0].className.replace(" " + classToRemove, "");
         }
     }
 
@@ -103,16 +103,26 @@ function generateStateAndTransitionBtn() {
 
             statesButton.onclick = function () {
 
-                // if the state button was active then deactivate button and all state
-                unSelectActive("code_screen", "code_state_active");
-                unSelectActive("transitionButtonsGroup", "btn_active");
+                if (statesButton.classList.contains("btn_active")) {
 
-                // if no state was active or different button was clicked then activate the corresponding state
-                stateCode.scrollIntoView({
-                    behavior: "smooth"
-                });
+                    // if the state button was active then deactivate button and all state
+                    unSelectActive("code_screen", "code_state_active");
+                    unSelectActive("transitionButtonsGroup", "btn_active");
 
-                stateCode.className += " code_state_active";
+                } else {
+
+                    // if the state button was active then deactivate button and all state
+                    unSelectActive("code_screen", "code_state_active");
+                    unSelectActive("transitionButtonsGroup", "btn_active");
+
+                    // if no state was active or different button was clicked then activate the corresponding state
+                    stateCode.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                    stateCode.className += " code_state_active";
+
+                }
             };
         }
 
@@ -131,20 +141,31 @@ function generateStateAndTransitionBtn() {
             }
 
             transitionButton.onclick = function () {
-                unSelectActive("code_screen", "code_state_active");
-                unSelectActive("stateButtonsGroup", "btn_active");
 
-                let states = getStatesWithTransition(transitionName);
+                if (transitionButton.classList.contains("btn_active")) {
 
-                // scroll to the first state where the transition exists
-                document.getElementById("State " + states[0]).scrollIntoView({
-                    behavior: "smooth"
-                })
+                    // if the transition button was active then deactivate button and all state
+                    unSelectActive("code_screen", "code_state_active");
+                    unSelectActive("stateButtonsGroup", "btn_active");
+                } else {
 
-                // highlight all states with transition
-                for (let j = 0; j < states.length; j++) {
-                    let stateCode = document.getElementById("State " + states[j]);
-                    stateCode.className += " code_state_active";
+                    // if the transition button was active then deactivate button and all state
+                    unSelectActive("code_screen", "code_state_active");
+                    unSelectActive("stateButtonsGroup", "btn_active");
+
+                    // and then found out what states need to be highlighted
+                    let states = getStatesWithTransition(transitionName);
+
+                    // scroll to the first state where the transition exists
+                    document.getElementById("State " + states[0]).scrollIntoView({
+                        behavior: "smooth"
+                    })
+
+                    // highlight all states with transition
+                    for (let j = 0; j < states.length; j++) {
+                        let stateCode = document.getElementById("State " + states[j]);
+                        stateCode.className += " code_state_active";
+                    }
                 }
             }
         }
