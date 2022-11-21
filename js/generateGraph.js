@@ -77,8 +77,11 @@ function dotArray() {
 
     }
     dots[0].push("}");
-    // for (l = 0; l < dots[0].length; l++) {
-    //     dots[0][l].replace(/\\/g, '');
+    // const fs = require('fs')
+    // for (n = 0; n < dots[0].length; n++) {
+    //     fs.writeFile('dot.txt', dots[0][n], (err) => {
+    //         if (err) throw err;
+    //     })
     // }
     // dots.map(x => "'" + x + "'").toString();
 
@@ -87,6 +90,198 @@ function dotArray() {
     console.log(dotToGraph);
     render(dotToGraph);
 }
+
+function stateClick(i) {
+    const selectedDot = [
+        [
+            "digraph {",
+            'layout="neato"',
+            'node [style="filled"]',
+        ],
+    ];
+
+    let string = '';
+
+    if (myGrammar.states[i].leaf_state == true && myGrammar.states[i].reduce_mapping.length != 0) {
+        for (let m = 0; m < myGrammar.states[i].reduce_mapping.length; m++) {
+            string += myGrammar.states[i].reduce_mapping[m].token;
+            string += ' reduce using ' + myGrammar.states[i].reduce_mapping[m].ruleNum;
+            string += ' (' + myGrammar.states[i].reduce_mapping[m].ruleName + ')';
+        }
+        selectedDot[0].push((myGrammar.states[i].state_num)
+            + ' [xlabel=\"' + (myGrammar.states[i].currentState)
+            + '" fillcolor = "#EE4B2B" tooltip = "'
+            + string
+            + '"]');
+
+    }
+    else {
+        selectedDot[0].push((myGrammar.states[i].state_num)
+            + ' [xlabel="' + (myGrammar.states[i].currentState)
+            + '"]');
+    }
+
+    if (myGrammar.states[i].shift_mapping.length != 0) {
+        for (let k = 0; k < myGrammar.states[i].shift_mapping.length; k++) {
+            selectedDot[0].push((myGrammar.states[i].state_num)
+                + " -> " + (myGrammar.states[i].shift_mapping[k].state)
+                + ' [xlabel="' + (myGrammar.states[i].shift_mapping[k].token)
+                + '" len = 1.5]');
+        }
+    }
+    if (myGrammar.states[i].transition_mapping.length != 0) {
+        for (let k = 0; k < myGrammar.states[i].transition_mapping.length; k++) {
+            selectedDot[0].push((myGrammar.states[i].state_num)
+                + " -> " + (myGrammar.states[i].transition_mapping[k].state)
+                + ' [xlabel="' + (myGrammar.states[i].transition_mapping[k].token)
+                + '" len = 1.5]');
+        }
+    }
+
+    selectedDot[0].push('"}"');
+    console.log((myGrammar.states[i].currentState) + ' Button Clicked');
+    console.log("this is state")
+    // console.log(selectedDot);
+
+    //rendering subgraph
+    dotToGraph = selectedDot;
+    console.log(dotToGraph);
+    render(dotToGraph);
+}
+
+function transClick(transitionName) {
+    const newDot = [
+        [
+            "digraph {",
+            'layout="dot"',
+            'node [style="filled"]',
+        ],
+    ];
+    let string = '';
+    for (let i = 0; i < myGrammar.states.length; i++) {
+
+        if (myGrammar.states[i].leaf_state == true && myGrammar.states[i].reduce_mapping.length != 0) {
+            for (let m = 0; m < myGrammar.states[i].reduce_mapping.length; m++) {
+                string += myGrammar.states[i].reduce_mapping[m].token;
+                string += ' reduce using ' + myGrammar.states[i].reduce_mapping[m].ruleNum;
+                string += ' (' + myGrammar.states[i].reduce_mapping[m].ruleName + ')';
+            }
+            selectedDot[0].push((myGrammar.states[i].state_num)
+                + ' [xlabel=\"' + (myGrammar.states[i].currentState)
+                + '" fillcolor = "#EE4B2B" tooltip = "'
+                + string
+                + '"]');
+        }
+        else {
+            newDot[0].push((myGrammar.states[i].state_num)
+                + ' [xlabel="' + (myGrammar.states[i].currentState)
+                + '"]');
+        }
+    }
+    for (let j = 0; j < myGrammar.states.length; j++) {
+        if (myGrammar.states[j].shift_mapping.length != 0) {
+            for (let k = 0; k < myGrammar.states[j].shift_mapping.length; k++) {
+                if (transitionName == myGrammar.states[j].shift_mapping[k].token) {
+                    newDot[0].push((myGrammar.states[j].state_num)
+                        + " -> " + (myGrammar.states[j].shift_mapping[k].state)
+                        + ' [xlabel="' + (myGrammar.states[j].shift_mapping[k].token)
+                        + '" color = "blue" len = 1.5]');
+                }
+                else {
+                    newDot[0].push((myGrammar.states[j].state_num)
+                        + " -> " + (myGrammar.states[j].shift_mapping[k].state)
+                        + ' [xlabel="' + (myGrammar.states[j].shift_mapping[k].token)
+                        + '" len = 1.5]');
+                }
+            }
+        }
+        if (myGrammar.states[j].transition_mapping.length != 0) {
+            for (let k = 0; k < myGrammar.states[j].transition_mapping.length; k++) {
+                if (transitionName == myGrammar.states[j].transition_mapping[k].token) {
+                    newDot[0].push((myGrammar.states[j].state_num)
+                        + " -> " + (myGrammar.states[j].transition_mapping[k].state)
+                        + ' [xlabel="' + (myGrammar.states[j].transition_mapping[k].token)
+                        + '" color = "blue" len = 1.5]');
+                }
+                else {
+                    newDot[0].push((myGrammar.states[j].state_num)
+                        + " -> " + (myGrammar.states[j].transition_mapping[k].state)
+                        + ' [xlabel="' + (myGrammar.states[j].transition_mapping[k].token)
+                        + '" len = 1.5]');
+                }
+            }
+        }
+
+    }
+    newDot[0].push('"}"');
+    console.log(newDot);
+}
+// function transClick(transitionName) {
+//     const newDot = [
+//         [
+//             "digraph {",
+//             'layout="dot"',
+//             'node [style="filled"]',
+//         ],
+//     ];
+//     for (o = 0; o < myGrammar.states.length; o++) {
+
+//         if (myGrammar.states[o].leaf_state == true && myGrammar.states[o].reduce_mapping.length != 0) {
+//             for (let m = 0; m < myGrammar.states[o].reduce_mapping.length; m++) {
+//                 let string = '';
+//                 string += myGrammar.states[o].reduce_mapping[m].token;
+//                 string += ' reduce using ' + myGrammar.states[o].reduce_mapping[m].ruleNum;
+//                 string += ' (' + myGrammar.states[o].reduce_mapping[m].ruleName + ')';
+//             }
+//             newDot[0].push((myGrammar.states[o].state_num)
+//                 + ' [xlabel=\"' + (myGrammar.states[o].currentState)
+//                 + '" fillcolor = "#EE4B2B" tooltip = "'
+//                 + string
+//                 + '"]');
+
+//         }
+//         else {
+//             newDot[0].push((myGrammar.states[o].state_num)
+//                 + ' [xlabel="' + (myGrammar.states[o].currentState)
+//                 + '"]');
+//         }
+
+
+//         if (myGrammar.states[o].shift_mapping.length != 0) {
+//             for (let k = 0; k < myGrammar.states[o].shift_mapping.length; k++) {
+//                 if (transitionName == myGrammar.states[o].shift_mapping.token) {
+//                     newDot[0].push((myGrammar.states[o].state_num)
+//                         + " -> " + (myGrammar.states[o].shift_mapping[k].state)
+//                         + ' [xlabel="' + (myGrammar.states[o].shift_mapping[k].token)
+//                         + '" color = "blue" len = 1.5]');
+//                 }
+//                 else {
+//                     newDot[0].push((myGrammar.states[o].state_num)
+//                         + " -> " + (myGrammar.states[o].shift_mapping[k].state)
+//                         + ' [xlabel="' + (myGrammar.states[o].shift_mapping[k].token)
+//                         + ' len = 1.5]');
+//                 }
+
+//             }
+//         }
+//         if (myGrammar.states[o].transition_mapping.length != 0) {
+//             for (let k = 0; k < myGrammar.states[o].transition_mapping.length; k++) {
+//                 if (transitionName == myGrammar.states[o].shift_mapping.token) {
+//                     newDot[0].push((myGrammar.states[o].state_num)
+//                         + " -> " + (myGrammar.states[o].transition_mapping[k].state)
+//                         + ' [xlabel="' + (myGrammar.states[o].transition_mapping[k].token)
+//                         + '" color = "blue" len = 1.5]');
+//                 }
+//             }
+//         }
+
+//     }
+//     newDot[0].push('"}"');
+//     console.log(transitionName + ' Button Clicked');
+//     console.log("this is transistion")
+//     console.log(newDot);
+// }
+
 
 // const dots = [
 //     [

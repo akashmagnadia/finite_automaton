@@ -70,7 +70,8 @@ function generateStateAndTransitionBtn() {
                     // if selecting a button when nothing else is selected
                     this.className += " btn_active";
                 }
-
+                stateClick(i);
+                console.log(stateButtons[i]);
             });
         }
     }
@@ -167,6 +168,8 @@ function generateStateAndTransitionBtn() {
                         stateCode.className += " code_state_active";
                     }
                 }
+                transClick(transitionName);
+                console.log(transitionName);
             }
         }
     }
