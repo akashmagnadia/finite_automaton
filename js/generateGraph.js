@@ -2,8 +2,12 @@ let dotIndex = 0;
 const graphviz = d3
     .select("#graph")
     .graphviz()
-    .logEvents(false)
-    .on("initEnd", render);
+    .transition(function () {
+        return d3.transition("main")
+            .ease(d3.easeLinear)
+            .duration(1000);
+    })
+    .logEvents(false);
 
 let dotToGraph = null;
 
@@ -11,8 +15,14 @@ function render(dotToGraph) {
     const dotLines = dotToGraph[dotIndex];
     // const dot = dotToGraph.join("");
     const dot = dotLines.join("");
-    graphviz.renderDot(dot).on("end", function () {
-        dotIndex = (dotIndex + 1) % dotToGraph.length;
+    console.log(dot);
+    graphviz
+        .renderDot(dot).on("end", function () {
+            console.log("Finished rendering");
+            // if (dotIndex === 0) {
+            //     dotIndex = 1;
+            //     render(dotToGraph);
+            // }
     });
 }
 
@@ -87,6 +97,56 @@ function dotArray() {
 
 
     dotToGraph = dots;
+
+    // temp - testing
+    // dotToGraph = [
+    //     [
+    //         'digraph  {',
+    //         '    node [style="filled"]',
+    //         '    a [fillcolor="#d62728"]',
+    //         '    c [fillcolor="#2ca02c"]',
+    //         '    b [fillcolor="#1f77b4"]',
+    //         '    a -> b',
+    //         '    a -> c',
+    //         '}'
+    //     ],
+    //     [
+    //         'digraph  {',
+    //         '    node [style="filled"]',
+    //         '    a [fillcolor="#d62728"]',
+    //         '    b [fillcolor="#1f77b4"]',
+    //         '    a -> b',
+    //         '}'
+    //     ],
+    //
+    // ]
+
+    // dotToGraph = [
+    //     [
+    //         "digraph {",
+    //         'layout="dot"',
+    //         'node [style="filled"]',
+    //         '0 [xlabel="Start State" fillcolor = "#EE4B2B" tooltip = "$default reduce using 3 (stmts)"]',
+    //         '1 [xlabel="RETURN"]',
+    //         '2 [xlabel="program"]',
+    //         '3 [xlabel="stmts" fillcolor = "#EE4B2B" tooltip = "$default reduce using 1 (program)"]',
+    //         '4 [xlabel="stmt" fillcolor = "#EE4B2B" tooltip = "$default reduce using 2 (stmts)"]',
+    //         '5 [xlabel="INT_CONSTANT" fillcolor = "#EE4B2B" tooltip = "$default reduce using 5 (exp)"]',
+    //         '6 [xlabel="RETURN exp"]',
+    //         '7 [xlabel="program $end"]',
+    //         '8 [xlabel="RETURN exp SEMICOLON" fillcolor = "#EE4B2B" tooltip = "$default reduce using 4 (stmt)"]',
+    //         '    0 -> 1[label="RETURN" len = 1.5]',
+    //         '    0 -> 2[label="program" len = 1.5]',
+    //         '    0 -> 3[label="stmts" len = 1.5]',
+    //         '    0 -> 4[label="stmt" len = 1.5]',
+    //         '    1 -> 5[label="INT_CONSTANT" len = 1.5]',
+    //         '    1 -> 6[label="exp" len = 1.5]',
+    //         '    2 -> 7[label="$end" len = 1.5]',
+    //         '    6 -> 8[label="SEMICOLON" len = 1.5]',
+    //         "}",
+    //     ]
+    // ]
+
     console.log(dotToGraph);
     render(dotToGraph);
 }
@@ -138,7 +198,7 @@ function stateClick(i) {
         }
     }
 
-    selectedDot[0].push('"}"');
+    selectedDot[0].push("}");
     console.log((myGrammar.states[i].currentState) + ' Button Clicked');
     console.log("this is state")
     // console.log(selectedDot);
@@ -162,20 +222,21 @@ function transClick(transitionName) {
 
         if (myGrammar.states[i].leaf_state == true && myGrammar.states[i].reduce_mapping.length != 0) {
             for (let m = 0; m < myGrammar.states[i].reduce_mapping.length; m++) {
+                string = '';
                 string += myGrammar.states[i].reduce_mapping[m].token;
                 string += ' reduce using ' + myGrammar.states[i].reduce_mapping[m].ruleNum;
                 string += ' (' + myGrammar.states[i].reduce_mapping[m].ruleName + ')';
             }
-            selectedDot[0].push((myGrammar.states[i].state_num)
+            newDot[0].push((myGrammar.states[i].state_num)
                 + ' [xlabel=\"' + (myGrammar.states[i].currentState)
-                + '" fillcolor = "#EE4B2B" tooltip = "'
+                + '\" fillcolor = \"#EE4B2B\" tooltip = \"'
                 + string
-                + '"]');
+                + '\"]');
         }
         else {
             newDot[0].push((myGrammar.states[i].state_num)
-                + ' [xlabel="' + (myGrammar.states[i].currentState)
-                + '"]');
+                + ' [xlabel=\"' + (myGrammar.states[i].currentState)
+                + '\"]');
         }
     }
     for (let j = 0; j < myGrammar.states.length; j++) {
@@ -200,20 +261,23 @@ function transClick(transitionName) {
                 if (transitionName == myGrammar.states[j].transition_mapping[k].token) {
                     newDot[0].push((myGrammar.states[j].state_num)
                         + " -> " + (myGrammar.states[j].transition_mapping[k].state)
-                        + ' [xlabel="' + (myGrammar.states[j].transition_mapping[k].token)
-                        + '" color = "blue" len = 1.5]');
+                        + ' [xlabel=\"' + (myGrammar.states[j].transition_mapping[k].token)
+                        + '\" color = \"blue\" len = 1.5]');
                 }
                 else {
                     newDot[0].push((myGrammar.states[j].state_num)
                         + " -> " + (myGrammar.states[j].transition_mapping[k].state)
-                        + ' [xlabel="' + (myGrammar.states[j].transition_mapping[k].token)
-                        + '" len = 1.5]');
+                        + ' [xlabel=\"' + (myGrammar.states[j].transition_mapping[k].token)
+                        + '\" len = 1.5]');
                 }
             }
         }
 
     }
-    newDot[0].push('"}"');
+    newDot[0].push("}");
+
+    console.log("Transition Click: newdot")
+    render(newDot)
     console.log(newDot);
 }
 // function transClick(transitionName) {

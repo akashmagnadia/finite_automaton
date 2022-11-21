@@ -70,8 +70,6 @@ function generateStateAndTransitionBtn() {
                     // if selecting a button when nothing else is selected
                     this.className += " btn_active";
                 }
-                stateClick(i);
-                console.log(stateButtons[i]);
             });
         }
     }
@@ -104,11 +102,15 @@ function generateStateAndTransitionBtn() {
 
             statesButton.onclick = function () {
 
+                stateClick(statesNum);
+                console.log(statesNum);
+
                 if (statesButton.classList.contains("btn_active")) {
 
                     // if the state button was active then deactivate button and all state
                     unSelectActive("code_screen", "code_state_active");
                     unSelectActive("transitionButtonsGroup", "btn_active");
+                    dotArray();
 
                 } else {
 
@@ -148,6 +150,8 @@ function generateStateAndTransitionBtn() {
                     // if the transition button was active then deactivate button and all state
                     unSelectActive("code_screen", "code_state_active");
                     unSelectActive("stateButtonsGroup", "btn_active");
+
+                    dotArray();
                 } else {
 
                     // if the transition button was active then deactivate button and all state
