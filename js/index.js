@@ -12,17 +12,17 @@ function uploadFile(evt) {
     let reader = new FileReader();
 
     // Closure to capture the file information.
-    reader.onload = (function() {
-        return function(e) {
+    reader.onload = (function () {
+        return function (e) {
             myGrammar = parse_y_output(e.target.result);
 
             // TODO: modify it
             // temporary here for alpha testing
-            if (f.name === "y1.output") {
-                dotToGraph = dots;
-            } else {
-                dotToGraph = dots1;
-            }
+            // if (f.name === "y1.output") {
+            //     dotToGraph = dots;
+            // } else {
+            //     dotToGraph = dots1;
+            // }
         };
     })(f);
 

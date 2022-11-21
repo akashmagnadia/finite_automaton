@@ -44,7 +44,7 @@ class state {
                 this.parsing_shift = true;
             } else if (this.parsed_lines[i].includes("reduce using rule ")) {
                 this.parsing_reduce = true;
-            } else if (this.parsed_lines[i].includes("go to state")){
+            } else if (this.parsed_lines[i].includes("go to state")) {
                 this.parsing_transition = true;
             }
         }
@@ -97,9 +97,9 @@ class state {
             if (this.parsing_shift === true) {
                 const line = this.parsed_lines[i].split("shift, and go to state"); // bullet point is read as question mark
                 this.shift_mapping.push({
-                        token: line[0].trimStart().trimEnd(),
-                        state: parseInt(line[1])
-                    });
+                    token: line[0].trimStart().trimEnd(),
+                    state: parseInt(line[1])
+                });
             }
 
             if (this.parsing_reduce === true) {
@@ -206,7 +206,7 @@ function parse_y_output(parsed_text) {
 
     for (let i = 0; i < arr.length; i++) {
 
-        if (arr[i] === "" && arr[i+1] === "") {
+        if (arr[i] === "" && arr[i + 1] === "") {
             myGrammar.not_parsing_anything();
             i++;
             continue; // we are done with one block if we see two empty spaces
@@ -230,6 +230,8 @@ function parse_y_output(parsed_text) {
     console.log(myGrammar);
     generateHTML_Y_output();
     generateStateAndTransitionBtn();
+    dotArray();
+    // myFunction();
     return myGrammar;
 }
 
