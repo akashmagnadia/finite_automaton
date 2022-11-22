@@ -25,6 +25,7 @@ function defaultDotStarter() {
     return [
         [
             "digraph {",
+            'bgcolor="#eeeeee"',
             'layout="dot"',
             'node [style="filled"]',
         ],
@@ -56,7 +57,7 @@ function dotGeneratorForReduceMapping(i, dots, highLightStateBool) {
         stringToAdd += 'fillcolor = \"#EE4B2B\" tooltip = \"' + string + '\"';
     } else {
         // if not reduce state then color the state gray
-        stringToAdd += 'fillcolor = \"#eeeeee\" ';
+        stringToAdd += 'fillcolor = \"White\" ';
     }
 
     if (highLightStateBool === true) {
