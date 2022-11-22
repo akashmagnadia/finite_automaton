@@ -229,7 +229,23 @@ function parse_y_output(parsed_text) {
     }
 
     console.log(myGrammar);
-    generateEntireGraph();
+
+    // if there are too many states then don't create the entire graph
+    if (myGrammar.states.length > 35) {
+        // by default start off with the start state which is state 0
+        generateGraphForState(0);
+
+        console.log("here");
+        document.getElementById("show_entire_graph_input").checked = false;
+        renderingEntireGraph = false;
+    } else {
+        // start off with the entire graph
+        generateEntireGraph(-1);
+
+        document.getElementById("show_entire_graph_input").checked = true;
+        renderingEntireGraph = true;
+    }
+
     generateHTML_Y_output();
     generateStateAndTransitionBtn();
 }

@@ -113,7 +113,9 @@ function generateStateAndTransitionBtn() {
                     unSelectActive("code_screen", "code_state_active");
                     unSelectActive("transitionButtonsGroup", "btn_active");
 
-                    generateEntireGraph();
+                    if (renderingEntireGraph === true) {
+                        generateEntireGraph(-1);
+                    }
                 } else {
 
                     // if the state button was active then deactivate button and all state
@@ -127,7 +129,11 @@ function generateStateAndTransitionBtn() {
 
                     stateCode.className += " code_state_active";
 
-                    generateGraphForStateOnly(statesNum);
+                    if (renderingEntireGraph === true) {
+                        generateEntireGraph(statesNum);
+                    } else {
+                        generateGraphForState(statesNum);
+                    }
                 }
             };
         }
@@ -154,7 +160,9 @@ function generateStateAndTransitionBtn() {
                     unSelectActive("code_screen", "code_state_active");
                     unSelectActive("stateButtonsGroup", "btn_active");
 
-                    generateEntireGraph();
+                    if (renderingEntireGraph === true) {
+                        generateEntireGraph(-1);
+                    }
                 } else {
 
                     // if the transition button was active then deactivate button and all state
@@ -175,7 +183,9 @@ function generateStateAndTransitionBtn() {
                         stateCode.className += " code_state_active";
                     }
 
-                    generateGraphWithTransition(transitionName);
+                    if (renderingEntireGraph === true) {
+                        generateGraphWithTransition(transitionName);
+                    }
                 }
             }
         }

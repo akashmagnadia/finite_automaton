@@ -21,14 +21,6 @@ function uploadFile(evt) {
     reader.onload = (function() {
         return function(e) {
             parse_y_output(e.target.result);
-
-            // TODO: modify it
-            // temporary here for alpha testing
-            if (f.name === "y1.output") {
-                dotToGraph = dots;
-            } else {
-                dotToGraph = dots1;
-            }
         };
     })(f);
 
