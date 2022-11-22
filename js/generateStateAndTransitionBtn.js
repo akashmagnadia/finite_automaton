@@ -13,7 +13,11 @@ function generateStateAndTransitionBtn() {
         let transitionsToAdd = [];
         let _transitionsToAdd = ['<div class="buttonsName">Transitions: &nbsp;</div>'];
         for (let i = 0; i < myGrammar.states.length; i++) {
-            statesToAdd.push('<button id="btn_State_' + i + '" class="filterButtonGroup">' + myGrammar.states[i].currentState + '</button>');
+            statesToAdd.push(
+                '<button id="btn_State_' + i +
+                '" class="filterButtonGroup">' +
+                myGrammar.states[i].currentState + ' - ' + myGrammar.states[i].state_num +
+                '</button>');
 
             let currState = myGrammar.states[i];
 
