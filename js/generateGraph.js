@@ -1,177 +1,153 @@
 let dotIndex = 0;
+let dotGraphToRender = null;
+
 const graphviz = d3
     .select("#graph")
     .graphviz()
-    .logEvents(false)
-    .on("initEnd", render);
-
-let dotToGraph = null;
+    .transition(function () {
+        return d3.transition("main")
+            .ease(d3.easeLinear)
+            .duration(500);
+    })
+    .logEvents(false);
 
 function render() {
-    const dotLines = dotToGraph[dotIndex];
+    console.log(dotGraphToRender);
+
+    const dotLines = dotGraphToRender[dotIndex];
     const dot = dotLines.join("");
     graphviz.renderDot(dot).on("end", function () {
-        dotIndex = (dotIndex + 1) % dotToGraph.length;
-        // render();
+        console.log("Finished rendering");
     });
 }
 
-const dots = [
-    [
-        "digraph  {",
-        '    label = "y1.output viz"',
-        // '    concentrate=true',
-        // 'rotate = 90',
-        '    layout="neato"',
-        '    node [style="filled"]',
-        // '    layout ="sfdp"',
-        // '    beautify = true',
-        '    0 [xlabel="$accept"]',
-        '    1 [xlabel ="RETURN"]',
-        '    2 [xlabel="$accept"]',
-        '    3 [xlabel="stmts" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    4 [xlabel="stmt" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    5 [xlabel="INT_CONSTANT"]',
-        '    6 [xlabel="exp"]',
-        '    7 [xlabel="$end"]',
-        '    8 [xlabel="SEMICOLON"]',
-        '    9 [xlabel="XOR"]',
-        '    10 [xlabel="LT"]',
-        '    11 [xlabel="LE" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    12 [xlabel="GT" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    13 [xlabel="GE" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    14 [xlabel="NE" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    15 [xlabel="EQ" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
-        '    16 [xlabel="exp" fillcolor="#EE4B2B" tooltip = "$default  reduce using rule 3 (stmts)"]',
+function defaultDotStarter() {
+    return [
+        [
+            "digraph {",
+            'layout="dot"',
+            'node [style="filled"]',
+        ],
+    ]
+}
 
-        '    0 -> 1 [label="RETURN" len=1.5]',
-        '    0 -> 2 [label="program" len=1.5]',
-        '    0 -> 3 [label="stmts" len=1.5]',
-        '    0 -> 4 [label="stmt" len=1.5]',
-        '    1 -> 5 [label="INT_CONSTANT" len=1.5]',
-        '    1 -> 6 [label="exp" len=1.5]',
-        '    2 -> 7 [label="$end" len=1.5]',
-        '    2 -> 9 [label="exp" len=1.5]',
-        '    6 -> 8 [label="SEMICOLON" len=1.5]',
-        '    2 -> 10 [label="$end" len=1.5]',
-        '    9 -> 11 [label="$end" len=1.5]',
-        '    8 -> 15 [label="exp EQ" len=1.5]',
-        '    6 -> 10 [label="exp LT" len=1.5]',
-        '    10 -> 16 [label="exp" len=1.5]',
-        '    8 -> 12 [label="GT" len=1.5]',
-        '    6 -> 13 [label="GE" len=1.5]',
-        '    1 -> 14 [label="NE" len=1.5]',
-        '    7 -> 11 [label="NE" len=1.5]',
-        '    5 -> 14 [label="NE" len=1.5]',
+function dotGeneratorForReduceMapping(i, dots) {
+    if (myGrammar.states[i].leaf_state === true) {
+        let string = '';
 
-        "}",
-    ],
-];
+        // usually only one reduce rule but also taking care of case for when multiple
+        for (let m = 0; m < myGrammar.states[i].reduce_mapping.length; m++) {
+            // if multiple reduce rule then go to the next line
+            if (string !== '') {
+                string += "\n";
+            }
 
-const dots1 = [
-    [
-        "digraph  {",
-        // '    layout="fdp"',
-        '    node [style="filled"]',
-        '    0 [xlabel="$accept"]',
-        '    1 [xlabel="RETURN"]',
-        '    2 [xlabel="WHILE"]',
-        '    3 [xlabel="REPEAT"]',
-        '    4 [xlabel="IF"]',
-        '    5 [xlabel="program"]',
-        '    6 [xlabel="stmts" fillcolor="#EE4B2B" tooltip="reduce using rule 1 (program)"]',
-        '    7 [xlabel="stmt" fillcolor="#EE4B2B" tooltip="reduce using rule 3 (stmts)"]',
-        '    8 [xlabel="INT_CONSTANT" fillcolor="#EE4B2B" tooltip="reduce using rule 8 (exp)"]',
-        '    9 [xlabel="exp"]',
-        '    10 [xlabel="WHILE LEFT_PAR"]',
-        '    11 [xlabel="REPEAT LEFT_PAR"]',
-        '    12 [xlabel="LEFT_PAR"]',
-        '    13 [xlabel="$end"]',
-        '    14 [xlabel="stmt" fillcolor="#EE4B2B" tooltip="reduce using rule 2 (stmts)"]',
-        '    15 [xlabel="SEMICOLON" fillcolor="#EE4B2B" tooltip="reduce using rule 2 (stmts)"]',
-        '    16 [xlabel="exp"]',
-        '    17 [xlabel="exp"]',
-        '    18 [xlabel="exp"]',
-        '    19 [xlabel="RIGHT_PAR"]',
-        '    20 [xlabel="RIGHT_PAR"]',
-        '    21 [xlabel="RIGHT_PAR"]',
-        '    22 [xlabel="LEFT_BRAC"]',
-        '    23 [xlabel="LEFT_BRAC"]',
-        '    24 [xlabel="LEFT_BRAC"]',
-        '    25 [xlabel="stmts"]',
-        '    26 [xlabel="stmts"]',
-        '    27 [xlabel="stmts"]',
-        '    28 [xlabel="RIGHT_BRAC" fillcolor="#EE4B2B" tooltip="reduce using rule 6 (stmts)"]',
-        '    29 [xlabel="RIGHT_BRAC" fillcolor="#EE4B2B" tooltip="reduce using rule 7 (stmts)"]',
-        '    30 [xlabel="RIGHT_BRAC" fillcolor="#EE4B2B" tooltip="reduce using rule 5 (stmts)"]',
-        '    0 -> 1[label="RETURN" len = 1.5]',
-        '    0 -> 2 [label="WHILE" len = 1.5]',
-        '    0 -> 3 [label="REPEAT" len = 1.5]',
-        '    0 -> 4 [label="IF" len = 1.5]',
-        '    0 -> 5 [label="program" len = 1.5]',
-        '    0 -> 6 [label="stmts" len = 1.5]',
-        '    0 -> 7 [label="stmt" len = 1.5]',
-        '    1 -> 8 [label="INT_CONSTANT" len = 1.5]',
-        '    1 -> 9 [label="exp" len = 1.5]',
-        '    2 -> 10 [label="LEFT_PAR" len = 1.5]',
-        '    3 -> 11 [label="LEFT_PAR" len = 1.5]',
-        '    4 -> 12 [label="LEFT_PAR" len = 1.5]',
-        '    5 -> 13 [label="$end" len = 1.5]',
-        '    6 -> 1 [label="RETURN" len = 1.5]',
-        '    6 -> 2 [label="WHILE" len = 1.5]',
-        '    6 -> 3 [label="REPEAT" len = 1.5]',
-        '    6 -> 4 [label="IF" len = 1.5]',
-        '    6 -> 14 [label="stmt" len = 1.5]',
-        '    9 -> 15 [label="SEMICOLON" len = 1.5]',
-        '    10 -> 8 [label="INT_CONSTANT" len = 1.5]',
-        '    10 -> 16 [label="exp" len = 1.5]',
-        '    11 -> 8 [label="INT_CONSTANT" len = 1.5]',
-        '    11 -> 17 [label="exp" len = 1.5]',
-        '    12 -> 8 [label="INT_CONSTANT" len = 1.5]',
-        '    16 -> 19 [label="RIGHT_PAR" len = 1.5]',
-        '    17 -> 20 [label="RIGHT_PAR" len = 1.5]',
-        '    18 -> 21 [label="RIGHT_PAR" len = 1.5]',
-        '    19 -> 22 [label="LEFT_BRAC" len = 1.5]',
-        '    20 -> 23 [label="LEFT_BRAC" len = 1.5]',
-        '    21 -> 24 [label="LEFT_BRAC" len = 1.5]',
-        '    22 -> 1 [label="RETURN" len = 1.5]',
-        '    22 -> 2 [label="WHILE" len = 1.5]',
-        '    22 -> 3 [label="REPEAT" len = 1.5]',
-        '    22 -> 4 [label="IF" len = 1.5]',
-        '    22 -> 25 [label="stmts" len = 1.5]',
-        '    22 -> 7 [label="stmt" len = 1.5]',
-        '    23 -> 1 [label="RETURN" len = 1.5]',
-        '    23 -> 2 [label="WHILE" len = 1.5]',
-        '    23 -> 3 [label="REPEAT" len = 1.5]',
-        '    23 -> 4 [label="IF" len = 1.5]',
-        '    23 -> 26 [label="stmts" len = 1.5]',
-        '    23 -> 7 [label="stmt" len = 1.5]',
-        '    24 -> 1 [label="RETURN" len = 1.5]',
-        '    24 -> 2 [label="WHILE" len = 1.5]',
-        '    24 -> 3 [label="REPEAT" len = 1.5]',
-        '    24 -> 4 [label="IF" len = 1.5]',
-        '    24 -> 27 [label="stmts" len = 1.5]',
-        '    24 -> 7 [label="stmt" len = 1.5]',
-        '    25 -> 1 [label="RETURN" len = 1.5]',
-        '    25 -> 2 [label="WHILE" len = 1.5]',
-        '    25 -> 3 [label="REPEAT" len = 1.5]',
-        '    25 -> 4 [label="IF" len = 1.5]',
-        '    25 -> 28 [label="RIGHT_BRAC" len = 1.5]',
-        '    25 -> 14 [label="stmt" len = 1.5]',
-        '    26 -> 1 [label="RETURN" len = 1.5]',
-        '    26 -> 2 [label="WHILE" len = 1.5]',
-        '    26 -> 3 [label="REPEAT" len = 1.5]',
-        '    26 -> 4 [label="IF" len = 1.5]',
-        '    26 -> 29 [label="RIGHT_BRAC" len = 1.5]',
-        '    26 -> 14 [label="stmt" len = 1.5]',
-        '    27 -> 1 [label="RETURN" len = 1.5]',
-        '    27 -> 2 [label="WHILE" len = 1.5]',
-        '    27 -> 3 [label="REPEAT" len = 1.5]',
-        '    27 -> 4 [label="IF" len = 1.5]',
-        '    27 -> 30 [label="RIGHT_BRAC" len = 1.5]',
-        '    27 -> 14 [label="stmt" len = 1.5]',
-        "}",
-    ],
-];
+            string += myGrammar.states[i].reduce_mapping[m].token;
+            string += ' reduce using ' + myGrammar.states[i].reduce_mapping[m].ruleNum;
+            string += ' (' + myGrammar.states[i].reduce_mapping[m].ruleName + ')';
+        }
 
-dotToGraph = dots;
+        if (myGrammar.states[i].accept_state === true) {
+            string = "$default accept";
+        }
+
+        dots[0].push('' + (myGrammar.states[i].state_num)
+            + ' [xlabel=\"' + (myGrammar.states[i].currentState)
+            + '\" fillcolor = \"#EE4B2B\" tooltip = \"'
+            + string
+            + '\"]');
+
+    } else {
+        dots[0].push('' + (myGrammar.states[i].state_num)
+            + ' [xlabel=\"' + (myGrammar.states[i].currentState)
+            + '\"]');
+    }
+}
+
+function dotGeneratorForShiftMapping(i, dots, transitionToHighlight) {
+    // create transitions for shift states
+    // TODO: make different kind of arrow for shift and add legend for it
+
+    for (let k = 0; k < myGrammar.states[i].shift_mapping.length; k++) {
+
+        // if trying to highlight transition with their color
+        if (transitionToHighlight === myGrammar.states[i].shift_mapping[k].token) {
+
+            dots[0].push('    ' + (myGrammar.states[i].state_num)
+                + ' -> ' + (myGrammar.states[i].shift_mapping[k].state)
+                + '[label=\"' + (myGrammar.states[i].shift_mapping[k].token)
+                + '\" color = "blue" len = 1.5]');
+        } else {
+
+            // if not trying to highlight the transition
+            dots[0].push('    ' + (myGrammar.states[i].state_num)
+                + ' -> ' + (myGrammar.states[i].shift_mapping[k].state)
+                + '[label=\"' + (myGrammar.states[i].shift_mapping[k].token)
+                + '\" len = 1.5]');
+        }
+    }
+}
+
+function dotGeneratorForTransitionMapping(i, dots) {
+    // create transition for regular transitions
+    for (let k = 0; k < myGrammar.states[i].transition_mapping.length; k++) {
+        dots[0].push('    ' + (myGrammar.states[i].state_num)
+            + ' -> ' + (myGrammar.states[i].transition_mapping[k].state)
+            + '[label=\"' + (myGrammar.states[i].transition_mapping[k].token)
+            + '\" len = 1.5]');
+    }
+}
+
+function generateGraph() {
+    const myDotGraph = defaultDotStarter();
+
+    // go through all the states and create reduce states with tooltips
+    for (let i = 0; i < myGrammar.states.length; i++) {
+        dotGeneratorForReduceMapping(i, myDotGraph);
+    }
+
+    // go through all the states
+    for (let i = 0; i < myGrammar.states.length; i++) {
+        dotGeneratorForShiftMapping(i, myDotGraph, "");
+        dotGeneratorForTransitionMapping(i, myDotGraph);
+    }
+
+    // end digraph opening bracket
+    myDotGraph[0].push("}");
+
+    dotGraphToRender = myDotGraph;
+    render();
+}
+
+function stateClick(i) {
+    const myDotGraph = defaultDotStarter();
+
+    dotGeneratorForReduceMapping(i, myDotGraph);
+    dotGeneratorForShiftMapping(i, myDotGraph, "");
+    dotGeneratorForTransitionMapping(i, myDotGraph);
+
+    myDotGraph[0].push("}");
+
+    dotGraphToRender = myDotGraph;
+    render();
+}
+
+function transClick(transitionName) {
+    const myDotGraph = defaultDotStarter();
+
+    // go through all the states and create reduce states with tooltips
+    for (let i = 0; i < myGrammar.states.length; i++) {
+        dotGeneratorForReduceMapping(i, myDotGraph);
+    }
+
+    // go through all the states
+    for (let i = 0; i < myGrammar.states.length; i++) {
+        dotGeneratorForShiftMapping(i, myDotGraph, transitionName);
+        dotGeneratorForTransitionMapping(i, myDotGraph);
+    }
+
+    myDotGraph[0].push("}");
+
+    dotGraphToRender = myDotGraph;
+    render();
+}

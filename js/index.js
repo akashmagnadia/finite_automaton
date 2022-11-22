@@ -1,4 +1,4 @@
-const sampleFileURIName = 'y5.output'; // file to load by default
+const sampleFileURIName = 'y1.output'; // file to load by default
 const sampleFileURI = "../finite_automaton/sample_data_file/" + sampleFileURIName;
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -20,7 +20,7 @@ function uploadFile(evt) {
     // Closure to capture the file information.
     reader.onload = (function() {
         return function(e) {
-            myGrammar = parse_y_output(e.target.result);
+            parse_y_output(e.target.result);
 
             // TODO: modify it
             // temporary here for alpha testing
@@ -40,7 +40,7 @@ function displayCode(fileURI) {
     // initialize with existing file
     fetch(fileURI)
         .then(response => response.text())
-        .then(text => myGrammar = parse_y_output(text))
+        .then(text => parse_y_output(text))
 }
 
 function downloadSampleFile() {

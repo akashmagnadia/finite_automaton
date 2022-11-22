@@ -9,6 +9,7 @@ class state {
 
     start_state = false;
     leaf_state = false;
+    accept_state = false;
 
     parsed_lines = [];
     parsing_l0 = false;
@@ -24,6 +25,10 @@ class state {
 
         if (this.shift_mapping.length === 0 && this.transition_mapping.length === 0) {
             this.leaf_state = true;
+        }
+
+        if (this.reduce_mapping.length === 0 && this.leaf_state === true) {
+            this.accept_state = true;
         }
     }
 
@@ -118,10 +123,6 @@ class state {
                     token: line[0].trimStart().trimEnd(),
                     state: parseInt(line[1])
                 });
-            }
-
-            if (this.shift_mapping.length === 0 && this.transition_mapping.length === 0) {
-                this.leaf_state = true;
             }
         }
     }
@@ -228,9 +229,9 @@ function parse_y_output(parsed_text) {
     }
 
     console.log(myGrammar);
+    generateGraph();
     generateHTML_Y_output();
     generateStateAndTransitionBtn();
-    return myGrammar;
 }
 
 function getStatesWithTransition(transitionName) {
