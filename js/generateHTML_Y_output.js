@@ -115,7 +115,8 @@ function generateHTML_Y_output() {
                     let toPush = states[i].parsed_lines[j];
                     toPush = toPush
                         .replaceAll(" ", "&nbsp;")
-                        .replaceAll("�", "&#x2022;") + '<br>';
+                        .replaceAll("�", "&#x2022;")
+                        .replaceAll("•", "&#x2022;") + '<br>';
 
                     linesToAdd.push(toPush);
                 }

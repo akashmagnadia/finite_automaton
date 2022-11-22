@@ -1,0 +1,336 @@
+Terminals unused in grammar
+
+    VAR
+    FUN
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: stmts
+
+    2 stmts: stmts stmt
+    3      | stmt
+
+    4 stmt: RETURN exp SEMICOLON
+    5     | IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    6     | WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    7     | REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    8 exp: INT_CONSTANT
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    INT_CONSTANT <ival> (258) 8
+    RETURN (259) 4
+    SEMICOLON (260) 4
+    VAR (261)
+    FUN (262)
+    WHILE (263) 6
+    REPEAT (264) 7
+    IF (265) 5
+    LEFT_PAR (266) 5 6 7
+    RIGHT_PAR (267) 5 6 7
+    LEFT_BRAC (268) 5 6 7
+    RIGHT_BRAC (269) 5 6 7
+
+
+Nonterminals, with rules where they appear
+
+    $accept (15)
+        on left: 0
+    program (16)
+        on left: 1
+        on right: 0
+    stmts <stmts> (17)
+        on left: 2 3
+        on right: 1 2 5 6 7
+    stmt <stmt> (18)
+        on left: 4 5 6 7
+        on right: 2 3
+    exp <exp> (19)
+        on left: 8
+        on right: 4 5 6 7
+
+
+State 0
+
+    0 $accept: • program $end
+
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    program  go to state 5
+    stmts    go to state 6
+    stmt     go to state 7
+
+
+State 1
+
+    4 stmt: RETURN • exp SEMICOLON
+
+    INT_CONSTANT  shift, and go to state 8
+
+    exp  go to state 9
+
+
+State 2
+
+    6 stmt: WHILE • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    LEFT_PAR  shift, and go to state 10
+
+
+State 3
+
+    7 stmt: REPEAT • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    LEFT_PAR  shift, and go to state 11
+
+
+State 4
+
+    5 stmt: IF • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    LEFT_PAR  shift, and go to state 12
+
+
+State 5
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 13
+
+
+State 6
+
+    1 program: stmts •
+    2 stmts: stmts • stmt
+
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    $default  reduce using rule 1 (program)
+
+    stmt  go to state 14
+
+
+State 7
+
+    3 stmts: stmt •
+
+    $default  reduce using rule 3 (stmts)
+
+
+State 8
+
+    8 exp: INT_CONSTANT •
+
+    $default  reduce using rule 8 (exp)
+
+
+State 9
+
+    4 stmt: RETURN exp • SEMICOLON
+
+    SEMICOLON  shift, and go to state 15
+
+
+State 10
+
+    6 stmt: WHILE LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    INT_CONSTANT  shift, and go to state 8
+
+    exp  go to state 16
+
+
+State 11
+
+    7 stmt: REPEAT LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    INT_CONSTANT  shift, and go to state 8
+
+    exp  go to state 17
+
+
+State 12
+
+    5 stmt: IF LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    INT_CONSTANT  shift, and go to state 8
+
+    exp  go to state 18
+
+
+State 13
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 14
+
+    2 stmts: stmts stmt •
+
+    $default  reduce using rule 2 (stmts)
+
+
+State 15
+
+    4 stmt: RETURN exp SEMICOLON •
+
+    $default  reduce using rule 4 (stmt)
+
+
+State 16
+
+    6 stmt: WHILE LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    RIGHT_PAR  shift, and go to state 19
+
+
+State 17
+
+    7 stmt: REPEAT LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    RIGHT_PAR  shift, and go to state 20
+
+
+State 18
+
+    5 stmt: IF LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+
+    RIGHT_PAR  shift, and go to state 21
+
+
+State 19
+
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
+
+    LEFT_BRAC  shift, and go to state 22
+
+
+State 20
+
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
+
+    LEFT_BRAC  shift, and go to state 23
+
+
+State 21
+
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
+
+    LEFT_BRAC  shift, and go to state 24
+
+
+State 22
+
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
+
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    stmts  go to state 25
+    stmt   go to state 7
+
+
+State 23
+
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
+
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    stmts  go to state 26
+    stmt   go to state 7
+
+
+State 24
+
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
+
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    stmts  go to state 27
+    stmt   go to state 7
+
+
+State 25
+
+    2 stmts: stmts • stmt
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
+
+    RETURN      shift, and go to state 1
+    WHILE       shift, and go to state 2
+    REPEAT      shift, and go to state 3
+    IF          shift, and go to state 4
+    RIGHT_BRAC  shift, and go to state 28
+
+    stmt  go to state 14
+
+
+State 26
+
+    2 stmts: stmts • stmt
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
+
+    RETURN      shift, and go to state 1
+    WHILE       shift, and go to state 2
+    REPEAT      shift, and go to state 3
+    IF          shift, and go to state 4
+    RIGHT_BRAC  shift, and go to state 29
+
+    stmt  go to state 14
+
+
+State 27
+
+    2 stmts: stmts • stmt
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
+
+    RETURN      shift, and go to state 1
+    WHILE       shift, and go to state 2
+    REPEAT      shift, and go to state 3
+    IF          shift, and go to state 4
+    RIGHT_BRAC  shift, and go to state 30
+
+    stmt  go to state 14
+
+
+State 28
+
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
+
+    $default  reduce using rule 6 (stmt)
+
+
+State 29
+
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
+
+    $default  reduce using rule 7 (stmt)
+
+
+State 30
+
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
+
+    $default  reduce using rule 5 (stmt)

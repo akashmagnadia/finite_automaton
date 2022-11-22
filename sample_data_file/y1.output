@@ -1,19 +1,25 @@
-Terminals unused in grammar
+Nonterminals useless in grammar
 
-    VAR
-    FUN
+    stmts
+
+
+Rules useless in parser due to conflicts
+
+    2 stmt: stmt
+
+
+State 3 conflicts: 1 reduce/reduce
 
 
 Grammar
 
     0 $accept: program $end
 
-    1 program: stmts
+    1 program: stmt
 
-    2 stmts: stmt
-    3      | %empty
-
-    4 stmt: RETURN exp SEMICOLON
+    2 stmt: stmt
+    3     | Îµ
+    4     | RETURN exp SEMICOLON
 
     5 exp: INT_CONSTANT
 
@@ -25,94 +31,84 @@ Terminals, with rules where they appear
     INT_CONSTANT <ival> (258) 5
     RETURN (259) 4
     SEMICOLON (260) 4
-    VAR (261)
-    FUN (262)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (8)
+    $accept (6)
         on left: 0
-    program (9)
+    program (7)
         on left: 1
         on right: 0
-    stmts <stmts> (10)
-        on left: 2 3
-        on right: 1
-    stmt <stmt> (11)
-        on left: 4
-        on right: 2
-    exp <exp> (12)
+    stmt <stmt> (8)
+        on left: 2 3 4
+        on right: 1 2
+    exp <exp> (9)
         on left: 5
         on right: 4
 
 
 State 0
 
-    0 $accept: • program $end
+    0 $accept: â€¢ program $end
 
     RETURN  shift, and go to state 1
 
-    $default  reduce using rule 3 (stmts)
+    $default  reduce using rule 3 (stmt)
 
     program  go to state 2
-    stmts    go to state 3
-    stmt     go to state 4
+    stmt     go to state 3
 
 
 State 1
 
-    4 stmt: RETURN • exp SEMICOLON
+    4 stmt: RETURN â€¢ exp SEMICOLON
 
-    INT_CONSTANT  shift, and go to state 5
+    INT_CONSTANT  shift, and go to state 4
 
-    exp  go to state 6
+    exp  go to state 5
 
 
 State 2
 
-    0 $accept: program • $end
+    0 $accept: program â€¢ $end
 
-    $end  shift, and go to state 7
+    $end  shift, and go to state 6
 
 
 State 3
 
-    1 program: stmts •
+    1 program: stmt â€¢
+    2 stmt: stmt â€¢
 
+    $end      reduce using rule 1 (program)
+    $end      [reduce using rule 2 (stmt)]
     $default  reduce using rule 1 (program)
 
 
 State 4
 
-    2 stmts: stmt •
-
-    $default  reduce using rule 2 (stmts)
-
-
-State 5
-
-    5 exp: INT_CONSTANT •
+    5 exp: INT_CONSTANT â€¢
 
     $default  reduce using rule 5 (exp)
 
 
+State 5
+
+    4 stmt: RETURN exp â€¢ SEMICOLON
+
+    SEMICOLON  shift, and go to state 7
+
+
 State 6
 
-    4 stmt: RETURN exp • SEMICOLON
-
-    SEMICOLON  shift, and go to state 8
-
-
-State 7
-
-    0 $accept: program $end •
+    0 $accept: program $end â€¢
 
     $default  accept
 
 
-State 8
+State 7
 
-    4 stmt: RETURN exp SEMICOLON •
+    4 stmt: RETURN exp SEMICOLON â€¢
 
     $default  reduce using rule 4 (stmt)

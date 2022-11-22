@@ -43,7 +43,8 @@ class state {
 
         // if parsing flag is set to false for all blocks
         if (!((this.parsing_l0 === true || this.parsing_shift === true || this.parsing_reduce === true || this.parsing_transition))) {
-            if (this.parsed_lines[i].includes("�")) {
+            if (this.parsed_lines[i].includes("�") ||
+                this.parsed_lines[i].includes("•")) {
                 this.parsing_l0 = true;
             } else if (this.parsed_lines[i].includes("shift, and go to state")) {
                 this.parsing_shift = true;
@@ -65,8 +66,12 @@ class state {
             }
 
             if (this.parsing_l0 === true) {
-
-                const line = this.parsed_lines[i].split("�"); // bullet point is read as question mark
+                let line = "";
+                if (this.parsed_lines[i].includes("�")) {
+                    line = this.parsed_lines[i].split("�"); // bullet point is read as question mark
+                } else if (this.parsed_lines[i].includes("•")) {
+                    line = this.parsed_lines[i].split("•");
+                }
                 const arr = line[0].trimStart().trimEnd().split(" ");
 
                 if (this.currentState === "") {
