@@ -3,6 +3,12 @@ const sampleFileURI = "../finite_automaton/sample_data_file/" + sampleFileURINam
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
+let renderingEntireGraph = true;
+
+function renderCheckBoxClicked() {
+    renderingEntireGraph = document.getElementById("show_entire_graph_input").checked === true;
+}
+
 function uploadFile(evt) {
     let files = evt.target.files; // FileList object
 
@@ -103,6 +109,5 @@ async function graphAndCodeView() {
 }
 
 document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
-document.getElementById('sample_download-btn').addEventListener('click', downloadSampleFile, false);
 
 displayCode(sampleFileURI);

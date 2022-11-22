@@ -19,8 +19,12 @@
 
     <div id="viewButtons" class="container d-row d-center">
 
+        <label class="btn file_btn show_entire_graph_btn" onclick="renderCheckBoxClicked()">
+            <input type="checkbox" name="checkbox" id="show_entire_graph_input" checked /> Render Entire Graph
+        </label>
+
         <input type="button" hidden/>
-        <label class="btn file_btn" id="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
+        <label onclick="downloadSampleFile()" class="btn file_btn" id="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
 
         <input type="button" hidden/>
         <label onclick="graphOnlyView()" class="btn view_btn" id="graph-btn" for="graph-btn"><i class="fa fa-pagelines"></i> Graph</label>
@@ -33,6 +37,11 @@
 
         <input type="file" accept=".output" id="upload-btn_input" hidden/>
         <label class="btn file_btn" id="upload-btn" for="upload-btn_input"><i class="fa fa-upload"></i> Upload y.output</label>
+
+        <!-- DUMMY mirror button to balance the two sides so that everything centers from teh middle -->
+        <label class="btn file_btn show_entire_graph_btn" style="visibility: hidden;">
+            <input type="checkbox" name="checkbox" checked /> Render Entire Graph
+        </label>
 
     </div>
 
@@ -52,10 +61,10 @@
 </div>
 
 <script src="js/processFile.js" type="text/javascript"></script>
-<script src="js/index.js" type="text/javascript"></script>
 <script src="js/generateGraph.js" type="text/javascript"></script>
 <script src="js/generateHTML_Y_output.js" type="text/javascript"></script>
 <script src="js/generateStateAndTransitionBtn.js" type="text/javascript"></script>
+<script src="js/index.js" type="text/javascript"></script>
 
 </body>
 </html>
