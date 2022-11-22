@@ -229,7 +229,7 @@ function parse_y_output(parsed_text) {
     }
 
     console.log(myGrammar);
-    generateGraph();
+    generateEntireGraph();
     generateHTML_Y_output();
     generateStateAndTransitionBtn();
 }

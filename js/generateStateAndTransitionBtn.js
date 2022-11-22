@@ -113,6 +113,7 @@ function generateStateAndTransitionBtn() {
                     unSelectActive("code_screen", "code_state_active");
                     unSelectActive("transitionButtonsGroup", "btn_active");
 
+                    generateEntireGraph();
                 } else {
 
                     // if the state button was active then deactivate button and all state
@@ -126,6 +127,7 @@ function generateStateAndTransitionBtn() {
 
                     stateCode.className += " code_state_active";
 
+                    generateGraphForStateOnly(statesNum);
                 }
             };
         }
@@ -151,6 +153,8 @@ function generateStateAndTransitionBtn() {
                     // if the transition button was active then deactivate button and all state
                     unSelectActive("code_screen", "code_state_active");
                     unSelectActive("stateButtonsGroup", "btn_active");
+
+                    generateEntireGraph();
                 } else {
 
                     // if the transition button was active then deactivate button and all state
@@ -170,6 +174,8 @@ function generateStateAndTransitionBtn() {
                         let stateCode = document.getElementById("State " + states[j]);
                         stateCode.className += " code_state_active";
                     }
+
+                    generateGraphWithTransition(transitionName);
                 }
             }
         }

@@ -64,41 +64,28 @@ function dotGeneratorForReduceMapping(i, dots) {
     }
 }
 
-function dotGeneratorForShiftMapping(i, dots, transitionToHighlight) {
-    // create transitions for shift states
-    // TODO: make different kind of arrow for shift and add legend for it
-
-    for (let k = 0; k < myGrammar.states[i].shift_mapping.length; k++) {
+function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight, mapping) {
+    for (let k = 0; k < mapping.length; k++) {
 
         // if trying to highlight transition with their color
-        if (transitionToHighlight === myGrammar.states[i].shift_mapping[k].token) {
+        if (transitionToHighlight === mapping[k].token) {
 
             dots[0].push('    ' + (myGrammar.states[i].state_num)
-                + ' -> ' + (myGrammar.states[i].shift_mapping[k].state)
-                + '[label=\"' + (myGrammar.states[i].shift_mapping[k].token)
+                + ' -> ' + (mapping[k].state)
+                + '[label=\"' + (mapping[k].token)
                 + '\" color = "blue" len = 1.5]');
         } else {
 
             // if not trying to highlight the transition
             dots[0].push('    ' + (myGrammar.states[i].state_num)
-                + ' -> ' + (myGrammar.states[i].shift_mapping[k].state)
-                + '[label=\"' + (myGrammar.states[i].shift_mapping[k].token)
+                + ' -> ' + (mapping[k].state)
+                + '[label=\"' + (mapping[k].token)
                 + '\" len = 1.5]');
         }
     }
 }
 
-function dotGeneratorForTransitionMapping(i, dots) {
-    // create transition for regular transitions
-    for (let k = 0; k < myGrammar.states[i].transition_mapping.length; k++) {
-        dots[0].push('    ' + (myGrammar.states[i].state_num)
-            + ' -> ' + (myGrammar.states[i].transition_mapping[k].state)
-            + '[label=\"' + (myGrammar.states[i].transition_mapping[k].token)
-            + '\" len = 1.5]');
-    }
-}
-
-function generateGraph() {
+function generateEntireGraph() {
     const myDotGraph = defaultDotStarter();
 
     // go through all the states and create reduce states with tooltips
@@ -108,8 +95,13 @@ function generateGraph() {
 
     // go through all the states
     for (let i = 0; i < myGrammar.states.length; i++) {
-        dotGeneratorForShiftMapping(i, myDotGraph, "");
-        dotGeneratorForTransitionMapping(i, myDotGraph);
+
+        // create transitions for shift states
+        // TODO: make different kind of arrow for shift and add legend for it
+        dotGeneratorForShift_Transition_Mapping(i, myDotGraph, "", myGrammar.states[i].shift_mapping);
+
+        // create transition for regular transitions
+        dotGeneratorForShift_Transition_Mapping(i, myDotGraph, "", myGrammar.states[i].transition_mapping);
     }
 
     // end digraph opening bracket
@@ -119,12 +111,16 @@ function generateGraph() {
     render();
 }
 
-function stateClick(i) {
+function generateGraphForStateOnly(i) {
     const myDotGraph = defaultDotStarter();
 
     dotGeneratorForReduceMapping(i, myDotGraph);
-    dotGeneratorForShiftMapping(i, myDotGraph, "");
-    dotGeneratorForTransitionMapping(i, myDotGraph);
+
+    // create transitions for shift states
+    dotGeneratorForShift_Transition_Mapping(i, myDotGraph, "", myGrammar.states[i].shift_mapping);
+
+    // create transition for regular transitions
+    dotGeneratorForShift_Transition_Mapping(i, myDotGraph, "", myGrammar.states[i].transition_mapping);
 
     myDotGraph[0].push("}");
 
@@ -132,7 +128,7 @@ function stateClick(i) {
     render();
 }
 
-function transClick(transitionName) {
+function generateGraphWithTransition(transitionName) {
     const myDotGraph = defaultDotStarter();
 
     // go through all the states and create reduce states with tooltips
@@ -142,8 +138,11 @@ function transClick(transitionName) {
 
     // go through all the states
     for (let i = 0; i < myGrammar.states.length; i++) {
-        dotGeneratorForShiftMapping(i, myDotGraph, transitionName);
-        dotGeneratorForTransitionMapping(i, myDotGraph);
+        // create transitions for shift states
+        dotGeneratorForShift_Transition_Mapping(i, myDotGraph, transitionName, myGrammar.states[i].shift_mapping);
+
+        // create transition for regular transitions
+        dotGeneratorForShift_Transition_Mapping(i, myDotGraph, transitionName, myGrammar.states[i].transition_mapping);
     }
 
     myDotGraph[0].push("}");
