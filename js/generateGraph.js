@@ -148,9 +148,22 @@ function generateEntireGraph(stateNumToHighlight) {
 
     // end digraph opening bracket
     myDotGraph[0].push("}");
-
     dotGraphToRender = myDotGraph;
-    render();
+
+    promptForRenderingEntireGraph();
+}
+
+function promptForRenderingEntireGraph() {
+    let checkBoxStatus = document.getElementById("show_entire_graph_input").checked;
+    if (myGrammar.states.length > 50 && checkBoxStatus === true) {
+        if (confirm("Rendering entire graph with " + myGrammar.states.length + " states may take some time. Are you sure you would like proceed?")) {
+            render();
+        } else {
+            document.getElementById("show_entire_graph_input").checked = false;
+        }
+    } else {
+        render();
+    }
 }
 
 function generateGraphForState(i) {
@@ -197,7 +210,7 @@ function generateGraphWithTransition(transitionName) {
     }
 
     myDotGraph[0].push("}");
-
     dotGraphToRender = myDotGraph;
-    render();
+
+    promptForRenderingEntireGraph();
 }

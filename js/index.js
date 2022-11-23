@@ -6,10 +6,11 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 let renderingEntireGraph = true;
 
 function renderCheckBoxClicked() {
+    renderingEntireGraph = document.getElementById("show_entire_graph_input").checked === true;
+
     if (!anyState_Transition_btn_selected()) {
         generateEntireGraph(-1);
     }
-    renderingEntireGraph = document.getElementById("show_entire_graph_input").checked === true;
 }
 
 function uploadFile(evt) {
