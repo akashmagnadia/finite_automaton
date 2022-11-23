@@ -32,10 +32,11 @@ function defaultDotStarter() {
     ]
 }
 
-function dotGeneratorForReduceMapping(i, dots, highLightStateBool) {
+function dotGeneratorForCreatingEachStates(i, dots, highLightStateBool) {
+
     let stringToAdd = '';
 
-    if (myGrammar.states[i].leaf_state === true) {
+    if (myGrammar.states[i].leaf_state) {
         let string = '';
 
         // usually only one reduce rule but also taking care of case for when multiple
@@ -50,25 +51,46 @@ function dotGeneratorForReduceMapping(i, dots, highLightStateBool) {
             string += ' (' + myGrammar.states[i].reduce_mapping[m].ruleName + ')';
         }
 
-        if (myGrammar.states[i].accept_state === true) {
+        if (myGrammar.states[i].accept_state) {
             string = "$default accept";
         }
 
-        stringToAdd += 'fillcolor = \"#EE4B2B\" tooltip = \"' + string + '\"';
+        stringToAdd += 'shape = \"circle\" fillcolor = \"#FFA695\" tooltip = \"' + string + '\"';
+
+    } else if (myGrammar.states[i].start_state) {
+        stringToAdd += 'shape = \"doublecircle\" fillcolor = \"White\" ';
+
     } else {
         // if not reduce state then color the state gray
-        stringToAdd += 'fillcolor = \"White\" ';
+        stringToAdd += 'shape = \"circle\" fillcolor = \"White\" ';
     }
 
-    if (highLightStateBool === true) {
-        stringToAdd += ' color = \"RoyalBlue\" penwidth = 3'
+    if (highLightStateBool) {
+        stringToAdd += ' color = \"RoyalBlue\"';
+        // adding this since it's becoming harder to read the larger the graph gets
+        if (myGrammar.states.length < 20) {
+            stringToAdd += ' penwidth = 3'
+        } else if (myGrammar.states.length < 50) {
+            stringToAdd += ' penwidth = 6'
+        } else {
+            stringToAdd += ' penwidth = 10'
+        }
     }
+
+    // let lineToPush = (myGrammar.states[i].state_num)
+    //     + ' [xlabel=\"' + (myGrammar.states[i].currentState) + '\" '
+    //     + stringToAdd
+    //     + ']';
 
     let lineToPush = (myGrammar.states[i].state_num)
-        + ' [xlabel=\"' + (myGrammar.states[i].currentState) + '\" '
+        + ' ['
         + stringToAdd
         + ']';
     dots[0].push(lineToPush);
+
+    for (let i = 0; i < dots[0].length; i++) {
+        console.log(dots[0][i])
+    }
 }
 
 function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight, mapping, mappingType) {
@@ -107,9 +129,9 @@ function generateEntireGraph(stateNumToHighlight) {
     // go through all the states and create reduce states with tooltips
     for (let i = 0; i < myGrammar.states.length; i++) {
         if (i === stateNumToHighlight) {
-            dotGeneratorForReduceMapping(i, myDotGraph, true);
+            dotGeneratorForCreatingEachStates(i, myDotGraph, true);
         } else {
-            dotGeneratorForReduceMapping(i, myDotGraph, false);
+            dotGeneratorForCreatingEachStates(i, myDotGraph, false);
         }
     }
 
@@ -134,7 +156,16 @@ function generateEntireGraph(stateNumToHighlight) {
 function generateGraphForState(i) {
     const myDotGraph = defaultDotStarter();
 
-    dotGeneratorForReduceMapping(i, myDotGraph, false);
+    dotGeneratorForCreatingEachStates(i, myDotGraph, false);
+
+    for (let j = 0; j < myGrammar.states[i].shift_mapping.length; j++) {
+        dotGeneratorForCreatingEachStates(myGrammar.states[i].shift_mapping[j].state, myDotGraph, false);
+    }
+
+    for (let j = 0; j < myGrammar.states[i].transition_mapping.length; j++) {
+        dotGeneratorForCreatingEachStates(myGrammar.states[i].transition_mapping[j].state, myDotGraph, false);
+    }
+
 
     // create transitions for shift states
     dotGeneratorForShift_Transition_Mapping(i, myDotGraph, "", myGrammar.states[i].shift_mapping, "shift");
@@ -153,7 +184,7 @@ function generateGraphWithTransition(transitionName) {
 
     // go through all the states and create reduce states with tooltips
     for (let i = 0; i < myGrammar.states.length; i++) {
-        dotGeneratorForReduceMapping(i, myDotGraph, false);
+        dotGeneratorForCreatingEachStates(i, myDotGraph, false);
     }
 
     // go through all the states
