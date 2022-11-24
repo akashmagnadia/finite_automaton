@@ -1,66 +1,51 @@
-Terminals unused in grammar
+Nonterminals useless in grammar
 
-    ELSE
-    OTHERWISE
-    OB
-    CB
+    stmts
+
+
+Rules useless in parser due to conflicts
+
+    2 stmt: stmt
+
+
+State 3 conflicts: 1 reduce/reduce
 
 
 Grammar
 
     0 $accept: program $end
 
-    1 program: stmts
+    1 program: stmt
 
-    2 stmts: stmts stmt
-    3      | stmt
+    2 stmt: stmt
+    3     | ε
+    4     | RETURN exp SEMICOLON
 
-    4 stmt: RETURN exp SEMICOLON
-    5     | IF OP exp CP OBK stmts CBK
-    6     | WHILE OP exp CP OBK stmts CBK
-    7     | REPEAT OP exp CP OBK stmts CBK
-    8     | OBK stmts CBK
-
-    9 exp: INT_CONSTANT
-   10    | OP exp CP
+    5 exp: INT_CONSTANT
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    INT_CONSTANT <ival> (258) 9
+    INT_CONSTANT <ival> (258) 5
     RETURN (259) 4
     SEMICOLON (260) 4
-    IF (261) 5
-    ELSE (262)
-    WHILE (263) 6
-    REPEAT (264) 7
-    OTHERWISE (265)
-    OB (266)
-    CB (267)
-    OP (268) 5 6 7 10
-    CP (269) 5 6 7 10
-    OBK (270) 5 6 7 8
-    CBK (271) 5 6 7 8
 
 
 Nonterminals, with rules where they appear
 
-    $accept (17)
+    $accept (6)
         on left: 0
-    program (18)
+    program (7)
         on left: 1
         on right: 0
-    stmts <stmts> (19)
-        on left: 2 3
-        on right: 1 2 5 6 7 8
-    stmt <stmt> (20)
-        on left: 4 5 6 7 8
-        on right: 2 3
-    exp <exp> (21)
-        on left: 9 10
-        on right: 4 5 6 7 10
+    stmt <stmt> (8)
+        on left: 2 3 4
+        on right: 1 2
+    exp <exp> (9)
+        on left: 5
+        on right: 4
 
 
 State 0
@@ -68,347 +53,62 @@ State 0
     0 $accept: • program $end
 
     RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
 
-    program  go to state 6
-    stmts    go to state 7
-    stmt     go to state 8
+    $default  reduce using rule 3 (stmt)
+
+    program  go to state 2
+    stmt     go to state 3
 
 
 State 1
 
     4 stmt: RETURN • exp SEMICOLON
 
-    INT_CONSTANT  shift, and go to state 9
-    OP            shift, and go to state 10
+    INT_CONSTANT  shift, and go to state 4
 
-    exp  go to state 11
+    exp  go to state 5
 
 
 State 2
 
-    5 stmt: IF • OP exp CP OBK stmts CBK
+    0 $accept: program • $end
 
-    OP  shift, and go to state 12
+    $end  shift, and go to state 6
 
 
 State 3
 
-    6 stmt: WHILE • OP exp CP OBK stmts CBK
+    1 program: stmt •
+    2 stmt: stmt •
 
-    OP  shift, and go to state 13
+    $end      reduce using rule 1 (program)
+    $end      [reduce using rule 2 (stmt)]
+    $default  reduce using rule 1 (program)
 
 
 State 4
 
-    7 stmt: REPEAT • OP exp CP OBK stmts CBK
+    5 exp: INT_CONSTANT •
 
-    OP  shift, and go to state 14
+    $default  reduce using rule 5 (exp)
 
 
 State 5
 
-    8 stmt: OBK • stmts CBK
+    4 stmt: RETURN exp • SEMICOLON
 
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-
-    stmts  go to state 15
-    stmt   go to state 8
+    SEMICOLON  shift, and go to state 7
 
 
 State 6
-
-    0 $accept: program • $end
-
-    $end  shift, and go to state 16
-
-
-State 7
-
-    1 program: stmts •
-    2 stmts: stmts • stmt
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-
-    $default  reduce using rule 1 (program)
-
-    stmt  go to state 17
-
-
-State 8
-
-    3 stmts: stmt •
-
-    $default  reduce using rule 3 (stmts)
-
-
-State 9
-
-    9 exp: INT_CONSTANT •
-
-    $default  reduce using rule 9 (exp)
-
-
-State 10
-
-   10 exp: OP • exp CP
-
-    INT_CONSTANT  shift, and go to state 9
-    OP            shift, and go to state 10
-
-    exp  go to state 18
-
-
-State 11
-
-    4 stmt: RETURN exp • SEMICOLON
-
-    SEMICOLON  shift, and go to state 19
-
-
-State 12
-
-    5 stmt: IF OP • exp CP OBK stmts CBK
-
-    INT_CONSTANT  shift, and go to state 9
-    OP            shift, and go to state 10
-
-    exp  go to state 20
-
-
-State 13
-
-    6 stmt: WHILE OP • exp CP OBK stmts CBK
-
-    INT_CONSTANT  shift, and go to state 9
-    OP            shift, and go to state 10
-
-    exp  go to state 21
-
-
-State 14
-
-    7 stmt: REPEAT OP • exp CP OBK stmts CBK
-
-    INT_CONSTANT  shift, and go to state 9
-    OP            shift, and go to state 10
-
-    exp  go to state 22
-
-
-State 15
-
-    2 stmts: stmts • stmt
-    8 stmt: OBK stmts • CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-    CBK     shift, and go to state 23
-
-    stmt  go to state 17
-
-
-State 16
 
     0 $accept: program $end •
 
     $default  accept
 
 
-State 17
-
-    2 stmts: stmts stmt •
-
-    $default  reduce using rule 2 (stmts)
-
-
-State 18
-
-   10 exp: OP exp • CP
-
-    CP  shift, and go to state 24
-
-
-State 19
+State 7
 
     4 stmt: RETURN exp SEMICOLON •
 
     $default  reduce using rule 4 (stmt)
-
-
-State 20
-
-    5 stmt: IF OP exp • CP OBK stmts CBK
-
-    CP  shift, and go to state 25
-
-
-State 21
-
-    6 stmt: WHILE OP exp • CP OBK stmts CBK
-
-    CP  shift, and go to state 26
-
-
-State 22
-
-    7 stmt: REPEAT OP exp • CP OBK stmts CBK
-
-    CP  shift, and go to state 27
-
-
-State 23
-
-    8 stmt: OBK stmts CBK •
-
-    $default  reduce using rule 8 (stmt)
-
-
-State 24
-
-   10 exp: OP exp CP •
-
-    $default  reduce using rule 10 (exp)
-
-
-State 25
-
-    5 stmt: IF OP exp CP • OBK stmts CBK
-
-    OBK  shift, and go to state 28
-
-
-State 26
-
-    6 stmt: WHILE OP exp CP • OBK stmts CBK
-
-    OBK  shift, and go to state 29
-
-
-State 27
-
-    7 stmt: REPEAT OP exp CP • OBK stmts CBK
-
-    OBK  shift, and go to state 30
-
-
-State 28
-
-    5 stmt: IF OP exp CP OBK • stmts CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-
-    stmts  go to state 31
-    stmt   go to state 8
-
-
-State 29
-
-    6 stmt: WHILE OP exp CP OBK • stmts CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-
-    stmts  go to state 32
-    stmt   go to state 8
-
-
-State 30
-
-    7 stmt: REPEAT OP exp CP OBK • stmts CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-
-    stmts  go to state 33
-    stmt   go to state 8
-
-
-State 31
-
-    2 stmts: stmts • stmt
-    5 stmt: IF OP exp CP OBK stmts • CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-    CBK     shift, and go to state 34
-
-    stmt  go to state 17
-
-
-State 32
-
-    2 stmts: stmts • stmt
-    6 stmt: WHILE OP exp CP OBK stmts • CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-    CBK     shift, and go to state 35
-
-    stmt  go to state 17
-
-
-State 33
-
-    2 stmts: stmts • stmt
-    7 stmt: REPEAT OP exp CP OBK stmts • CBK
-
-    RETURN  shift, and go to state 1
-    IF      shift, and go to state 2
-    WHILE   shift, and go to state 3
-    REPEAT  shift, and go to state 4
-    OBK     shift, and go to state 5
-    CBK     shift, and go to state 36
-
-    stmt  go to state 17
-
-
-State 34
-
-    5 stmt: IF OP exp CP OBK stmts CBK •
-
-    $default  reduce using rule 5 (stmt)
-
-
-State 35
-
-    6 stmt: WHILE OP exp CP OBK stmts CBK •
-
-    $default  reduce using rule 6 (stmt)
-
-
-State 36
-
-    7 stmt: REPEAT OP exp CP OBK stmts CBK •
-
-    $default  reduce using rule 7 (stmt)

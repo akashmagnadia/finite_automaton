@@ -1,1552 +1,1643 @@
 Terminals unused in grammar
 
+    VAR
     FUN
-    LEFT_SQR_BRAC
-    RIGHT_SQR_BRAC
+
+
+State 16 conflicts: 16 shift/reduce
+State 37 conflicts: 16 shift/reduce
+State 38 conflicts: 16 shift/reduce
+State 39 conflicts: 16 shift/reduce
+State 40 conflicts: 16 shift/reduce
+State 41 conflicts: 16 shift/reduce
+State 42 conflicts: 16 shift/reduce
+State 43 conflicts: 16 shift/reduce
+State 44 conflicts: 16 shift/reduce
+State 45 conflicts: 16 shift/reduce
+State 46 conflicts: 16 shift/reduce
+State 47 conflicts: 16 shift/reduce
+State 48 conflicts: 16 shift/reduce
+State 49 conflicts: 16 shift/reduce
+State 50 conflicts: 16 shift/reduce
+State 51 conflicts: 16 shift/reduce
+State 52 conflicts: 16 shift/reduce
 
 
 Grammar
 
     0 $accept: program $end
 
-    1 program: vars stmts
-    2        | vars
-    3        | stmts
+    1 program: stmts
 
-    4 stmts: stmts stmt
-    5      | stmt
+    2 stmts: stmts stmt
+    3      | stmt
 
-    6 vars: vars var
-    7     | var
+    4 stmt: RETURN exp SEMICOLON
+    5     | IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    6     | WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    7     | REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    8 stmt: RETURN exp SEMICOLON
-    9     | IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-   10     | WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-   11     | REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-   12     | NAME ASSIGN exp SEMICOLON
-
-   13 var: VAR NAME TYPE ASSIGN exp SEMICOLON
-
-   14 exp: INT_CONSTANT
-   15    | NOT exp
-   16    | exp MUL exp
-   17    | exp DIV exp
-   18    | exp REM exp
-   19    | exp PLUS exp
-   20    | exp MINUS exp
-   21    | exp LT exp
-   22    | exp LE exp
-   23    | exp GT exp
-   24    | exp GE exp
-   25    | exp EQ exp
-   26    | exp NE exp
-   27    | exp BAND exp
-   28    | exp XOR exp
-   29    | exp BOR exp
-   30    | exp AND exp
-   31    | exp OR exp
-   32    | LEFT_PAR exp RIGHT_PAR
-   33    | NAME
-   34    | STRING
+    8 exp: INT_CONSTANT
+    9    | exp PLUS exp
+   10    | exp MINUS exp
+   11    | exp MUL exp
+   12    | exp DIV exp
+   13    | exp REM exp
+   14    | exp BOR exp
+   15    | exp BAND exp
+   16    | exp AND exp
+   17    | exp OR exp
+   18    | exp XOR exp
+   19    | exp LT exp
+   20    | exp GT exp
+   21    | exp LE exp
+   22    | exp GE exp
+   23    | exp NE exp
+   24    | exp EQ exp
+   25    | NOT exp
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    INT_CONSTANT <ival> (258) 14
-    NAME <varName> (259) 12 13 33
-    TYPE <varType> (260) 13
-    STRING <string> (261) 34
-    RETURN (262) 8
-    SEMICOLON (263) 8 12 13
-    VAR (264) 13
-    FUN (265)
-    WHILE (266) 10
-    REPEAT (267) 11
-    IF (268) 9
-    LEFT_PAR (269) 9 10 11 32
-    RIGHT_PAR (270) 9 10 11 32
-    LEFT_BRAC (271) 9 10 11
-    RIGHT_BRAC (272) 9 10 11
-    LEFT_SQR_BRAC (273)
-    RIGHT_SQR_BRAC (274)
-    PLUS (275) 19
-    MINUS (276) 20
-    MUL (277) 16
-    DIV (278) 17
-    REM (279) 18
-    BOR (280) 29
-    BAND (281) 27
-    AND (282) 30
-    OR (283) 31
-    XOR (284) 28
-    LT (285) 21
-    LE (286) 22
-    GT (287) 23
-    GE (288) 24
-    NE (289) 26
-    EQ (290) 25
-    NOT (291) 15
-    ASSIGN (292) 12 13
+    INT_CONSTANT <ival> (258) 8
+    RETURN (259) 4
+    SEMICOLON (260) 4
+    VAR (261)
+    FUN (262)
+    WHILE (263) 6
+    REPEAT (264) 7
+    IF (265) 5
+    LEFT_PAR (266) 5 6 7
+    RIGHT_PAR (267) 5 6 7
+    LEFT_BRAC (268) 5 6 7
+    RIGHT_BRAC (269) 5 6 7
+    PLUS (270) 9
+    MINUS (271) 10
+    MUL (272) 11
+    DIV (273) 12
+    REM (274) 13
+    BOR (275) 14
+    BAND (276) 15
+    AND (277) 16
+    OR (278) 17
+    XOR (279) 18
+    LT (280) 19
+    LE (281) 21
+    GT (282) 20
+    GE (283) 22
+    NE (284) 23
+    EQ (285) 24
+    NOT (286) 25
 
 
 Nonterminals, with rules where they appear
 
-    $accept (38)
+    $accept (32)
         on left: 0
-    program (39)
-        on left: 1 2 3
+    program (33)
+        on left: 1
         on right: 0
-    stmts <stmts> (40)
-        on left: 4 5
-        on right: 1 3 4 9 10 11
-    vars <vars> (41)
-        on left: 6 7
-        on right: 1 2 6
-    stmt <stmt> (42)
-        on left: 8 9 10 11 12
-        on right: 4 5
-    var <vars> (43)
-        on left: 13
-        on right: 6 7
-    exp <exp> (44)
-        on left: 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34
-        on right: 8 9 10 11 12 13 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32
+    stmts <stmts> (34)
+        on left: 2 3
+        on right: 1 2 5 6 7
+    stmt <stmt> (35)
+        on left: 4 5 6 7
+        on right: 2 3
+    exp <exp> (36)
+        on left: 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+        on right: 4 5 6 7 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
 
 
 State 0
 
     0 $accept: • program $end
 
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    VAR     shift, and go to state 3
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
 
-    program  go to state 7
-    stmts    go to state 8
-    vars     go to state 9
-    stmt     go to state 10
-    var      go to state 11
+    program  go to state 5
+    stmts    go to state 6
+    stmt     go to state 7
 
 
 State 1
 
-   12 stmt: NAME • ASSIGN exp SEMICOLON
+    4 stmt: RETURN • exp SEMICOLON
 
-    ASSIGN  shift, and go to state 12
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 10
 
 
 State 2
 
-    8 stmt: RETURN • exp SEMICOLON
+    6 stmt: WHILE • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 18
+    LEFT_PAR  shift, and go to state 11
 
 
 State 3
 
-   13 var: VAR • NAME TYPE ASSIGN exp SEMICOLON
+    7 stmt: REPEAT • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    NAME  shift, and go to state 19
+    LEFT_PAR  shift, and go to state 12
 
 
 State 4
 
-   10 stmt: WHILE • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    5 stmt: IF • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    LEFT_PAR  shift, and go to state 20
+    LEFT_PAR  shift, and go to state 13
 
 
 State 5
 
-   11 stmt: REPEAT • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    0 $accept: program • $end
 
-    LEFT_PAR  shift, and go to state 21
+    $end  shift, and go to state 14
 
 
 State 6
 
-    9 stmt: IF • LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    1 program: stmts •
+    2 stmts: stmts • stmt
 
-    LEFT_PAR  shift, and go to state 22
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    $default  reduce using rule 1 (program)
+
+    stmt  go to state 15
 
 
 State 7
 
-    0 $accept: program • $end
+    3 stmts: stmt •
 
-    $end  shift, and go to state 23
+    $default  reduce using rule 3 (stmts)
 
 
 State 8
 
-    3 program: stmts •
-    4 stmts: stmts • stmt
+    8 exp: INT_CONSTANT •
 
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
-
-    $default  reduce using rule 3 (program)
-
-    stmt  go to state 24
+    $default  reduce using rule 8 (exp)
 
 
 State 9
 
-    1 program: vars • stmts
-    2        | vars •
-    6 vars: vars • var
+   25 exp: NOT • exp
 
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    VAR     shift, and go to state 3
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
 
-    $default  reduce using rule 2 (program)
-
-    stmts  go to state 25
-    stmt   go to state 10
-    var    go to state 26
+    exp  go to state 16
 
 
 State 10
 
-    5 stmts: stmt •
+    4 stmt: RETURN exp • SEMICOLON
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    $default  reduce using rule 5 (stmts)
+    SEMICOLON  shift, and go to state 17
+    PLUS       shift, and go to state 18
+    MINUS      shift, and go to state 19
+    MUL        shift, and go to state 20
+    DIV        shift, and go to state 21
+    REM        shift, and go to state 22
+    BOR        shift, and go to state 23
+    BAND       shift, and go to state 24
+    AND        shift, and go to state 25
+    OR         shift, and go to state 26
+    XOR        shift, and go to state 27
+    LT         shift, and go to state 28
+    LE         shift, and go to state 29
+    GT         shift, and go to state 30
+    GE         shift, and go to state 31
+    NE         shift, and go to state 32
+    EQ         shift, and go to state 33
 
 
 State 11
 
-    7 vars: var •
+    6 stmt: WHILE LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    $default  reduce using rule 7 (vars)
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 34
 
 
 State 12
 
-   12 stmt: NAME ASSIGN • exp SEMICOLON
+    7 stmt: REPEAT LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
 
-    exp  go to state 27
+    exp  go to state 35
 
 
 State 13
 
-   14 exp: INT_CONSTANT •
+    5 stmt: IF LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
 
-    $default  reduce using rule 14 (exp)
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 36
 
 
 State 14
-
-   33 exp: NAME •
-
-    $default  reduce using rule 33 (exp)
-
-
-State 15
-
-   34 exp: STRING •
-
-    $default  reduce using rule 34 (exp)
-
-
-State 16
-
-   32 exp: LEFT_PAR • exp RIGHT_PAR
-
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 28
-
-
-State 17
-
-   15 exp: NOT • exp
-
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 29
-
-
-State 18
-
-    8 stmt: RETURN exp • SEMICOLON
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-
-    SEMICOLON  shift, and go to state 30
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
-
-
-State 19
-
-   13 var: VAR NAME • TYPE ASSIGN exp SEMICOLON
-
-    TYPE  shift, and go to state 47
-
-
-State 20
-
-   10 stmt: WHILE LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 48
-
-
-State 21
-
-   11 stmt: REPEAT LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 49
-
-
-State 22
-
-    9 stmt: IF LEFT_PAR • exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 50
-
-
-State 23
 
     0 $accept: program $end •
 
     $default  accept
 
 
+State 15
+
+    2 stmts: stmts stmt •
+
+    $default  reduce using rule 2 (stmts)
+
+
+State 16
+
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
+   25    | NOT exp •
+
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 25 (exp)]
+    MINUS     [reduce using rule 25 (exp)]
+    MUL       [reduce using rule 25 (exp)]
+    DIV       [reduce using rule 25 (exp)]
+    REM       [reduce using rule 25 (exp)]
+    BOR       [reduce using rule 25 (exp)]
+    BAND      [reduce using rule 25 (exp)]
+    AND       [reduce using rule 25 (exp)]
+    OR        [reduce using rule 25 (exp)]
+    XOR       [reduce using rule 25 (exp)]
+    LT        [reduce using rule 25 (exp)]
+    LE        [reduce using rule 25 (exp)]
+    GT        [reduce using rule 25 (exp)]
+    GE        [reduce using rule 25 (exp)]
+    NE        [reduce using rule 25 (exp)]
+    EQ        [reduce using rule 25 (exp)]
+    $default  reduce using rule 25 (exp)
+
+
+State 17
+
+    4 stmt: RETURN exp SEMICOLON •
+
+    $default  reduce using rule 4 (stmt)
+
+
+State 18
+
+    9 exp: exp PLUS • exp
+
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 37
+
+
+State 19
+
+   10 exp: exp MINUS • exp
+
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 38
+
+
+State 20
+
+   11 exp: exp MUL • exp
+
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 39
+
+
+State 21
+
+   12 exp: exp DIV • exp
+
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 40
+
+
+State 22
+
+   13 exp: exp REM • exp
+
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 41
+
+
+State 23
+
+   14 exp: exp BOR • exp
+
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 42
+
+
 State 24
 
-    4 stmts: stmts stmt •
+   15 exp: exp BAND • exp
 
-    $default  reduce using rule 4 (stmts)
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 43
 
 
 State 25
 
-    1 program: vars stmts •
-    4 stmts: stmts • stmt
+   16 exp: exp AND • exp
 
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
 
-    $default  reduce using rule 1 (program)
-
-    stmt  go to state 24
+    exp  go to state 44
 
 
 State 26
 
-    6 vars: vars var •
+   17 exp: exp OR • exp
 
-    $default  reduce using rule 6 (vars)
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 45
 
 
 State 27
 
-   12 stmt: NAME ASSIGN exp • SEMICOLON
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+   18 exp: exp XOR • exp
 
-    SEMICOLON  shift, and go to state 51
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 46
 
 
 State 28
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-   32    | LEFT_PAR exp • RIGHT_PAR
+   19 exp: exp LT • exp
 
-    RIGHT_PAR  shift, and go to state 52
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 47
 
 
 State 29
 
-   15 exp: NOT exp •
-   16    | exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+   21 exp: exp LE • exp
 
-    $default  reduce using rule 15 (exp)
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 48
 
 
 State 30
 
-    8 stmt: RETURN exp SEMICOLON •
+   20 exp: exp GT • exp
 
-    $default  reduce using rule 8 (stmt)
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
+
+    exp  go to state 49
 
 
 State 31
 
-   19 exp: exp PLUS • exp
+   22 exp: exp GE • exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
 
-    exp  go to state 53
+    exp  go to state 50
 
 
 State 32
 
-   20 exp: exp MINUS • exp
+   23 exp: exp NE • exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
 
-    exp  go to state 54
+    exp  go to state 51
 
 
 State 33
 
-   16 exp: exp MUL • exp
+   24 exp: exp EQ • exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    INT_CONSTANT  shift, and go to state 8
+    NOT           shift, and go to state 9
 
-    exp  go to state 55
+    exp  go to state 52
 
 
 State 34
 
-   17 exp: exp DIV • exp
+    6 stmt: WHILE LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 56
+    RIGHT_PAR  shift, and go to state 53
+    PLUS       shift, and go to state 18
+    MINUS      shift, and go to state 19
+    MUL        shift, and go to state 20
+    DIV        shift, and go to state 21
+    REM        shift, and go to state 22
+    BOR        shift, and go to state 23
+    BAND       shift, and go to state 24
+    AND        shift, and go to state 25
+    OR         shift, and go to state 26
+    XOR        shift, and go to state 27
+    LT         shift, and go to state 28
+    LE         shift, and go to state 29
+    GT         shift, and go to state 30
+    GE         shift, and go to state 31
+    NE         shift, and go to state 32
+    EQ         shift, and go to state 33
 
 
 State 35
 
-   18 exp: exp REM • exp
+    7 stmt: REPEAT LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 57
+    RIGHT_PAR  shift, and go to state 54
+    PLUS       shift, and go to state 18
+    MINUS      shift, and go to state 19
+    MUL        shift, and go to state 20
+    DIV        shift, and go to state 21
+    REM        shift, and go to state 22
+    BOR        shift, and go to state 23
+    BAND       shift, and go to state 24
+    AND        shift, and go to state 25
+    OR         shift, and go to state 26
+    XOR        shift, and go to state 27
+    LT         shift, and go to state 28
+    LE         shift, and go to state 29
+    GT         shift, and go to state 30
+    GE         shift, and go to state 31
+    NE         shift, and go to state 32
+    EQ         shift, and go to state 33
 
 
 State 36
 
-   29 exp: exp BOR • exp
+    5 stmt: IF LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 58
+    RIGHT_PAR  shift, and go to state 55
+    PLUS       shift, and go to state 18
+    MINUS      shift, and go to state 19
+    MUL        shift, and go to state 20
+    DIV        shift, and go to state 21
+    REM        shift, and go to state 22
+    BOR        shift, and go to state 23
+    BAND       shift, and go to state 24
+    AND        shift, and go to state 25
+    OR         shift, and go to state 26
+    XOR        shift, and go to state 27
+    LT         shift, and go to state 28
+    LE         shift, and go to state 29
+    GT         shift, and go to state 30
+    GE         shift, and go to state 31
+    NE         shift, and go to state 32
+    EQ         shift, and go to state 33
 
 
 State 37
 
-   27 exp: exp BAND • exp
+    9 exp: exp • PLUS exp
+    9    | exp PLUS exp •
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 59
+    PLUS      [reduce using rule 9 (exp)]
+    MINUS     [reduce using rule 9 (exp)]
+    MUL       [reduce using rule 9 (exp)]
+    DIV       [reduce using rule 9 (exp)]
+    REM       [reduce using rule 9 (exp)]
+    BOR       [reduce using rule 9 (exp)]
+    BAND      [reduce using rule 9 (exp)]
+    AND       [reduce using rule 9 (exp)]
+    OR        [reduce using rule 9 (exp)]
+    XOR       [reduce using rule 9 (exp)]
+    LT        [reduce using rule 9 (exp)]
+    LE        [reduce using rule 9 (exp)]
+    GT        [reduce using rule 9 (exp)]
+    GE        [reduce using rule 9 (exp)]
+    NE        [reduce using rule 9 (exp)]
+    EQ        [reduce using rule 9 (exp)]
+    $default  reduce using rule 9 (exp)
 
 
 State 38
 
-   30 exp: exp AND • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   10    | exp MINUS exp •
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 60
+    PLUS      [reduce using rule 10 (exp)]
+    MINUS     [reduce using rule 10 (exp)]
+    MUL       [reduce using rule 10 (exp)]
+    DIV       [reduce using rule 10 (exp)]
+    REM       [reduce using rule 10 (exp)]
+    BOR       [reduce using rule 10 (exp)]
+    BAND      [reduce using rule 10 (exp)]
+    AND       [reduce using rule 10 (exp)]
+    OR        [reduce using rule 10 (exp)]
+    XOR       [reduce using rule 10 (exp)]
+    LT        [reduce using rule 10 (exp)]
+    LE        [reduce using rule 10 (exp)]
+    GT        [reduce using rule 10 (exp)]
+    GE        [reduce using rule 10 (exp)]
+    NE        [reduce using rule 10 (exp)]
+    EQ        [reduce using rule 10 (exp)]
+    $default  reduce using rule 10 (exp)
 
 
 State 39
 
-   31 exp: exp OR • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   11    | exp MUL exp •
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 61
+    PLUS      [reduce using rule 11 (exp)]
+    MINUS     [reduce using rule 11 (exp)]
+    MUL       [reduce using rule 11 (exp)]
+    DIV       [reduce using rule 11 (exp)]
+    REM       [reduce using rule 11 (exp)]
+    BOR       [reduce using rule 11 (exp)]
+    BAND      [reduce using rule 11 (exp)]
+    AND       [reduce using rule 11 (exp)]
+    OR        [reduce using rule 11 (exp)]
+    XOR       [reduce using rule 11 (exp)]
+    LT        [reduce using rule 11 (exp)]
+    LE        [reduce using rule 11 (exp)]
+    GT        [reduce using rule 11 (exp)]
+    GE        [reduce using rule 11 (exp)]
+    NE        [reduce using rule 11 (exp)]
+    EQ        [reduce using rule 11 (exp)]
+    $default  reduce using rule 11 (exp)
 
 
 State 40
 
-   28 exp: exp XOR • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   12    | exp DIV exp •
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 62
+    PLUS      [reduce using rule 12 (exp)]
+    MINUS     [reduce using rule 12 (exp)]
+    MUL       [reduce using rule 12 (exp)]
+    DIV       [reduce using rule 12 (exp)]
+    REM       [reduce using rule 12 (exp)]
+    BOR       [reduce using rule 12 (exp)]
+    BAND      [reduce using rule 12 (exp)]
+    AND       [reduce using rule 12 (exp)]
+    OR        [reduce using rule 12 (exp)]
+    XOR       [reduce using rule 12 (exp)]
+    LT        [reduce using rule 12 (exp)]
+    LE        [reduce using rule 12 (exp)]
+    GT        [reduce using rule 12 (exp)]
+    GE        [reduce using rule 12 (exp)]
+    NE        [reduce using rule 12 (exp)]
+    EQ        [reduce using rule 12 (exp)]
+    $default  reduce using rule 12 (exp)
 
 
 State 41
 
-   21 exp: exp LT • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   13    | exp REM exp •
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 63
+    PLUS      [reduce using rule 13 (exp)]
+    MINUS     [reduce using rule 13 (exp)]
+    MUL       [reduce using rule 13 (exp)]
+    DIV       [reduce using rule 13 (exp)]
+    REM       [reduce using rule 13 (exp)]
+    BOR       [reduce using rule 13 (exp)]
+    BAND      [reduce using rule 13 (exp)]
+    AND       [reduce using rule 13 (exp)]
+    OR        [reduce using rule 13 (exp)]
+    XOR       [reduce using rule 13 (exp)]
+    LT        [reduce using rule 13 (exp)]
+    LE        [reduce using rule 13 (exp)]
+    GT        [reduce using rule 13 (exp)]
+    GE        [reduce using rule 13 (exp)]
+    NE        [reduce using rule 13 (exp)]
+    EQ        [reduce using rule 13 (exp)]
+    $default  reduce using rule 13 (exp)
 
 
 State 42
 
-   22 exp: exp LE • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   14    | exp BOR exp •
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 64
+    PLUS      [reduce using rule 14 (exp)]
+    MINUS     [reduce using rule 14 (exp)]
+    MUL       [reduce using rule 14 (exp)]
+    DIV       [reduce using rule 14 (exp)]
+    REM       [reduce using rule 14 (exp)]
+    BOR       [reduce using rule 14 (exp)]
+    BAND      [reduce using rule 14 (exp)]
+    AND       [reduce using rule 14 (exp)]
+    OR        [reduce using rule 14 (exp)]
+    XOR       [reduce using rule 14 (exp)]
+    LT        [reduce using rule 14 (exp)]
+    LE        [reduce using rule 14 (exp)]
+    GT        [reduce using rule 14 (exp)]
+    GE        [reduce using rule 14 (exp)]
+    NE        [reduce using rule 14 (exp)]
+    EQ        [reduce using rule 14 (exp)]
+    $default  reduce using rule 14 (exp)
 
 
 State 43
 
-   23 exp: exp GT • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   15    | exp BAND exp •
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 65
+    PLUS      [reduce using rule 15 (exp)]
+    MINUS     [reduce using rule 15 (exp)]
+    MUL       [reduce using rule 15 (exp)]
+    DIV       [reduce using rule 15 (exp)]
+    REM       [reduce using rule 15 (exp)]
+    BOR       [reduce using rule 15 (exp)]
+    BAND      [reduce using rule 15 (exp)]
+    AND       [reduce using rule 15 (exp)]
+    OR        [reduce using rule 15 (exp)]
+    XOR       [reduce using rule 15 (exp)]
+    LT        [reduce using rule 15 (exp)]
+    LE        [reduce using rule 15 (exp)]
+    GT        [reduce using rule 15 (exp)]
+    GE        [reduce using rule 15 (exp)]
+    NE        [reduce using rule 15 (exp)]
+    EQ        [reduce using rule 15 (exp)]
+    $default  reduce using rule 15 (exp)
 
 
 State 44
 
-   24 exp: exp GE • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   16    | exp AND exp •
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 66
+    PLUS      [reduce using rule 16 (exp)]
+    MINUS     [reduce using rule 16 (exp)]
+    MUL       [reduce using rule 16 (exp)]
+    DIV       [reduce using rule 16 (exp)]
+    REM       [reduce using rule 16 (exp)]
+    BOR       [reduce using rule 16 (exp)]
+    BAND      [reduce using rule 16 (exp)]
+    AND       [reduce using rule 16 (exp)]
+    OR        [reduce using rule 16 (exp)]
+    XOR       [reduce using rule 16 (exp)]
+    LT        [reduce using rule 16 (exp)]
+    LE        [reduce using rule 16 (exp)]
+    GT        [reduce using rule 16 (exp)]
+    GE        [reduce using rule 16 (exp)]
+    NE        [reduce using rule 16 (exp)]
+    EQ        [reduce using rule 16 (exp)]
+    $default  reduce using rule 16 (exp)
 
 
 State 45
 
-   26 exp: exp NE • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   17    | exp OR exp •
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 67
+    PLUS      [reduce using rule 17 (exp)]
+    MINUS     [reduce using rule 17 (exp)]
+    MUL       [reduce using rule 17 (exp)]
+    DIV       [reduce using rule 17 (exp)]
+    REM       [reduce using rule 17 (exp)]
+    BOR       [reduce using rule 17 (exp)]
+    BAND      [reduce using rule 17 (exp)]
+    AND       [reduce using rule 17 (exp)]
+    OR        [reduce using rule 17 (exp)]
+    XOR       [reduce using rule 17 (exp)]
+    LT        [reduce using rule 17 (exp)]
+    LE        [reduce using rule 17 (exp)]
+    GT        [reduce using rule 17 (exp)]
+    GE        [reduce using rule 17 (exp)]
+    NE        [reduce using rule 17 (exp)]
+    EQ        [reduce using rule 17 (exp)]
+    $default  reduce using rule 17 (exp)
 
 
 State 46
 
-   25 exp: exp EQ • exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   18    | exp XOR exp •
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
 
-    exp  go to state 68
+    PLUS      [reduce using rule 18 (exp)]
+    MINUS     [reduce using rule 18 (exp)]
+    MUL       [reduce using rule 18 (exp)]
+    DIV       [reduce using rule 18 (exp)]
+    REM       [reduce using rule 18 (exp)]
+    BOR       [reduce using rule 18 (exp)]
+    BAND      [reduce using rule 18 (exp)]
+    AND       [reduce using rule 18 (exp)]
+    OR        [reduce using rule 18 (exp)]
+    XOR       [reduce using rule 18 (exp)]
+    LT        [reduce using rule 18 (exp)]
+    LE        [reduce using rule 18 (exp)]
+    GT        [reduce using rule 18 (exp)]
+    GE        [reduce using rule 18 (exp)]
+    NE        [reduce using rule 18 (exp)]
+    EQ        [reduce using rule 18 (exp)]
+    $default  reduce using rule 18 (exp)
 
 
 State 47
 
-   13 var: VAR NAME TYPE • ASSIGN exp SEMICOLON
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   19    | exp LT exp •
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    ASSIGN  shift, and go to state 69
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 19 (exp)]
+    MINUS     [reduce using rule 19 (exp)]
+    MUL       [reduce using rule 19 (exp)]
+    DIV       [reduce using rule 19 (exp)]
+    REM       [reduce using rule 19 (exp)]
+    BOR       [reduce using rule 19 (exp)]
+    BAND      [reduce using rule 19 (exp)]
+    AND       [reduce using rule 19 (exp)]
+    OR        [reduce using rule 19 (exp)]
+    XOR       [reduce using rule 19 (exp)]
+    LT        [reduce using rule 19 (exp)]
+    LE        [reduce using rule 19 (exp)]
+    GT        [reduce using rule 19 (exp)]
+    GE        [reduce using rule 19 (exp)]
+    NE        [reduce using rule 19 (exp)]
+    EQ        [reduce using rule 19 (exp)]
+    $default  reduce using rule 19 (exp)
 
 
 State 48
 
-   10 stmt: WHILE LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   21    | exp LE exp •
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    RIGHT_PAR  shift, and go to state 70
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 21 (exp)]
+    MINUS     [reduce using rule 21 (exp)]
+    MUL       [reduce using rule 21 (exp)]
+    DIV       [reduce using rule 21 (exp)]
+    REM       [reduce using rule 21 (exp)]
+    BOR       [reduce using rule 21 (exp)]
+    BAND      [reduce using rule 21 (exp)]
+    AND       [reduce using rule 21 (exp)]
+    OR        [reduce using rule 21 (exp)]
+    XOR       [reduce using rule 21 (exp)]
+    LT        [reduce using rule 21 (exp)]
+    LE        [reduce using rule 21 (exp)]
+    GT        [reduce using rule 21 (exp)]
+    GE        [reduce using rule 21 (exp)]
+    NE        [reduce using rule 21 (exp)]
+    EQ        [reduce using rule 21 (exp)]
+    $default  reduce using rule 21 (exp)
 
 
 State 49
 
-   11 stmt: REPEAT LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   20    | exp GT exp •
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    RIGHT_PAR  shift, and go to state 71
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 20 (exp)]
+    MINUS     [reduce using rule 20 (exp)]
+    MUL       [reduce using rule 20 (exp)]
+    DIV       [reduce using rule 20 (exp)]
+    REM       [reduce using rule 20 (exp)]
+    BOR       [reduce using rule 20 (exp)]
+    BAND      [reduce using rule 20 (exp)]
+    AND       [reduce using rule 20 (exp)]
+    OR        [reduce using rule 20 (exp)]
+    XOR       [reduce using rule 20 (exp)]
+    LT        [reduce using rule 20 (exp)]
+    LE        [reduce using rule 20 (exp)]
+    GT        [reduce using rule 20 (exp)]
+    GE        [reduce using rule 20 (exp)]
+    NE        [reduce using rule 20 (exp)]
+    EQ        [reduce using rule 20 (exp)]
+    $default  reduce using rule 20 (exp)
 
 
 State 50
 
-    9 stmt: IF LEFT_PAR exp • RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   22    | exp GE exp •
+   23    | exp • NE exp
+   24    | exp • EQ exp
 
-    RIGHT_PAR  shift, and go to state 72
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 22 (exp)]
+    MINUS     [reduce using rule 22 (exp)]
+    MUL       [reduce using rule 22 (exp)]
+    DIV       [reduce using rule 22 (exp)]
+    REM       [reduce using rule 22 (exp)]
+    BOR       [reduce using rule 22 (exp)]
+    BAND      [reduce using rule 22 (exp)]
+    AND       [reduce using rule 22 (exp)]
+    OR        [reduce using rule 22 (exp)]
+    XOR       [reduce using rule 22 (exp)]
+    LT        [reduce using rule 22 (exp)]
+    LE        [reduce using rule 22 (exp)]
+    GT        [reduce using rule 22 (exp)]
+    GE        [reduce using rule 22 (exp)]
+    NE        [reduce using rule 22 (exp)]
+    EQ        [reduce using rule 22 (exp)]
+    $default  reduce using rule 22 (exp)
 
 
 State 51
 
-   12 stmt: NAME ASSIGN exp SEMICOLON •
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   23    | exp NE exp •
+   24    | exp • EQ exp
 
-    $default  reduce using rule 12 (stmt)
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 23 (exp)]
+    MINUS     [reduce using rule 23 (exp)]
+    MUL       [reduce using rule 23 (exp)]
+    DIV       [reduce using rule 23 (exp)]
+    REM       [reduce using rule 23 (exp)]
+    BOR       [reduce using rule 23 (exp)]
+    BAND      [reduce using rule 23 (exp)]
+    AND       [reduce using rule 23 (exp)]
+    OR        [reduce using rule 23 (exp)]
+    XOR       [reduce using rule 23 (exp)]
+    LT        [reduce using rule 23 (exp)]
+    LE        [reduce using rule 23 (exp)]
+    GT        [reduce using rule 23 (exp)]
+    GE        [reduce using rule 23 (exp)]
+    NE        [reduce using rule 23 (exp)]
+    EQ        [reduce using rule 23 (exp)]
+    $default  reduce using rule 23 (exp)
 
 
 State 52
 
-   32 exp: LEFT_PAR exp RIGHT_PAR •
+    9 exp: exp • PLUS exp
+   10    | exp • MINUS exp
+   11    | exp • MUL exp
+   12    | exp • DIV exp
+   13    | exp • REM exp
+   14    | exp • BOR exp
+   15    | exp • BAND exp
+   16    | exp • AND exp
+   17    | exp • OR exp
+   18    | exp • XOR exp
+   19    | exp • LT exp
+   20    | exp • GT exp
+   21    | exp • LE exp
+   22    | exp • GE exp
+   23    | exp • NE exp
+   24    | exp • EQ exp
+   24    | exp EQ exp •
 
-    $default  reduce using rule 32 (exp)
+    PLUS   shift, and go to state 18
+    MINUS  shift, and go to state 19
+    MUL    shift, and go to state 20
+    DIV    shift, and go to state 21
+    REM    shift, and go to state 22
+    BOR    shift, and go to state 23
+    BAND   shift, and go to state 24
+    AND    shift, and go to state 25
+    OR     shift, and go to state 26
+    XOR    shift, and go to state 27
+    LT     shift, and go to state 28
+    LE     shift, and go to state 29
+    GT     shift, and go to state 30
+    GE     shift, and go to state 31
+    NE     shift, and go to state 32
+    EQ     shift, and go to state 33
+
+    PLUS      [reduce using rule 24 (exp)]
+    MINUS     [reduce using rule 24 (exp)]
+    MUL       [reduce using rule 24 (exp)]
+    DIV       [reduce using rule 24 (exp)]
+    REM       [reduce using rule 24 (exp)]
+    BOR       [reduce using rule 24 (exp)]
+    BAND      [reduce using rule 24 (exp)]
+    AND       [reduce using rule 24 (exp)]
+    OR        [reduce using rule 24 (exp)]
+    XOR       [reduce using rule 24 (exp)]
+    LT        [reduce using rule 24 (exp)]
+    LE        [reduce using rule 24 (exp)]
+    GT        [reduce using rule 24 (exp)]
+    GE        [reduce using rule 24 (exp)]
+    NE        [reduce using rule 24 (exp)]
+    EQ        [reduce using rule 24 (exp)]
+    $default  reduce using rule 24 (exp)
 
 
 State 53
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   19    | exp PLUS exp •
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
 
-    MUL  shift, and go to state 33
-    DIV  shift, and go to state 34
-    REM  shift, and go to state 35
-
-    $default  reduce using rule 19 (exp)
+    LEFT_BRAC  shift, and go to state 56
 
 
 State 54
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   20    | exp MINUS exp •
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
 
-    MUL  shift, and go to state 33
-    DIV  shift, and go to state 34
-    REM  shift, and go to state 35
-
-    $default  reduce using rule 20 (exp)
+    LEFT_BRAC  shift, and go to state 57
 
 
 State 55
 
-   16 exp: exp • MUL exp
-   16    | exp MUL exp •
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
 
-    $default  reduce using rule 16 (exp)
+    LEFT_BRAC  shift, and go to state 58
 
 
 State 56
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   17    | exp DIV exp •
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
 
-    $default  reduce using rule 17 (exp)
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    stmts  go to state 59
+    stmt   go to state 7
 
 
 State 57
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   18    | exp REM exp •
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
 
-    $default  reduce using rule 18 (exp)
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
+
+    stmts  go to state 60
+    stmt   go to state 7
 
 
 State 58
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   29    | exp BOR exp •
-   30    | exp • AND exp
-   31    | exp • OR exp
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    BAND   shift, and go to state 37
-    XOR    shift, and go to state 40
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-    NE     shift, and go to state 45
-    EQ     shift, and go to state 46
+    RETURN  shift, and go to state 1
+    WHILE   shift, and go to state 2
+    REPEAT  shift, and go to state 3
+    IF      shift, and go to state 4
 
-    $default  reduce using rule 29 (exp)
+    stmts  go to state 61
+    stmt   go to state 7
 
 
 State 59
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   27    | exp BAND exp •
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    2 stmts: stmts • stmt
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-    NE     shift, and go to state 45
-    EQ     shift, and go to state 46
+    RETURN      shift, and go to state 1
+    WHILE       shift, and go to state 2
+    REPEAT      shift, and go to state 3
+    IF          shift, and go to state 4
+    RIGHT_BRAC  shift, and go to state 62
 
-    $default  reduce using rule 27 (exp)
+    stmt  go to state 15
 
 
 State 60
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   30    | exp AND exp •
-   31    | exp • OR exp
+    2 stmts: stmts • stmt
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    BOR    shift, and go to state 36
-    BAND   shift, and go to state 37
-    XOR    shift, and go to state 40
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-    NE     shift, and go to state 45
-    EQ     shift, and go to state 46
+    RETURN      shift, and go to state 1
+    WHILE       shift, and go to state 2
+    REPEAT      shift, and go to state 3
+    IF          shift, and go to state 4
+    RIGHT_BRAC  shift, and go to state 63
 
-    $default  reduce using rule 30 (exp)
+    stmt  go to state 15
 
 
 State 61
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-   31    | exp OR exp •
+    2 stmts: stmts • stmt
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    BOR    shift, and go to state 36
-    BAND   shift, and go to state 37
-    AND    shift, and go to state 38
-    XOR    shift, and go to state 40
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-    NE     shift, and go to state 45
-    EQ     shift, and go to state 46
+    RETURN      shift, and go to state 1
+    WHILE       shift, and go to state 2
+    REPEAT      shift, and go to state 3
+    IF          shift, and go to state 4
+    RIGHT_BRAC  shift, and go to state 64
 
-    $default  reduce using rule 31 (exp)
+    stmt  go to state 15
 
 
 State 62
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   28    | exp XOR exp •
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    6 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    BAND   shift, and go to state 37
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-    NE     shift, and go to state 45
-    EQ     shift, and go to state 46
-
-    $default  reduce using rule 28 (exp)
+    $default  reduce using rule 6 (stmt)
 
 
 State 63
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   21    | exp LT exp •
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    7 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-
-    $default  reduce using rule 21 (exp)
+    $default  reduce using rule 7 (stmt)
 
 
 State 64
 
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   22    | exp LE exp •
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
+    5 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
 
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-
-    $default  reduce using rule 22 (exp)
-
-
-State 65
-
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   23    | exp GT exp •
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-
-    $default  reduce using rule 23 (exp)
-
-
-State 66
-
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   24    | exp GE exp •
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-
-    $default  reduce using rule 24 (exp)
-
-
-State 67
-
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   26    | exp NE exp •
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-
-    $default  reduce using rule 26 (exp)
-
-
-State 68
-
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   25    | exp EQ exp •
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-
-    PLUS   shift, and go to state 31
-    MINUS  shift, and go to state 32
-    MUL    shift, and go to state 33
-    DIV    shift, and go to state 34
-    REM    shift, and go to state 35
-    LT     shift, and go to state 41
-    LE     shift, and go to state 42
-    GT     shift, and go to state 43
-    GE     shift, and go to state 44
-
-    $default  reduce using rule 25 (exp)
-
-
-State 69
-
-   13 var: VAR NAME TYPE ASSIGN • exp SEMICOLON
-
-    INT_CONSTANT  shift, and go to state 13
-    NAME          shift, and go to state 14
-    STRING        shift, and go to state 15
-    LEFT_PAR      shift, and go to state 16
-    NOT           shift, and go to state 17
-
-    exp  go to state 73
-
-
-State 70
-
-   10 stmt: WHILE LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
-
-    LEFT_BRAC  shift, and go to state 74
-
-
-State 71
-
-   11 stmt: REPEAT LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
-
-    LEFT_BRAC  shift, and go to state 75
-
-
-State 72
-
-    9 stmt: IF LEFT_PAR exp RIGHT_PAR • LEFT_BRAC stmts RIGHT_BRAC
-
-    LEFT_BRAC  shift, and go to state 76
-
-
-State 73
-
-   13 var: VAR NAME TYPE ASSIGN exp • SEMICOLON
-   16 exp: exp • MUL exp
-   17    | exp • DIV exp
-   18    | exp • REM exp
-   19    | exp • PLUS exp
-   20    | exp • MINUS exp
-   21    | exp • LT exp
-   22    | exp • LE exp
-   23    | exp • GT exp
-   24    | exp • GE exp
-   25    | exp • EQ exp
-   26    | exp • NE exp
-   27    | exp • BAND exp
-   28    | exp • XOR exp
-   29    | exp • BOR exp
-   30    | exp • AND exp
-   31    | exp • OR exp
-
-    SEMICOLON  shift, and go to state 77
-    PLUS       shift, and go to state 31
-    MINUS      shift, and go to state 32
-    MUL        shift, and go to state 33
-    DIV        shift, and go to state 34
-    REM        shift, and go to state 35
-    BOR        shift, and go to state 36
-    BAND       shift, and go to state 37
-    AND        shift, and go to state 38
-    OR         shift, and go to state 39
-    XOR        shift, and go to state 40
-    LT         shift, and go to state 41
-    LE         shift, and go to state 42
-    GT         shift, and go to state 43
-    GE         shift, and go to state 44
-    NE         shift, and go to state 45
-    EQ         shift, and go to state 46
-
-
-State 74
-
-   10 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
-
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
-
-    stmts  go to state 78
-    stmt   go to state 10
-
-
-State 75
-
-   11 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
-
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
-
-    stmts  go to state 79
-    stmt   go to state 10
-
-
-State 76
-
-    9 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC • stmts RIGHT_BRAC
-
-    NAME    shift, and go to state 1
-    RETURN  shift, and go to state 2
-    WHILE   shift, and go to state 4
-    REPEAT  shift, and go to state 5
-    IF      shift, and go to state 6
-
-    stmts  go to state 80
-    stmt   go to state 10
-
-
-State 77
-
-   13 var: VAR NAME TYPE ASSIGN exp SEMICOLON •
-
-    $default  reduce using rule 13 (var)
-
-
-State 78
-
-    4 stmts: stmts • stmt
-   10 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
-
-    NAME        shift, and go to state 1
-    RETURN      shift, and go to state 2
-    WHILE       shift, and go to state 4
-    REPEAT      shift, and go to state 5
-    IF          shift, and go to state 6
-    RIGHT_BRAC  shift, and go to state 81
-
-    stmt  go to state 24
-
-
-State 79
-
-    4 stmts: stmts • stmt
-   11 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
-
-    NAME        shift, and go to state 1
-    RETURN      shift, and go to state 2
-    WHILE       shift, and go to state 4
-    REPEAT      shift, and go to state 5
-    IF          shift, and go to state 6
-    RIGHT_BRAC  shift, and go to state 82
-
-    stmt  go to state 24
-
-
-State 80
-
-    4 stmts: stmts • stmt
-    9 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts • RIGHT_BRAC
-
-    NAME        shift, and go to state 1
-    RETURN      shift, and go to state 2
-    WHILE       shift, and go to state 4
-    REPEAT      shift, and go to state 5
-    IF          shift, and go to state 6
-    RIGHT_BRAC  shift, and go to state 83
-
-    stmt  go to state 24
-
-
-State 81
-
-   10 stmt: WHILE LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
-
-    $default  reduce using rule 10 (stmt)
-
-
-State 82
-
-   11 stmt: REPEAT LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
-
-    $default  reduce using rule 11 (stmt)
-
-
-State 83
-
-    9 stmt: IF LEFT_PAR exp RIGHT_PAR LEFT_BRAC stmts RIGHT_BRAC •
-
-    $default  reduce using rule 9 (stmt)
+    $default  reduce using rule 5 (stmt)
