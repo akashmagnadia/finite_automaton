@@ -77,27 +77,19 @@ function dotGeneratorForCreatingEachStates(i, dots, highLightStateBool) {
         }
     }
 
-    // let lineToPush = (myGrammar.states[i].state_num)
-    //     + ' [xlabel=\"' + (myGrammar.states[i].currentState) + '\" '
-    //     + stringToAdd
-    //     + ']';
-
     let lineToPush = (myGrammar.states[i].state_num)
-        + ' ['
+        + ' [xlabel=\"' + (myGrammar.states[i].currentState) + '\" '
         + stringToAdd
         + ']';
-    dots[0].push(lineToPush);
 
-    for (let i = 0; i < dots[0].length; i++) {
-        console.log(dots[0][i])
-    }
+    dots[0].push(lineToPush);
 }
 
 function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight, mapping, mappingType) {
     let modification = "";
 
     if (mappingType === "transition") {
-        modification = "penwidth = 3";
+        modification = "penwidth = 1";
     } else if (mappingType === "shift") {
         modification = "penwidth = 3";
     }
@@ -110,14 +102,14 @@ function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight,
             dots[0].push('    ' + (myGrammar.states[i].state_num)
                 + ' -> ' + (mapping[k].state)
                 + '[label=\"' + (mapping[k].token)
-                + '\" color = "RoyalBlue" ' + modification + ' len = 1.5]');
+                + '\" color = \"RoyalBlue\" \"penwidth = 3\" len = 1.5]');
         } else {
 
             // if not trying to highlight the transition
             dots[0].push('    ' + (myGrammar.states[i].state_num)
                 + ' -> ' + (mapping[k].state)
                 + '[label=\"' + (mapping[k].token)
-                + '\" len = 1.5]');
+                + '\"' + modification + ' len = 1.5]');
         }
     }
 }
@@ -139,7 +131,6 @@ function generateEntireGraph(stateNumToHighlight) {
     for (let i = 0; i < myGrammar.states.length; i++) {
 
         // create transitions for shift states
-        // TODO: make different kind of arrow for shift and add legend for it
         dotGeneratorForShift_Transition_Mapping(i, myDotGraph, "", myGrammar.states[i].shift_mapping, "shift");
 
         // create transition for regular transitions

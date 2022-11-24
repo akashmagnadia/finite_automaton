@@ -65,7 +65,7 @@ body {
 
     padding: 8px 8px;
     font-size: 14px;
-    border: none;
+    border-color: transparent;
     background-color: #eee;
     cursor: pointer;
 }

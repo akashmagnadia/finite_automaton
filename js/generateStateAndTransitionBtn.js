@@ -101,16 +101,12 @@ function linkButtonToCodeView() {
     // when state button is clicked unselect transition button and any active state
     // then select the state that was clicked on and make it active in code screen
     let statesButtonGroup = document.getElementById("stateButtonsGroup");
-    let statesButtons = statesButtonGroup.querySelectorAll("*");
+    let statesButtons = statesButtonGroup.getElementsByClassName("filterButtonGroup");
 
     for (let i = 0; i < statesButtons.length; i++) {
         let statesNum = parseInt(statesButtons[i].id.replace("btn_State_", ""));
         let stateCode = document.getElementById("State " + statesNum);
         let statesButton = document.getElementById(statesButtons[i].id);
-
-        if (statesButton === null) {
-            continue;
-        }
 
         statesButton.onclick = function () {
 
