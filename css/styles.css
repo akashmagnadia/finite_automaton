@@ -1,12 +1,22 @@
 :root {
-    --graphAndCodeHeight: 64vh;
-    --filterButtonHeight: 22vh;
+    --graphAndCodeHeight: 62vh;
+    --filterButtonHeight: 20vh;
+    --titleHeight: 4vh;
 }
 
 body {
     font-family: "Google Sans",Roboto,Arial,sans-serif;
     font-size: 14px;
     font-weight: 500;
+}
+
+h1 {
+    align-self: center;
+    margin-bottom: 0;
+    margin-top: 5px;
+    color: rgba(0, 0, 0, 0.83);
+    text-shadow: 5px 5px 13px rgba(0, 0, 0, 0.42);
+    height: var(--titleHeight);
 }
 
 #viewButtons {
@@ -87,23 +97,7 @@ body {
 }
 
 /* Style buttons */
-.file_btn {
-    background-color: #eee; /* Blue background */
-    border: none; /* Remove borders */
-    color: black; /* White text */
-    padding: 12px 16px; /* Some padding */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
-}
-
-/* Darker background on mouse-over */
-.file_btn:hover {
-    color: white;
-    background-color: RoyalBlue;
-}
-
-/* Style buttons */
-.view_btn {
+.top_btn {
     background-color: #eee; /* Blue background */
     border: none; /* Remove borders */
     color: black; /* Black text */
@@ -113,7 +107,7 @@ body {
 }
 
 /* Darker background on mouse-over */
-.view_btn:hover {
+.top_btn:hover {
     color: white;
     background-color: RoyalBlue;
 }
@@ -133,7 +127,7 @@ body {
     margin-right: 30px;
 }
 
-.show_entire_graph_btn {
+#show_entire_graph_btn, #understand-btn {
     display: grid;
     grid-template-columns: 1em auto;
     gap: 0.6em;

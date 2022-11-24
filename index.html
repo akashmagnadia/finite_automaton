@@ -17,31 +17,31 @@
 
 <div class="container d-col">
 
+    <h1> Visualizing Finite Automaton of Syntax Analysis </h1>
+
     <div id="viewButtons" class="container d-row d-center">
 
-        <label class="btn file_btn show_entire_graph_btn" onchange="renderCheckBoxClicked()">
+        <label class="btn top_btn" id="show_entire_graph_btn" onchange="renderCheckBoxClicked()">
             <input type="checkbox" name="checkbox" id="show_entire_graph_input" checked /> Render Entire Graph
         </label>
 
         <input type="button" hidden/>
-        <label onclick="downloadSampleFile()" class="btn file_btn" id="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
+        <label onclick="downloadSampleFile()" class="btn top_btn" id="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
 
         <input type="button" hidden/>
-        <label onclick="graphOnlyView()" class="btn view_btn" id="graph-btn" for="graph-btn"><i class="fa fa-pagelines"></i> Graph</label>
+        <label onclick="graphOnlyView()" class="btn top_btn" id="graph-btn" for="graph-btn"><i class="fa fa-pagelines"></i> Graph</label>
 
         <input type="button" hidden/>
-        <label onclick="graphAndCodeView()" class="btn view_btn" id="split-btn" for="split-btn"><i class="fa fa-columns"></i> Split</label>
+        <label onclick="graphAndCodeView()" class="btn top_btn" id="split-btn" for="split-btn"><i class="fa fa-columns"></i> Split</label>
 
         <input type="button" hidden/>
-        <label onclick="codeOnlyView()" class="btn view_btn" id="code-btn" for="code-btn"><i class="fa fa-code"></i> Grammar</label>
+        <label onclick="codeOnlyView()" class="btn top_btn" id="code-btn" for="code-btn"><i class="fa fa-code"></i> Grammar</label>
 
         <input type="file" accept=".output" id="upload-btn_input" hidden/>
-        <label class="btn file_btn" id="upload-btn" for="upload-btn_input"><i class="fa fa-upload"></i> Upload y.output</label>
+        <label class="btn top_btn" id="upload-btn" for="upload-btn_input"><i class="fa fa-upload"></i> Upload y.output</label>
 
-        <!-- DUMMY mirror button to balance the two sides so that everything centers from teh middle -->
-        <label class="btn file_btn show_entire_graph_btn" style="visibility: hidden;">
-            <input type="checkbox" name="checkbox" checked /> Render Entire Graph
-        </label>
+        <input type="button" hidden/>
+        <label onclick="graphOnlyView()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help me understand</label>
 
     </div>
 
