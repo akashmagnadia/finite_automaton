@@ -1,5 +1,10 @@
-const sampleFileURIName = 'y1.output'; // file to load by default
-const sampleFileURI = "../finite_automaton/sample_data_file/" + sampleFileURIName;
+const loadFileURIName = 'y1.output'; // file to load by default
+const loadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
+
+const fileNumRange = [1, 10]
+let fileNum = 2;
+let downloadFileURIName = 'y' + fileNum + '.output'
+let downloadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -40,12 +45,28 @@ function displayCode(fileURI) {
 }
 
 function downloadSampleFile() {
+    downloadFileURIName = 'y' + fileNum + '.output'
+    downloadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
+
     const link = document.createElement("a");
-    link.download = sampleFileURIName;
-    link.href = sampleFileURI;
+    link.download = downloadFileURIName;
+    link.href = downloadFileURI;
     link.setAttribute("target", "_blank");
     link.click();
     link.remove();
+
+    incrementDownloadCount();
+}
+
+function incrementDownloadCount() {
+    let minNum = fileNumRange[0];
+    let maxNum = fileNumRange[1];
+
+    if (fileNum + 1 > maxNum) {
+        fileNum = minNum;
+    } else {
+        fileNum = fileNum + 1;
+    }
 }
 
 async function graphOnlyView() {
@@ -106,4 +127,4 @@ async function graphAndCodeView() {
 
 document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
 
-displayCode(sampleFileURI);
+displayCode(loadFileURI);
