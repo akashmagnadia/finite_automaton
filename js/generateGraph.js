@@ -25,9 +25,17 @@ function defaultDotStarter() {
     return [
         [
             "digraph {",
+            'rankdir=LR;',
             'bgcolor="#eeeeee"',
             'layout="dot"',
             'node [style="filled"]',
+
+            'subgraph cluster_01 { margin=20 label = "Legend";',
+            '"Start State" [shape = "doublecircle" fillcolor = "White" ]',
+            '"Leaf State" [shape = "circle" fillcolor = "#FFA695" ]',
+            '"Start State" -> "Leaf State" [label="Regular Transition" penwidth=1 style=solid]',
+            '"Start State" -> "Leaf State" [label="Shift Transition" penwidth=3 style=solid]',
+            '}'
         ],
     ]
 }
