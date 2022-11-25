@@ -110,7 +110,7 @@ function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight,
             dots[0].push('    ' + (myGrammar.states[i].state_num)
                 + ' -> ' + (mapping[k].state)
                 + '[label=\"' + (mapping[k].token)
-                + '\" color = \"RoyalBlue\" \"penwidth = 3\" len = 1.5]');
+                + '\" color = \"RoyalBlue\" penwidth = 4 len = 1.5]');
         } else {
 
             // if not trying to highlight the transition
