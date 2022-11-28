@@ -2,7 +2,7 @@ const loadFileURIName = 'y1.output'; // file to load by default
 const loadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
 
 const fileNumRange = [1, 10]
-let fileNum = 2;
+let fileNum = 2; // change this number to load a different sample file by default
 let downloadFileURIName = 'y' + fileNum + '.output'
 let downloadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
 
