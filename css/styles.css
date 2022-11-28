@@ -15,7 +15,6 @@ h1 {
     margin-bottom: 0;
     margin-top: 5px;
     color: rgba(0, 0, 0, 0.83);
-    text-shadow: 5px 5px 13px rgba(0, 0, 0, 0.42);
     height: var(--titleHeight);
 }
 
@@ -252,9 +251,43 @@ input[type="checkbox"]:checked::before {
 }
 
 .dialog_content {
-    padding: 15px 30px;
+    font-size: 16px;
+    padding: 15px 10vw;
+}
+
+.dialog_content h3 {
+    text-align: left;
+}
+
+.dialog_content p {
+    text-align: justify;
+    line-height: 1.5;
 }
 
 h2 {
     text-align: center;
+}
+
+.floatLeft {
+    float: left;
+    margin-right: 30px;
+    box-shadow: 4px 8px 13px 4px #979797;
+}
+
+.floatRight {
+    float: right;
+    margin-left: 30px;
+    box-shadow: -4px 8px 13px 4px #979797;
+}
+
+.floatingImg {
+    max-width: 30%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.longImg {
+    border-radius: 10px;
+    max-width: 80%;
+    box-shadow: 0 4px 9px 2px #979797;
 }

@@ -74,7 +74,7 @@ function dotGeneratorForCreatingEachStates(i, dots, highLightStateBool) {
     }
 
     if (highLightStateBool) {
-        stringToAdd += ' color = \"RoyalBlue\"';
+        stringToAdd += ' color = \"#009e9e\"';
         // adding this since it's becoming harder to read the larger the graph gets
         if (myGrammar.states.length < 20) {
             stringToAdd += ' penwidth = 3'
@@ -110,7 +110,7 @@ function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight,
             dots[0].push('    ' + (myGrammar.states[i].state_num)
                 + ' -> ' + (mapping[k].state)
                 + '[label=\"' + (mapping[k].token)
-                + '\" color = \"RoyalBlue\" penwidth = 4 len = 1.5]');
+                + '\" color = \"#009e9e\" penwidth = 4 len = 1.5]');
         } else {
 
             // if not trying to highlight the transition
