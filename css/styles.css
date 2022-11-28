@@ -210,5 +210,51 @@ input[type="checkbox"]:checked::before {
 
 #graph svg {
     width: 100%;
-    height: 100%;
+    height: 94%;
+}
+
+#understand_dialog::-webkit-scrollbar {
+    display: none;
+}
+
+#understand_dialog {
+    height: 85%;
+    width: 92%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background-color: #fff;
+    margin: 3%;
+    align-self: center;
+    position: absolute;
+    z-index: 1;
+
+    border-radius: 40px;
+    box-shadow: 4px 5px 16px 9px #7e7e7e;
+
+    transition: width 0.3s ease-out;
+}
+
+#close_understand_dialog {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+#close_understand_dialog:hover {
+    opacity: 1;
+}
+
+.dialog_content {
+    padding: 15px 30px;
+}
+
+h2 {
+    text-align: center;
 }

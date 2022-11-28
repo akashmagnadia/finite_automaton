@@ -125,6 +125,17 @@ async function graphAndCodeView() {
     graphCodeView.style.paddingLeft = "0px";
 }
 
+function showUnderstandDialog() {
+    document.getElementById('understand_dialog').style.visibility = "visible";
+    document.getElementById('understand_dialog').style.width = "92%"
+}
+
+async function hideUnderstandDialog() {
+    document.getElementById('understand_dialog').style.width = "0%"
+    await delay(300);
+    document.getElementById('understand_dialog').style.visibility = "hidden";
+}
+
 document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
 
 displayCode(loadFileURI);

@@ -41,7 +41,20 @@
         <label class="btn top_btn" id="upload-btn" for="upload-btn_input"><i class="fa fa-upload"></i> Upload y.output</label>
 
         <input type="button" hidden/>
-        <label onclick="graphOnlyView()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help me understand</label>
+        <label onclick="showUnderstandDialog()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help me understand</label>
+
+    </div>
+
+    <div id="understand_dialog">
+
+        <div id="close_understand_dialog" onclick="hideUnderstandDialog()"><img src="assets/img/close-icon.svg" alt="Close Dialog"/></div>
+
+        <div class="dialog_content container d-col">
+            <h2 class="center">Understanding This Visualization</h2>
+
+
+        </div>
+
 
     </div>
 
