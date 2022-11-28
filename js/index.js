@@ -6,6 +6,11 @@ let fileNum = 2;
 let downloadFileURIName = 'y' + fileNum + '.output'
 let downloadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
 
+// if integrated then it will read the file from the compiler
+// if not integrated then it will read the file from the sample_dat_file
+const integrated = false;
+const integratedCompilerFile = "C:/cygwin64/home/Akash/CS473/cs473-f22-a2-akashmagnadia/y.output";
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 let renderingEntireGraph = true;
@@ -37,11 +42,23 @@ function uploadFile(evt) {
     reader.readAsText(f);
 }
 
-function displayCode(fileURI) {
-    // initialize with existing file
-    fetch(fileURI)
+function fetchInternalFile() {
+    fetch(loadFileURI)
         .then(response => response.text())
         .then(text => parse_y_output(text))
+}
+function displayCode() {
+    if (integrated) {
+        fetch(integratedCompilerFile)
+            .then(response => response.text())
+            .then(text => parse_y_output(text))
+            .catch(() => {
+                confirm("Couldn't fetch file from integrated compiler. Therefore loading a sample file.");
+                fetchInternalFile();
+            })
+    } else {
+        fetchInternalFile();
+    }
 }
 
 function downloadSampleFile() {
@@ -138,4 +155,4 @@ async function hideUnderstandDialog() {
 
 document.getElementById('upload-btn_input').addEventListener('change', uploadFile, false);
 
-displayCode(loadFileURI);
+displayCode();
