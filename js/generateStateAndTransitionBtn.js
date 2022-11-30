@@ -12,9 +12,16 @@ function generateButtons(linkButtonToCodeView, highlightButtonListener) {
     let transitionsToAdd = [];
     let _transitionsToAdd = ['<div class="buttonsName">Transitions: &nbsp;</div>'];
     for (let i = 0; i < myGrammar.states.length; i++) {
+
+        let classToAdd = "";
+
+        if (myGrammar.states[i].leaf_state) {
+            classToAdd = " leafState_filterButtonGroup"
+        }
+
         statesToAdd.push(
             '<button id="btn_State_' + i +
-            '" class="filterButtonGroup">' +
+            '" class="filterButtonGroup' + classToAdd + '">' +
             myGrammar.states[i].currentState + ' - ' + myGrammar.states[i].state_num +
             '</button>');
 

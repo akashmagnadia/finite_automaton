@@ -79,6 +79,11 @@ h1 {
     cursor: pointer;
 }
 
+.leafState_filterButtonGroup {
+    background-color: #FFA695;
+    color: black;
+}
+
 .filterButtonGroup:hover {
     color: white;
     background-color: RoyalBlue;
