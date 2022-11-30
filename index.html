@@ -20,12 +20,14 @@
 
     <div id="viewButtons" class="container d-row d-center">
 
-        <label class="btn top_btn" id="show_entire_graph_btn" onchange="renderCheckBoxClicked()">
-            <input type="checkbox" name="checkbox" id="show_entire_graph_input" checked /> Render Entire Graph
-        </label>
+        <input type="button" hidden/>
+        <label onclick="createClusterPrompt()" class="btn top_btn" id="create_cluster-btn"><i class="fa fa-download"></i> Create Cluster</label>
 
         <input type="button" hidden/>
-        <label onclick="downloadSampleFile()" class="btn top_btn" id="sample_download-btn"><i class="fa fa-download"></i> Sample y.output</label>
+        <label onclick="downloadSampleFile()" class="btn top_btn" id="sample_download-btn"><i class="fa fa-download"></i> Download</label>
+
+        <input type="file" accept=".output" id="upload-btn_input" hidden/>
+        <label class="btn top_btn" id="upload-btn" for="upload-btn_input"><i class="fa fa-upload"></i> Upload y.output</label>
 
         <input type="button" hidden/>
         <label onclick="graphOnlyView()" class="btn top_btn" id="graph-btn" for="graph-btn"><i class="fa fa-pagelines"></i> Graph</label>
@@ -36,8 +38,9 @@
         <input type="button" hidden/>
         <label onclick="codeOnlyView()" class="btn top_btn" id="code-btn" for="code-btn"><i class="fa fa-code"></i> Grammar</label>
 
-        <input type="file" accept=".output" id="upload-btn_input" hidden/>
-        <label class="btn top_btn" id="upload-btn" for="upload-btn_input"><i class="fa fa-upload"></i> Upload y.output</label>
+        <label class="btn top_btn" id="show_entire_graph_btn" onchange="renderCheckBoxClicked()">
+            <input type="checkbox" name="checkbox" id="show_entire_graph_input" checked /> Render Entire Graph
+        </label>
 
         <input type="button" hidden/>
         <label onclick="showUnderstandDialog()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help me understand</label>

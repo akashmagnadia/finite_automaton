@@ -1,4 +1,4 @@
-const loadFileURIName = 'y1.output'; // file to load by default
+const loadFileURIName = 'y3.output'; // file to load by default
 const loadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
 
 const fileNumRange = [1, 10]
@@ -10,6 +10,9 @@ let downloadFileURI = "../finite_automaton/sample_data_file/" + loadFileURIName;
 // if not integrated then it will read the file from the sample_dat_file
 const integrated = false;
 const integratedCompilerFile = "C:/cygwin64/home/Akash/CS473/cs473-f22-a2-akashmagnadia/y.output";
+
+// let tokenToCreateClusterFor = ["IF", "WHILE", "REPEAT", "VAR", "FUN", "exp"];
+let tokenToCreateClusterFor = [];
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 

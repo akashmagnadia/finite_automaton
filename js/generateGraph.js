@@ -21,6 +21,21 @@ function render() {
     });
 }
 
+function createClusterPrompt() {
+    const clusterInput = prompt("Write down token(s) that you would like to create cluster(s) for. \n" +
+        "For example to create clusters for IF token and WHILE token, you should write: IF WHILE\n" +
+        "The order in which you write, upper/lower case and space between the tokens matter." +
+        "To remove clustering, press OK without entering anything.");
+
+    if (clusterInput != null) {
+        tokenToCreateClusterFor = clusterInput.split(" ");
+        console.log(clusterInput);
+        console.log(tokenToCreateClusterFor);
+
+        generateEntireGraph(false)
+    }
+}
+
 function defaultDotStarter() {
     return [
         [
@@ -40,8 +55,7 @@ function defaultDotStarter() {
     ]
 }
 
-function dotGeneratorForCreatingEachStates(i, dots, highLightStateBool) {
-
+function modifiersForEachState(i, highLightStateBool) {
     let stringToAdd = '';
 
     if (myGrammar.states[i].leaf_state) {
@@ -85,9 +99,14 @@ function dotGeneratorForCreatingEachStates(i, dots, highLightStateBool) {
         }
     }
 
+    return stringToAdd;
+}
+
+function dotGeneratorForCreatingEachStates(i, dots, highLightStateBool) {
+
     let lineToPush = (myGrammar.states[i].state_num)
-        + ' [xlabel=\"' + (myGrammar.states[i].currentState) + '\" '
-        + stringToAdd
+        + ' [xlabel=\"' + '\" '
+        + modifiersForEachState(i, highLightStateBool)
         + ']';
 
     dots[0].push(lineToPush);
@@ -122,18 +141,71 @@ function dotGeneratorForShift_Transition_Mapping(i, dots, transitionToHighlight,
     }
 }
 
-// if statenum is null then nothing to highlight
-function generateEntireGraph(stateNumToHighlight) {
-    const myDotGraph = defaultDotStarter();
+function containsSubString(arrayToCheck, stateNameToCheck) {
+    for (let i = 0; i < arrayToCheck.length; i++) {
+        if (stateNameToCheck.includes(arrayToCheck[i])) {
+            return true;
+        }
+    }
 
+    return false;
+}
+
+
+function generateStateClusters(tokenToCreateClusterFor, myDotGraph, stateNumToHighlight) {
+    let offsetForClusterNum = 2;
+    for (let clusterIndex = offsetForClusterNum; clusterIndex < tokenToCreateClusterFor.length + offsetForClusterNum; clusterIndex++) {
+        let currentClusterName = tokenToCreateClusterFor[clusterIndex - offsetForClusterNum];
+
+        // create cluster for each token specified
+        for (let i = 0; i < myGrammar.states.length; i++) {
+            if (!containsSubString([currentClusterName], myGrammar.states[i].currentState)) {
+                continue;
+            }
+
+            myDotGraph[0].push('subgraph cluster_0' + clusterIndex + ' { style = invis;');
+
+            let lineToPush = null;
+            if (i === stateNumToHighlight) {
+                lineToPush = (myGrammar.states[i].state_num)
+                    + ' [xlabel=\"' + '\" '
+                    + modifiersForEachState(i, true)
+                    + ']';
+            } else {
+                lineToPush = (myGrammar.states[i].state_num)
+                    + ' [xlabel=\"' + '\" '
+                    + modifiersForEachState(i, false)
+                    + ']';
+            }
+
+            myDotGraph[0].push(lineToPush);
+            myDotGraph[0].push("}"); // end digraph opening bracket
+        }
+    }
+}
+
+function generateIndividualTokens(tokenToCreateClusterFor, myDotGraph, stateNumToHighlight) {
     // go through all the states and create reduce states with tooltips
     for (let i = 0; i < myGrammar.states.length; i++) {
+        // skip the cluster nodes
+        if (containsSubString(tokenToCreateClusterFor, myGrammar.states[i].currentState)) {
+            continue;
+        }
+
         if (i === stateNumToHighlight) {
             dotGeneratorForCreatingEachStates(i, myDotGraph, true);
         } else {
             dotGeneratorForCreatingEachStates(i, myDotGraph, false);
         }
     }
+}
+
+// if statenum is null then nothing to highlight
+function generateEntireGraph(stateNumToHighlight) {
+    const myDotGraph = defaultDotStarter();
+
+    generateIndividualTokens(tokenToCreateClusterFor, myDotGraph, stateNumToHighlight);
+    generateStateClusters(tokenToCreateClusterFor, myDotGraph, stateNumToHighlight);
 
     // go through all the states
     for (let i = 0; i < myGrammar.states.length; i++) {
@@ -194,10 +266,8 @@ function generateGraphForState(i) {
 function generateGraphWithTransition(transitionName) {
     const myDotGraph = defaultDotStarter();
 
-    // go through all the states and create reduce states with tooltips
-    for (let i = 0; i < myGrammar.states.length; i++) {
-        dotGeneratorForCreatingEachStates(i, myDotGraph, false);
-    }
+    generateIndividualTokens(tokenToCreateClusterFor, myDotGraph, false);
+    generateStateClusters(tokenToCreateClusterFor, myDotGraph, false);
 
     // go through all the states
     for (let i = 0; i < myGrammar.states.length; i++) {
