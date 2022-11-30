@@ -23,7 +23,7 @@ function render() {
 
 function createClusterPrompt() {
     const clusterInput = prompt("Write down token(s) that you would like to create cluster(s) for. \n" +
-        "For example to create clusters for IF token and WHILE token, you should write: IF WHILE\n" +
+        "For example, to create clusters for IF token and WHILE token, you should write: IF WHILE\n" +
         "The order in which you write, upper/lower case and space between the tokens matter." +
         "To remove clustering, press OK without entering anything.");
 
@@ -31,6 +31,14 @@ function createClusterPrompt() {
         tokenToCreateClusterFor = clusterInput.split(" ");
         console.log(clusterInput);
         console.log(tokenToCreateClusterFor);
+
+        // rendering entire graph is set to true
+        document.getElementById("show_entire_graph_input").checked = true;
+
+        // unselect all the buttons and highlighted code
+        unSelectActive("code_screen", "code_state_active");
+        unSelectActive("stateButtonsGroup", "btn_active");
+        unSelectActive("transitionButtonsGroup", "btn_active");
 
         generateEntireGraph(false)
     }
@@ -83,8 +91,8 @@ function modifiersForEachState(i, highLightStateBool) {
         stringToAdd += 'shape = \"doublecircle\" fillcolor = \"White\" ';
 
     } else {
-        // if not reduce state then color the state gray
-        stringToAdd += 'shape = \"circle\" fillcolor = \"White\" ';
+        // if not reduce state then color the state white
+        stringToAdd += 'shape = \"circle\" fillcolor = \"White\" tooltip = \"' + myGrammar.states[i].currentState + '\"';
     }
 
     if (highLightStateBool) {
