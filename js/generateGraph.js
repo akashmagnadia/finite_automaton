@@ -169,7 +169,7 @@ function generateStateClusters(tokenToCreateClusterFor, myDotGraph, stateNumToHi
                 continue;
             }
 
-            myDotGraph[0].push('subgraph cluster_0' + clusterIndex + ' { style = invis;');
+            myDotGraph[0].push('subgraph cluster_0' + clusterIndex + ' { color=blue;');
 
             let lineToPush = null;
             if (i === stateNumToHighlight) {
