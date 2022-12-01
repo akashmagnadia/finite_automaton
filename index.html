@@ -43,7 +43,7 @@
         </label>
 
         <input type="button" hidden/>
-        <label onclick="showUnderstandDialog()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help me understand</label>
+        <label onclick="showUnderstandDialog()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help Me Understand</label>
 
     </div>
 
@@ -103,11 +103,12 @@
                 <img class="longImg" src="assets/img/top_btns.png" alt="..."/>
 
                 <p>
-                    The checkbox for rendering the entire graph allows you to either render the entire graph or not.
+                    You can also create clusters by specifying what token you want to cluster together.
+                    Clicking on the download sample y.output will download a different sample file each time you click it.
                     When checked the entire graph will be displayed when interacting with the buttons and transitions at the bottom.
                     When unchecked, the transition buttons will not recreate the graph, and it will create a graph with their outgoing transitions when a state is selected.
-                    Clicking on the download sample y.output will download a different sample file each time you click it.
                     Clicking on graph, split or grammar will put their respective element in full screen.
+                    The checkbox for rendering the entire graph allows you to either render the entire graph or not.
                     You can also upload you own y.output file so that you may explore the output of syntax analysis from your own compiler.
                 </p>
             </div>
@@ -137,12 +138,15 @@
             <div>
                 <h3> Understanding the graph </h3>
 
-                <img class="floatingImg floatLeft" src="assets/img/legendImg.png" alt="..."/>
+                <img class="floatingImg floatLeft" src="assets/img/legendAndGraphImg.png" alt="..."/>
 
                 <p>
                     A state with a double circle is a start state and that's the origin of the code.
                     As the name suggests from the image, the thinner transition arrow represents regular transitions, while the thicker one represents shift transitions.
                     The state with red color is considered a leaf state, and they are always accompanied by a reduce rule.
+                    The state with white colors are rules that have other types of transitions available to them, whether that be regular, shift or both types of transitions.
+                    When you hover over the state, you will see a tooltip with the current state or if it's a leaf state then you will see the default rule that it uses to reduce on the stack.
+                    When you hover over the transition name or the arrow, you will see the origin and destination state as a tooltip.
                 </p>
             </div>
 
@@ -186,26 +190,27 @@
                 </p>
             </div>
 
-            <!-- GitHub repo link and YouTube guideline link-->
+            <!-- GitHub repo link and YouTube guideline link and linkedin links -->
             <div style="text-align: center;">
                 <a class="linkBtn" href="https://github.com/akashmagnadia/finite_automaton" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-github"></i>   GitHub
+                    <i class="fa fa-github"></i> GitHub
                 </a>
 
                 <a class="linkBtn" href="" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-youtube-play"></i>   Video walk-through
+                    <i class="fa fa-youtube-play"></i> Video
                 </a>
-            </div>
 
-            <!-- Icon Divider-->
-            <div class="divider-custom">
-                <div class="divider-custom-line"></div>
-            </div>
+                <a class="linkBtn" href="https://www.linkedin.com/in/akashmagnadia/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-linkedin-square"></i> Akash Magnadia
+                </a>
 
-            <div style="text-align: center;">
-                <button class="linkBtn"  onclick="hideUnderstandDialog()" style="font-size: 1.5rem; width: 70%;">
-                    Close
-                </button>
+                <a class="linkBtn" href="https://www.linkedin.com/in/nikith-rachakonda/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-linkedin-square"></i> Nikith Rachakonda
+                </a>
+
+                <a class="linkBtn" href="https://www.linkedin.com/in/pattabhisravan/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa fa-linkedin-square"></i> Sravan Pattabhi
+                </a>
             </div>
 
         </div>
