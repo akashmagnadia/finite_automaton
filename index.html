@@ -43,7 +43,7 @@
         </label>
 
         <input type="button" hidden/>
-        <label onclick="showUnderstandDialog()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help Me Understand</label>
+        <label onclick="showUnderstandDialog()" class="btn top_btn" id="understand-btn" for="understand-btn"><i class="fa fa-hourglass-start"></i> Help me understand</label>
 
     </div>
 
@@ -103,12 +103,11 @@
                 <img class="longImg" src="assets/img/top_btns.png" alt="..."/>
 
                 <p>
-                    You can also create clusters by specifying what token you want to cluster together.
-                    Clicking on the download sample y.output will download a different sample file each time you click it.
+                    The checkbox for rendering the entire graph allows you to either render the entire graph or not.
                     When checked the entire graph will be displayed when interacting with the buttons and transitions at the bottom.
                     When unchecked, the transition buttons will not recreate the graph, and it will create a graph with their outgoing transitions when a state is selected.
+                    Clicking on the download sample y.output will download a different sample file each time you click it.
                     Clicking on graph, split or grammar will put their respective element in full screen.
-                    The checkbox for rendering the entire graph allows you to either render the entire graph or not.
                     You can also upload you own y.output file so that you may explore the output of syntax analysis from your own compiler.
                 </p>
             </div>
@@ -138,15 +137,12 @@
             <div>
                 <h3> Understanding the graph </h3>
 
-                <img class="floatingImg floatLeft" src="assets/img/legendAndGraphImg.png" alt="..."/>
+                <img class="floatingImg floatLeft" src="assets/img/legendImg.png" alt="..."/>
 
                 <p>
                     A state with a double circle is a start state and that's the origin of the code.
                     As the name suggests from the image, the thinner transition arrow represents regular transitions, while the thicker one represents shift transitions.
                     The state with red color is considered a leaf state, and they are always accompanied by a reduce rule.
-                    The state with white colors are rules that have other types of transitions available to them, whether that be regular, shift or both types of transitions.
-                    When you hover over the state, you will see a tooltip with the current state or if it's a leaf state then you will see the default rule that it uses to reduce on the stack.
-                    When you hover over the transition name or the arrow, you will see the origin and destination state as a tooltip.
                 </p>
             </div>
 
@@ -177,39 +173,27 @@
                 <h3> Credits </h3>
 
                 <p>
-                    This project was a joint effort by Nikith Rachakonda, Sravan Pattabhi, and Akash Magnadia (Project Manager) as part of the Visual Data Science class at the University of Illinois at Chicago under the supervision of professor Marai and Graduate TA Carla Floricel.
-                    We would like to thank our client Professor Luís Gabriel Ganchinho de Pina for providing domain expertise to help represent the content of this visualization as accurately as possible.
-                    External Sources:
+                    This project was a joint effort by Nikith Rachakonda, Sravan Pattabhi, and Akash Magnadia as part of the Visual Data Science class at the University of Illinois at Chicago under the supervision of professor Marai and Graduate TA Carla Floricel.
+                    We would like to thank our client Professor Luís Gabriel Ganchinho de Pina who provided domain expertise to help represent the content of this visualization as accurately as possible.
+                    External Libraries:
                     <a href="https://fonts.google.com/specimen/JetBrains+Mono">Font for the code</a>,
                     <a href="https://fontawesome.com/">Icons</a>,
                     <a href="https://d3js.org/">D3 js</a>,
                     <a href="https://graphviz.org/">Graph Viz</a>,
-                    <a href="">HTML License</a>,
-                    <a href="">CSS License</a>,
-                    <a href="">Javascript License</a>,
+                    <a href="https://html.spec.whatwg.org/multipage/">HTML License</a>,
+                    <a href="https://www.w3.org/Style/CSS/Overview.en.html">CSS License</a>,
+                    <a href="https://www.gnu.org/licenses/javascript-labels.en.html">Javascript License</a>,
                 </p>
             </div>
 
             <!-- GitHub repo link and YouTube guideline link-->
             <div style="text-align: center;">
                 <a class="linkBtn" href="https://github.com/akashmagnadia/finite_automaton" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-github"></i> GitHub
+                    <i class="fa fa-github"></i>   GitHub
                 </a>
 
                 <a class="linkBtn" href="" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-youtube-play"></i> Video
-                </a>
-
-                <a class="linkBtn" href="https://www.linkedin.com/in/akashmagnadia/" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-linkedin-square"></i> Akash Magnadia
-                </a>
-
-                <a class="linkBtn" href="https://www.linkedin.com/in/nikith-rachakonda/" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-linkedin-square"></i> Nikith Rachakonda
-                </a>
-
-                <a class="linkBtn" href="https://www.linkedin.com/in/pattabhisravan/" target="_blank" rel="noopener noreferrer">
-                    <i class="fa fa-linkedin-square"></i> Sravan Pattabhi
+                    <i class="fa fa-youtube-play"></i>   Video walk-through
                 </a>
             </div>
 
