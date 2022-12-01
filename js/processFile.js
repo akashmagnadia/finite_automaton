@@ -240,7 +240,6 @@ function parse_y_output(parsed_text) {
         // by default start off with the start state which is state 0
         generateGraphForState(0);
 
-        console.log("here");
         document.getElementById("show_entire_graph_input").checked = false;
         renderingEntireGraph = false;
     } else {

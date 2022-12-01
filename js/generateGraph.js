@@ -22,15 +22,13 @@ function render() {
 }
 
 function createClusterPrompt() {
-    const clusterInput = prompt("Write down token(s) that you would like to create cluster(s) for. \n" +
+    const clusterInput = prompt("Write down token(s) that you would like to create cluster(s) for.\n" +
         "For example, to create clusters for IF token and WHILE token, you should write: IF WHILE\n" +
-        "The order in which you write, upper/lower case and space between the tokens matter." +
+        "The order in which you write, upper/lower case and space between the tokens matter.\n" +
         "To remove clustering, press OK without entering anything.");
 
     if (clusterInput != null) {
         tokenToCreateClusterFor = clusterInput.split(" ");
-        console.log(clusterInput);
-        console.log(tokenToCreateClusterFor);
 
         // rendering entire graph is set to true
         document.getElementById("show_entire_graph_input").checked = true;
