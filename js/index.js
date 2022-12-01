@@ -21,7 +21,7 @@ let renderingEntireGraph = true;
 function renderCheckBoxClicked() {
     renderingEntireGraph = document.getElementById("show_entire_graph_input").checked === true;
 
-    if (!anyState_Transition_btn_selected()) {
+    if (!anyState_Transition_btn_selected() && renderingEntireGraph) {
         generateEntireGraph(-1);
     }
 }
