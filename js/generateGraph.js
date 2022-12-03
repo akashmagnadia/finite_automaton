@@ -28,7 +28,12 @@ function createClusterPrompt() {
         "To remove clustering, press OK without entering anything.");
 
     if (clusterInput != null) {
-        tokenToCreateClusterFor = clusterInput.split(" ");
+
+        if (clusterInput === "") {
+            tokenToCreateClusterFor = []
+        } else {
+            tokenToCreateClusterFor = clusterInput.split(" ");
+        }
 
         // rendering entire graph is set to true
         document.getElementById("show_entire_graph_input").checked = true;
